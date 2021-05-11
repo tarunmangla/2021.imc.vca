@@ -4,6 +4,8 @@
 % -------
 \usepackage{pdflscape}
 \usepackage{comment}
+\graphicspath{{figures/}}
+
 % Bibliography
 % ------------
 \bibliography{paper}
@@ -24,6 +26,15 @@
                   fill=gray!20,
                   minimum height=0.35in}
 }
+
+%%%%%%%%%% MACRO NAMES %%%%%% 
+\newcommand{\zoom}{Zoom\xspace}
+\newcommand{\zoomnative}{Zoom-native\xspace}
+\newcommand{\zoombrowser}{Zoom-browser\xspace}
+\newcommand{\teamsnative}{Teams-native\xspace}
+\newcommand{\teamsbrowser}{Teams-browser\xspace}
+\newcommand{\meet}{Meet\xspace}
+
 
 
 %%%%%%%%%%%%%%%%%%%%  SPACE SAVINGS %%%%%%%%%%%%%%%%%%%%%%
@@ -52,7 +63,7 @@
 \input{background}
 \input{network_conditions}
 \input{application_modality}
-%\input{fairness}
+\input{fairness}
 \input{related}
 \label{lastpage}
 \input{conclusion}
