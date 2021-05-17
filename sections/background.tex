@@ -1,16 +1,60 @@
-\section{Background and Methodology/Motivation}
+\section{Background and Methodology}
 \label{sec:background}
 This section provides a background on video conferencing applications. We also describe our basic measurement methodology.
 
 \subsection{Background on VCAs}
-- How VCAs work?
+Run over Real-time Transport Protocol (RTP) which runs over UDP. Thus, the logic for congestion control is implemented in the application-layer. Audio and video data are usually transmitted over separate RTP channels. The audio data is encoded using constant-bitrate. Video is encoded using standard codecs such as VP9 and H.264 with the bitrate controlled based on the underlying network conditions. RTCP is the control channel that provides end-to-end feedback about the network. 
 
-- What are the application performance metrics 
-
-- 
+Either use P2P or a relay server. STUN servers used to by pass NAT. TURN servers are used for multi-party calls or when a direct connection cannot be established. In some cases, using a relay server can also improve performance~\cite{via}. 
 
 
-\subsection{Application }
+
+\subsection{VCA selection and performance metrics}
+Our goal in the paper is to do a comparative analysis of performance of VCAs under different network conditions and calling context. While there are many VCAs available, this study focuses on three popular VCAs, namely \zoom, Google \meet, Microsoft \teams. These VCAs have been used extensively over the past year for work and education purposes~\cite{}. Therefore, it becomes critical to understand the performance and network utilization of the VCAs. Our experiment methodology, however, can be easily extended to other VCAs. We plan to make the code and the associated data public. 
+
+
+
+\textbf{Performance metrics}: We mainly focus on the following application metrics. 
+\begin{itemize}
+    \item \textbf{Network bitrate}
+    \item Video resolution
+    \item Frames per second
+    \item Freeze count
+    \item Freeze duration
+    \item Jitter-buffer delay 
+\end{itemize}
+
+Most of our analysis is using network bitrate. We consider other application performance metrics when they can be extracted from Google Chrome\footnote{webrtc:internals}. Our analysis shows that there is a strong correlation between network bitrate and application performance. This is intuitive as real-time streaming is characterized by low latency and thus any network interruptions usually lead to degradation in application performance. 
 
 \subsection{Measurement Methodology}
   
+The measurement setup consists of several components:
+
+Hardware
+\begin{itemize}
+    \item matched laptops for nominal flows
+          \begin{itemize}
+              \item All Linux; caveats -- may not be the most-maintained apps
+              \item What laptops, for the many-laptop tests?
+          \end{itemize}
+    \item turris router for control of single shaped link
+    \item private iperf server on university network
+\end{itemize}
+
+\begin{itemize}
+    \item traffic control scripts
+    \item autogui; selenium for browser
+          \begin{itemize}
+              \item Important that we have the screen up -- see e.g., the tweet, but maybe chase the paper, about the struggle of getting the machines to actually render flows being important.
+              \item client vs browser
+              \item sw versions?
+          \end{itemize}
+    \item pcap, iperf logs
+    \item webrtc
+          \begin{itemize}
+              \item difference between meet and zoom 
+          \end{itemize}
+    \item Zoom API access (\& limitations?)
+    \item control over sockets?
+\end{itemize}
+

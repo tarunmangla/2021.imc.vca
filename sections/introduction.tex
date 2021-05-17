@@ -1,14 +1,37 @@
 \section{Introduction}\label{sec:intro}
-\begin{itemize}
-\item VCAs have been touted as a killer application for the Internet connecting millions of users. Significant research and measurement studies have been conducted benchmarking the VCAs of the time, their design choices and its impact on application performance. 
+COVID-19 has made video conferencing applications (VCAs) both common and necessary in homes. People now regularly use VCAs for work, school, and telehealth at home, as activities have shifted from in-person to online. With this digital migration, it is not unusual to have simultaneous video calls on the same network competing over scarce bandwidth. The increased use of VCAs over the past year has strained networks, sometimes leading to poor user experience. 
 
-\item The VCA application has undergone significant change in the covid-era of work from home/school with either new VCAs have been introduced or existing applications significantly revamped.
+While significant research and measurement studies have been conducted on VCAs in the past, both the VCAs and how we use them has since changed. Several new VCAs (e.g. Microsoft Teams, Google Meet) have been introduced, while existing VCAs (e.g. Zoom) have undergone a renewal. In light of these developments, it is important to investigate how differing VCA design choices impact application performance and network consumption. 
 
-\item In the context of these changes, it is important to revist the earlier measurement studies especially understanding how these changes relate to application performance and network consumption.
+VCAs differ from other popular types of internet applications in several ways. Most notably, VCAs have far greater uplink utilization because they constantly send video. Most links have been provisioned far more bandwidth for downlink than uplink traffic [and may not be able to handle/weren't build with VCAs in mind]. Unlike video streaming, VCAs can not buffer ahead of time and can only receive video as fast as it appears in real time. As a result, VCAs require a consistent and low-latency connection. 
 
-\item In this paper we do a comparative analysis of three popular applications, namely zoom, meets, and teams. 
+[Motivation for each type of experiment]
 
-\item Our analysis compares the VCAs along these three questions: i) How does the application performance vary under different network conditions?, ii) What is the impact of differnt VCA usage modality on network consumption, iii) Are the VCA applications fair in terms of bandwidth sharing when compared to other applications or transport protocols.
+In this paper, we conduct a comparative analysis of three popular VCAs: Google Meet, Microsoft Teams, and Zoom. Our goal is to understand the following:
+\begin{enumerate}
+    \item How VCAs performance varies under different static network conditions.
+    \item How VCAs respond to temporary drops in bandwidth availability.
+    \item How VCAs interact with competing applications on a constrained link.
+    \item How usage modalities (number of participants, speaker vs. gallery viewing) affect network consumption.
+\end{enumerate}
 
-\item Insights: We find that ... 
-\end{itemize}
+
+
+
+
+
+% \begin{itemize}
+% \item VCAs have been touted as a killer application for the Internet connecting millions of users. Significant research and measurement studies have been conducted benchmarking the VCAs of the time, their design choices and its impact on application performance. 
+
+% \item The VCA application has undergone significant change in the covid-era of work from home/school with either new VCAs have been introduced or existing applications significantly revamped.
+
+% \item In the context of these changes, it is important to revist the earlier measurement studies especially understanding how these changes relate to application performance and network consumption.
+
+% \item In this paper we do a comparative analysis of three popular applications, namely zoom, meets, and teams. 
+
+% \item Our analysis compares the VCAs along these three questions: i) How does the application performance vary under different network conditions?, ii) What is the impact of different VCA usage modality on network consumption, iii) Are the VCA applications fair in terms of bandwidth sharing when compared to other applications or transport protocols.
+
+% \item Underlying question: what network conditions are required to support multiple streams through a link, at full performance?  Conversely, what network conditions are associated with degraded performance?  (Implications for broadband debates.)
+
+% \item Insights: We find that ... 
+% \end{itemize}

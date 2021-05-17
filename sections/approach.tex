@@ -1,0 +1,15 @@
+\section{Approach Overview}\label{sec:approach}
+
+The experiments are conducted in a lab environment but aim to simulate realistic VCA usage. To that end, we use the following setup throughout the experiments.
+
+\textbf{Hardware}: All data is collected from two identical [LINUX MODEL] laptops running [UBUNTU version]. The laptops are connected to a [TURRIS VERSION] router.
+
+\textbf{Automating Calls}: It is crucial that the automated calls are as close to an actual call as possible, as any deviation from real call use may warp results. We take several steps to recreate the in-call process.
+
+First, all experiments are conducted with the laptop lid open and the application window maximized. Run otherwise, the applications may adapt their behavior. For example, if the application window is minimized or the lid is closed, the download throughput may decrease.
+
+Next, we use a combination of Selenium browser and AutoGui to join and leave the calls. 
+
+Finally, we use a pre-recorded talking-head video as the video source during calls to both replicate a real video call and ensure consistency across experiments. 
+
+\textbf{Network Shaping}: We simulate poor network conditions by shaping the network using tc on the device interface or at the router. 

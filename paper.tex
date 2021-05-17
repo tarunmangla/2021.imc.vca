@@ -1,4 +1,4 @@
-\documentclass[conference=acm]{confpaper}
+\documentclass[fontsize=10pt,conference=acm, anonymous]{confpaper}
 
 % General
 % -------
@@ -28,12 +28,17 @@
 }
 
 %%%%%%%%%% MACRO NAMES %%%%%% 
+\newcommand{\teams}{Teams\xspace}
+\newcommand{\meet}{Meet\xspace}
 \newcommand{\zoom}{Zoom\xspace}
 \newcommand{\zoomnative}{Zoom-native\xspace}
 \newcommand{\zoombrowser}{Zoom-browser\xspace}
 \newcommand{\teamsnative}{Teams-native\xspace}
 \newcommand{\teamsbrowser}{Teams-browser\xspace}
-\newcommand{\meet}{Meet\xspace}
+
+%\newcommand{\todo}[1]{[\textcolor{red}{\textit{ToDo: #1}}]}
+\newcommand{\tarun}[1]{[\textcolor{blue}{\textit{Tarun: #1}}]}
+\newcommand{\jamie}[1]{[\textcolor{red}{\textit{Jamie: #1}}]}
 
 
 
@@ -61,9 +66,11 @@
 
 \input{introduction}
 \input{background}
-\input{network_conditions}
+\input{approach}
+\input{static}
+\input{interrupts}
+\input{competition}
 \input{application_modality}
-\input{fairness}
 \input{related}
 \label{lastpage}
 \input{conclusion}

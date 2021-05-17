@@ -1,4 +1,16 @@
-\section{Application context and network consumption}\label{sec:usage_modality}
+\section{Call parameters and consumption}\label{sec:usage_modality}
 In this section, we analyze the impact of different usage modalities such as the number of persons in the call, viewing mode, and device type on the network consumption. 
 \subsection{Number of Users}
+We fix the viewing mode in gallery, where no one user's video is pinned. We find that increasing the number of participants may reduce the network utilization. In particular, the sending rate decreases as the number of participants increases. One reason for this is that increasing the number of participants in a call reduces the size of their video on the receiver's screen. As a result, the sender's video resolution can decrease. Similarly, we see how the received bitrate drops dramatically at 5 and 7 participants for Zoom and Meet, respectively. We observe that Teams is also exhibiting a downward trend at 8 participants. 
+\begin{figure}[]
+    \includegraphics[width=0.35\textwidth,keepaspectratio]{../figures/modality/sending_call.pdf}
+    \caption{Sending and Receiving Rate vs. Num Participants}
+    \label{fig:loss_latency}
+\end{figure}
+
 \subsection{Viewing Mode}
+\begin{figure}[]
+    \includegraphics[width=0.35\textwidth,keepaspectratio]{../figures/modality/call_modality.pdf}
+    \caption{Speaker vs. Gallery Mode}
+    \label{fig:loss_latency}
+\end{figure}
