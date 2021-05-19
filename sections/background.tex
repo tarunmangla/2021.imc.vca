@@ -1,15 +1,13 @@
 \section{Background and Approach Overview}
 \label{sec:background}
-This section provides a background on video conferencing applications. We also describe our basic measurement methodology.
+Most video conferencing applications use Real-time Transport Protocol~\cite{schulzrinne1996rtp, schulzrinne2003rfc3550} or its variants~\cite{baugher2004secure, zoom_rtp}. RTP transmits media content using end-to-end connections that usually run over UDP. VCAs generally transmit audio and video data over separate RTP connections. RTP also uses two other protocols in conjunction, Session Initiation Protocol (SIP)~\cite{rosenberg2002sip} to establish connection between clients and RTP Control Protocol (RTCP)~\cite{schulzrinne2003rfc3550} to share performance statistics and control information during a call. T  
 
-\subsection{Background}
-Most video conferencing applications use Real-time Transport Protocol~\cite{schulzrinne1996rtp} or its variants~\cite{srtp, zoom}. RTP typically runs over UDP. It uses two other protocols in conjunction, Session Initiation Protocol (SIP) to establish connection between clients and RTP Control Protocol (RTCP)  to share performance statistics and control information during a call. While VCAs are similar in terms of their basic architecture, they differ across the following dimensions:
 
-use P2P or a relay server. STUN servers used to by pass NAT. TURN servers are used for multi-party calls or when a direct connection cannot be established. In some cases, using a relay server can also improve performance~\cite{via}.
+% use P2P or a relay server. STUN servers used to by pass NAT. TURN servers are used for multi-party calls or when a direct connection cannot be established. In some cases, using a relay server can also improve performance~\cite{via}.
 
-\textbf{Networking mechanisms}: Congestion control. Error correction mechanisms.
+\textbf{Networking mechanisms}: These include important functions such as congestion control and error correction mechanisms. VCAs have their own proprietary implementations of these mechanisms. 
 
-\textbf{Application-layer parameters}: Encoding standards. The audio data is encoded using constant-bitrate. Video is encoded using standard codecs such as VP9 and H.264 with the bitrate controlled based on the underlying network conditions.
+\textbf{Application-layer parameters}: These include media bitrate choices and encoding standards. The audio data is encoded using constant-bitrate. Video is encoded using standard codecs such as VP9 and H.264 with the bitrate controlled based on the underlying network conditions.
 
 \textbf{Video conferencing architecture}: Direct vs relay-based. Also differ in the capabilities of the relaying server. 
 
@@ -69,3 +67,19 @@ Hardware
     \item control over sockets?
 \end{itemize}
 
+\subsection{Approach Overview}
+The experiments are conducted in a lab environment but aim to simulate realistic VCA usage. To that end, we use the following setup throughout the experiments.
+
+\textbf{Hardware}: All data is collected on two identical Dell Latitude 3300 laptops running 20.04.1 Ubuntu. The laptops have a resolution of the laptops is 1366 $\times$ 768 pixels. The laptops have a wired connection to a Turris Omnia 2020 router and access an unconstrained gigabit link on the University of Chicago network. 
+
+\textbf{Automating Calls}: It is crucial that the automated calls are as close to an actual call as possible, as any deviation from real call use may warp results. We take several steps to recreate the in-call process.
+
+All VCAs are tested in their native client unless otherwise indicated. Note, the application's "native client" refers to the Chrome browser for Meet and the desktop applications for Zoom and Teams. In the first set of experiments, we compare browser vs. client utilization for Teams and Zoom. In-browser tests will be specified by \textit{Teams-chrome} or \textit{Zoom-chrome}. 
+
+We use the PyAutoGui and AutoGui Python packages to automate joining and leaving calls. We also use Selenium browser to bypass the CAPTCHA before joining a Zoom call in Chrome browser. In this case, Selenium is not run headless, but is run exactly as it would be in Chrome browser. All experiments are conducted with the laptop lid open and the application window maximized. Run otherwise, the applications may adapt their behavior. For example, if the application window is minimized or the lid is closed, the download bitrate may decrease.
+
+Finally, we use a 1280 $\times$ 720 pre-recorded talking-head video as the video source during calls to both replicate a real video call and ensure consistency across experiments. Using the webcam feed is a non-starter because without movement, the VCAs compress the video and ultimately send at a much lower rate than during a normal call. 
+
+\textbf{Network Shaping}: We simulate network conditions by configuring traffic control using \texttt{tc} on the laptop and router for uplink and downlink shaping, respectively. During the competition experiments, all shaping occurs at the router.
+
+\textbf{Inter-Laptop Communication}: The workflow is controlled with by a wrapper script on laptop 1. Laptop 1 establishes a socket connection with laptop 2 to control automation on laptop 2.
