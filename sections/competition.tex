@@ -1,4 +1,5 @@
 \section{Competing Flows}
+To test how VCAs handle fairness on a constrained link, we launch a competing application on the same network. We define three sets of competing applications: VCAs, video streaming, and file transfer. We use Meet, Teams, and Zoom for the VCAs, Youtube and Netflix for video streaming, and iPerf3 TCP for file transfer. The competing VCAs are initiated as described above. We play the same gaming video and the same movie on Youtube and Netflix, respectively, for every experiment using \texttt{xdg-open}. Finally, iPerf3 is started as usual on the command line.
 Two fundamental questions:
 \begin{enumerate}
     \item are the apps fair WRT each other, WRT traditional flows (TCP), and other applications (YouTube, NetFlix)

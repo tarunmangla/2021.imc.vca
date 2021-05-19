@@ -14,3 +14,9 @@ We fix the viewing mode in gallery, where no one user's video is pinned. We find
     \caption{Speaker vs. Gallery Mode}
     \label{fig:loss_latency}
 \end{figure}
+We find that viewing a user's video in speaker mode leads to greater network consumption on the user's network. When C1's video is pinned, all other clients view a higher resolution from video. Thus, C1 must continue sending at a higher resolution. Zoom consistently sends at 1 Mbps when all clients pin C1's video, regardless of the number of participants. 
+\begin{figure}[]
+    \includegraphics[width=0.35\textwidth,keepaspectratio]{../figures/methodology/modality-setup.pdf}
+    \caption{Modality Setup}
+    \label{fig:loss_latency}
+\end{figure}

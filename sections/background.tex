@@ -1,11 +1,22 @@
-\section{Background and Methodology}
+\section{Background & Approach Overview}
 \label{sec:background}
 This section provides a background on video conferencing applications. We also describe our basic measurement methodology.
 
-\subsection{Background on VCAs}
-Run over Real-time Transport Protocol (RTP) which runs over UDP. Thus, the logic for congestion control is implemented in the application-layer. Audio and video data are usually transmitted over separate RTP channels. The audio data is encoded using constant-bitrate. Video is encoded using standard codecs such as VP9 and H.264 with the bitrate controlled based on the underlying network conditions. RTCP is the control channel that provides end-to-end feedback about the network. 
+\subsection{Background}
+Most video conferencing applications use Real-time Transport Protocol~\cite{schulzrinne1996rtp} or its variants~\cite{srtp, zoom}. RTP typically runs over UDP. It uses two other protocols in conjunction, Session Initiation Protocol (SIP) to establish connection between clients and RTP Control Protocol (RTCP)  to share performance statistics and control information during a call. While there are standards defined for these protocols, each VCA implement its 
 
-Either use P2P or a relay server. STUN servers used to by pass NAT. TURN servers are used for multi-party calls or when a direct connection cannot be established. In some cases, using a relay server can also improve performance~\cite{via}. 
+use P2P or a relay server. STUN servers used to by pass NAT. TURN servers are used for multi-party calls or when a direct connection cannot be established. In some cases, using a relay server can also improve performance~\cite{via}.
+
+\textbf{Networking mechanisms}: Congestion control. Error correction mechanisms.
+
+\textbf{Application-layer parameters}: Encoding standards. The audio data is encoded using constant-bitrate. Video is encoded using standard codecs such as VP9 and H.264 with the bitrate controlled based on the underlying network conditions.
+
+\textbf{Video conferencing architecture}: Direct vs relay-based. Also differ in the capabilities of the relaying server. 
+
+
+
+
+Thus, the logic for congestion control is implemented in the application-layer. Audio and video data are usually transmitted over separate RTP channels. T RTCP is the control channel that provides end-to-end feedback about the network. 
 
 
 
@@ -24,7 +35,7 @@ Our goal in the paper is to do a comparative analysis of performance of VCAs und
     \item Jitter-buffer delay 
 \end{itemize}
 
-Most of our analysis is using network bitrate. We consider other application performance metrics when they can be extracted from Google Chrome\footnote{webrtc:internals}. Our analysis shows that there is a strong correlation between network bitrate and application performance. This is intuitive as real-time streaming is characterized by low latency and thus any network interruptions usually lead to degradation in application performance. 
+Most of our analysis is using network bitrate. We consider other application performance metrics when they can be extracted from Google Chrome\footnote{chrome://webrtc-internals}. Our analysis shows that there is a strong correlation between network bitrate and application performance. This is intuitive as real-time streaming is characterized by low latency and thus any network interruptions usually lead to degradation in application performance. 
 
 \subsection{Measurement Methodology}
   
