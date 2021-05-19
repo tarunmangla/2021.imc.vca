@@ -1,9 +1,9 @@
-\section{Background & Approach Overview}
+\section{Background and Approach Overview}
 \label{sec:background}
 This section provides a background on video conferencing applications. We also describe our basic measurement methodology.
 
 \subsection{Background}
-Most video conferencing applications use Real-time Transport Protocol~\cite{schulzrinne1996rtp} or its variants~\cite{srtp, zoom}. RTP typically runs over UDP. It uses two other protocols in conjunction, Session Initiation Protocol (SIP) to establish connection between clients and RTP Control Protocol (RTCP)  to share performance statistics and control information during a call. While there are standards defined for these protocols, each VCA implement its 
+Most video conferencing applications use Real-time Transport Protocol~\cite{schulzrinne1996rtp} or its variants~\cite{srtp, zoom}. RTP typically runs over UDP. It uses two other protocols in conjunction, Session Initiation Protocol (SIP) to establish connection between clients and RTP Control Protocol (RTCP)  to share performance statistics and control information during a call. While VCAs are similar in terms of their basic architecture, they differ across the following dimensions:
 
 use P2P or a relay server. STUN servers used to by pass NAT. TURN servers are used for multi-party calls or when a direct connection cannot be established. In some cases, using a relay server can also improve performance~\cite{via}.
 
