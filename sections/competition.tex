@@ -1,4 +1,4 @@
-\begin{figure}[]
+\begin{figure}[t]
    \centering
     \includegraphics[width=0.5\textwidth,keepaspectratio]{../figures/methodology/competition-setup.pdf}
     \caption{Setup for competition experiments}
@@ -50,37 +50,37 @@ Each configuration of nominal and competing flows and link constraint
 The capacity constraints are to 0.5, 1, 2, 3, 4, and 5 Mbps.
 Bitrates are measured from packet captures.
   
-\begin{figure}[]
+\begin{figure}[t]
     \includegraphics[width=\linewidth]{comp/zoom_netflix_dl_time_series.pdf}
     \caption{Time series of bitrate for Zoom in competition with a Netflix flow, at different link capacity. \jamie{timing offset bug}}
 	\label{fig:ts_zoom_netflix}
 \end{figure}
 
-\begin{figure}[]
+\begin{figure}[t]
     \includegraphics[width=\linewidth]{comp/zoom_iperf_scatter.pdf}
     \caption{Competition between Zoom and an iperf3 TCP flow. \jamie{kind of pretty, but not obviously useful}}
 	\label{fig:comp_zoom_iperf}
 \end{figure}
 
-\begin{figure}[]
+\begin{figure}[t]
     \includegraphics[width=\linewidth]{comp/teams_competition.pdf}
     \caption{Link share and share of nominal bitrate for Teams, in competition with other flows, as a function of downlink bitrate cap. \jamie{Combine this and following figures into one full-width / 6-panel figure.  Increase font sizes, etc.}}
 	\label{fig:teams_comp_bitrates}
 \end{figure}
 
-\begin{figure}[]
+\begin{figure}[t]
     \includegraphics[width=\linewidth]{comp/meet_competition.pdf}
     \caption{Link share and share of nominal bitrate for Meet, in competition with other flows, as a function of downlink bitrate cap.}
 	\label{fig:meet_comp_bitrates}
 \end{figure}
 
-\begin{figure}[]
+\begin{figure}[t]
     \includegraphics[width=\linewidth]{comp/zoom_competition.pdf}
     \caption{Link share and share of nominal bitrate for Zoom, in competition with other flows, as a function of downlink bitrate cap.}
 	\label{fig:zoom_comp_bitrates}
 \end{figure}
 
-\begin{figure}[]
+\begin{figure}[t]
     \includegraphics[width=\linewidth]{comp/meet_performance.pdf}
     \caption{Meet frames per second, in competition with other flows and as a function of link capacity.}
 	\label{fig:meet_comp_performance}
@@ -135,13 +135,13 @@ Depending on the flow, Meet achieves full
 \jamie{Add notes on performance, e.g., through Meet, though I think that the preceding is most of the story.}
 
 
-% \begin{figure}[]
+% \begin{figure}[t]
 %     \includegraphics[width=\linewidth]{comp/meet_iperf_scatter.pdf}
 %     \caption{Competition between Meet and an iperf3 TCP flow.}
 % 	\label{fig:comp_meet_iperf}
 % \end{figure}
 
-% \begin{figure}[]
+% \begin{figure}[t]
 %     \includegraphics[width=\linewidth]{comp/teams_iperf_scatter.pdf}
 %     \caption{Competition between Teams and an iperf3 TCP flow.}
 % 	\label{fig:comp_teams_iperf}
