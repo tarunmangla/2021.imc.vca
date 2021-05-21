@@ -1,14 +1,19 @@
 \section{Introduction}\label{sec:intro}
-COVID-19 has made video conferencing applications (VCAs) both common and necessary. People now regularly use VCAs for work, school, and telehealth, as activities have shifted from in-person to online. The success of remote communication indicates that VCAs will continue to play a critical role during and after the pandemic. However, VCAs are unique among internet applications and their increased use has altered the makeup of internet traffic. 
-
-VCAs differ from other popular types of internet activity in several ways. Most notably, VCAs have far greater uplink utilization. Video streaming and internet browsing, two dominant sources of internet traffic, [receive the bulk of their traffic and send very little]. VCAs, however, send a video stream on the uplink. Further, VCAs do not benefit from network optimizations used in video streaming. Video streaming applications can "buffer" by fetching video ahead of time, then sporadically downloading when necessary. VCAs can not download video ahead of time because the video occurs in real-time. As a result, VCAs require a consistent and low-latency connection.
-
-The earliest studies on VCAs focused on Skype, the dominant application in the VCA landscape at the time. These works sought to understand Skype from both a design and performance perspective. As the VCA landscape evolved over time, later work shifted their attention to newer VCAs and the protocols they used. 
-
-While significant research and measurement studies have been conducted on VCAs in the past, both the VCAs and how we use them has since changed. Several new VCAs (e.g. Microsoft Teams, Google Meet) have been introduced, while existing VCAs (e.g. Zoom) have undergone a renewal. In light of these developments, it is important to investigate how differing VCA design choices impact application performance and network consumption. 
+COVID-19 has made video conferencing applications (VCAs) both common and necessary. People now regularly use VCAs for work, school, and telehealth, as activities have shifted from in-person to online. This is also reflected in the VCA contribution to network traffic with some internet service providers seeing video conferencing traffic triple over an eight-month period in 2020~\cite{bitag_report}. The success of remote communication indicates that VCAs will continue to play a critical role during and after the pandemic. 
 
 
- In this paper, we conduct a comparative analysis of three popular VCAs: Google Meet, Microsoft Teams, and Zoom. We can determine these requirements by measuring VCA performance and consumption under realistic network conditions, including low bandwidth availability and other activity on the same network. Our goal is to understand the following:
+%VCAs are unique among internet applications and their increased use has altered the makeup of internet traffic. 
+
+Video conferencing differs from over-the-top video streaming in several ways. Most notably, video conferencing is real-time. Thus, VCAs do not benefit from network optimizations (e.g., buffering) used in streaming applications and require different strategies to adapt to dynamic conditions over ``best-effort" network. Furthermore, VCAs are characterized by significant uplink utilization compared to video streaming requiring appropriate network provisioning by the ISPs. It is clear that a good end-user VCA experience depends both on its design and provisioning of the access network.   % [receive the bulk of their traffic and send very little]. VCAs, however, send a video stream on the uplink.   % Video streaming applications can "buffer" by fetching video ahead of time, then sporadically downloading when necessary. VCAs can not download video ahead of time because the video occurs in real-time. 
+%As a result, VCAs require a consistent and low-latency connection.
+
+This motivates us to measure the resource requirements of dierent VCAs and how these VCAs perform under different network conditions~\cite{guha2005experimental, baset2004analysis, bonfiglio2008detailed, bonfiglio2008tracking, xu2012video}. 
+% earliest studies on VCAs focused on Skype, the dominant application in the VCA landscape at the time. These works sought to understand Skype from both a design and performance perspective. As the VCA landscape evolved over time, later work shifted their attention to newer VCAs and the protocols they used. 
+While significant research and measurement studies have been conducted on VCAs in the past, both the VCAs and how we use them has since changed. Several new VCAs (e.g. Microsoft Teams, Google Meet) have been introduced, while existing VCAs (e.g. Zoom) have undergone a renewal. In light of these developments, our goal is to provide a fresh take on the resource requirements and performance of modern VCAs. 
+
+
+More specifically, we conduct a comparative performance and network utilization analysis of three popular VCAs: Google Meet, Microsoft Teams, and Zoom. %We can determine these requirements by measuring VCA performance and consumption under realistic network conditions, including low bandwidth availability and other activity on the same network.
+Our goal in this study is to understand the following:
 \begin{enumerate}
     \item How VCA performance varies under different static network conditions.
     \item How VCAs respond to temporary drops in bandwidth availability.
@@ -16,9 +21,16 @@ While significant research and measurement studies have been conducted on VCAs i
     \item How usage modalities (number of participants, speaker vs. gallery viewing) affect network consumption.
 \end{enumerate}
 
-Answering these questions will give insight into the minimum bandwidth requirements to use these VCAs. Because people continue to rely on using VCAs on home networks, understanding these requirements will inform the bandwidth recommendations of policymakers like the FCC. Of course, home network conditions are not fixed, nor is there usually only one application running. 
+Answering these questions will provide insight into the minimum  ``speed'', or bandwidth, requirements the VCA needs to deliver a high quality of experience. Because people continue to rely on using VCAs on home networks, understanding these requirements will inform the bandwidth recommendations of policymakers like the FCC and also ISPs with in provisioning of the access links. A comparative analysis of VCAs under dynamic and especially low network conditions can also shed light on the design practices of VCAs and help identify best design practices. % Of course, home network conditions are not fixed, nor is there usually only one application running. In studying how VCAs respond to network interruptions and competing applications on same link, we aim to recreate the dynamic network conditions of a home network.
 
-To answer these questions, we collect VCA data by conducting controlled experiment in the lab. Our setup aims to simulate realistic VCA usage by running calls with a pre-recorded talking-head video and with the applications maximized in full view. 
+We answer these questions by a series of controlled experiments in the lab collecting VCA performance data under a variety of network conditions and call modalities (e.g., number of participants). The collected data shows that the answers to the questions differ substantially depending on the VCA. The main findings are summarized below:% 
+\begin{itemize}
+    \item The minimum bandwidth requirements range from 0.8 Mbps to 1.9 Mbps, with performance varying especially at low link capacities. 
+    \item Recovery times following transient drops in bandwidth are quite different and determined by each VCA's congestion control mechanism. We observe that Teams tends to recover slower than Meet and Zoom because it follows a cubic-like recovery, slowly increasing bitrate before eventually returning to the average bitrate. Zoom, however, follows a stepwise function following the interruption, increasing well over its average sending rate, before eventually falling back to the average rate.
+    \item Differences in proprietary congestion control also create unfair bandwidth allocations: in constrained bandwidth settings, Zoom can consume over $75\%$ of the available bandwidth.
+    \item For some VCAs, client utilization can decrease as the number of participants increases, due to the reduced video resolution of each participant's video stream given a larger number of participants.
+\end{itemize}
+
 
 
 % \begin{itemize}

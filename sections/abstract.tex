@@ -1,29 +1,23 @@
 \abstract{
 Video conferencing applications (VCAs) have become a critical Internet
-application, particularly as users worldwide now rely on them for
-work, school, recreation, and telehealth.  The COVID-19 pandemic has spurred unprecedented
-growth in the use of VCAs, with some Internet service providers seeing a
-three-fold increase in video conferencing traffic over an eight-month period
+application, as users worldwide now rely on them for
+work, school, and telehealth. COVID-19 has spurred unprecedented
+growth in the use of VCAs, with some Internet service providers seeing
+video conferencing traffic triple over an eight-month period
 in 2020. It is important to understand the resource requirements of different
 VCAs and how these VCAs perform under different network conditions, including:
-how
-much ``speed'' (specifically,
-upstream and downstream throughput) a VCA needs to support high quality of
-experience, how
+how much ``speed'' (specifically, upstream and downstream throughput) a VCA needs to support high quality of experience, how
 VCAs perform under temporary reductions in available capacity; how they compete
 with themselves, with each other, and with
 other applications; and how usage modality (e.g., number of participants)
-affects utilization.  We study these
-questions for three modern (and increasingly popular) VCAs: Zoom, Google Meet,
+affects utilization.  We study three modern VCAs: Zoom, Google Meet,
 and Microsoft Teams.   Answers to these questions differ substantially
-depending on VCA.  First, the steady-state utilization on an unconstrained
+depending on VCA.  First, the average utilization on an unconstrained
 link varies between 0.8~Mbps and 1.9 Mbps.  Given temporary reduction of
-capacity, some VCAs can take as long as 45 seconds to recover to steady state;
-recovery time differs across VCAs.  Differences in proprietary
+capacity, some VCAs can take as long as 45 seconds to recover to average.  Differences in proprietary
 congestion control also create unfair bandwidth allocations: in
 constrained bandwidth settings, one Zoom video conference can consume more than 75\%
-of the available bandwidth when competing with another video conference
-application (e.g., Meet, Teams).  For some VCAs, client utilization can
+of the available bandwidth when competing with another VCA (e.g., Meet, Teams).  For some VCAs, client utilization can
 decrease as the number of participants increases, due to the reduced video
 resolution of each participant's video stream given a larger number of
 participants. 
