@@ -14,7 +14,7 @@ While significant research and measurement studies have been conducted on VCAs i
 
 More specifically, we conduct a comparative performance and network utilization analysis of three popular VCAs: Google Meet, Microsoft Teams, and Zoom. %We can determine these requirements by measuring VCA performance and consumption under realistic network conditions, including low bandwidth availability and other activity on the same network.
 Our goal in this study is to understand the following:
-\begin{enumerate}
+\begin{enumerate}[noitemsep]
     \item How VCA performance varies under different static network conditions.
     \item How VCAs respond to temporary drops in bandwidth availability.
     \item How VCAs interact with competing applications on a constrained link.
@@ -24,7 +24,7 @@ Our goal in this study is to understand the following:
 Answering these questions will provide insight into the minimum  ``speed'', or bandwidth, requirements the VCA needs to deliver a high quality of experience. Because people continue to rely on using VCAs on home networks, understanding these requirements will inform the bandwidth recommendations of policymakers like the FCC and also ISPs with in provisioning of the access links. A comparative analysis of VCAs under dynamic and especially low network conditions can also shed light on the design practices of VCAs and help identify best design practices. % Of course, home network conditions are not fixed, nor is there usually only one application running. In studying how VCAs respond to network interruptions and competing applications on same link, we aim to recreate the dynamic network conditions of a home network.
 
 We answer these questions by a series of controlled experiments in the lab collecting VCA performance data under a variety of network conditions and call modalities (e.g., number of participants). The collected data shows that the answers to the questions differ substantially depending on the VCA. The main findings are summarized below:% 
-\begin{itemize}
+\begin{itemize}[noitemsep]
     \item The minimum bandwidth requirements range from 0.8 Mbps to 1.9 Mbps, with performance varying especially at low link capacities. 
     \item Recovery times following transient drops in bandwidth are quite different and determined by each VCA's congestion control mechanism. We observe that Teams tends to recover slower than Meet and Zoom because it follows a cubic-like recovery, slowly increasing bitrate before eventually returning to the average bitrate. Zoom, however, follows a stepwise function following the interruption, increasing well over its average sending rate, before eventually falling back to the average rate.
     \item Differences in proprietary congestion control also create unfair bandwidth allocations: in constrained bandwidth settings, Zoom can consume over $75\%$ of the available bandwidth.

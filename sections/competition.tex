@@ -1,3 +1,10 @@
+\begin{figure}[]
+   \centering
+    \includegraphics[width=0.5\textwidth,keepaspectratio]{../figures/methodology/competition-setup.pdf}
+    \caption{Setup for competition experiments}
+    \label{fig:loss_latency}
+\end{figure}
+
 \section{Competing Flows}
 To test how VCAs handle fairness on a constrained link, we launch a competing application on the same network. We define three sets of competing applications: VCAs, video streaming, and file transfer. We use Meet, Teams, and Zoom for the VCAs, Youtube and Netflix for video streaming, and iPerf3 TCP for file transfer. The competing VCAs are initiated as described above. We play the same gaming video and the same movie on Youtube and Netflix, respectively, for every experiment using \texttt{xdg-open}. Finally, iPerf3 is started as usual on the command line.
 Two fundamental questions:
@@ -9,15 +16,8 @@ Two fundamental questions:
 \jamie{part of what feels weird to me, in using download flows, is that these are SO MUCH lower than what most people by, that they feel irrelevant.  If we had upstream, these same numbers would not be unreasonable, for the ``popular discourse" on broadband thresholds.}
 
 \noindent \textbf{Methodology}.
-\begin{center}
-   \begin{figure}[]
-    \includegraphics[width=0.5\textwidth,keepaspectratio]{../figures/methodology/competition-setup.pdf}
-    \caption{Setup for competition experiments
-    }
-    \label{fig:loss_latency}
-\end{figure}
- 
-\end{center}
+
+
 
 The experiment is built within the framework already described.
 The distinguishing feature of this measurement is that the 
