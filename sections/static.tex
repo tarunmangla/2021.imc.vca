@@ -1,17 +1,17 @@
 \begin{figure}[t]
 \vspace{-7em}
 \begin{subfigure}[t]{0.45\textwidth}
-\centering
-    \includegraphics[width=\textwidth,keepaspectratio]{figures/static/downlink.pdf}
-    \caption{Downlink bandwidth vs network bitrate}
-	\label{subfig:downlink_bitrate}
-\end{subfigure} 
-\begin{subfigure}[t]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth,keepaspectratio]{figures/static/uplink.pdf}
     \caption{Uplink bandwidth vs network bitrate}
 	\label{subfig:uplink_bitrate}
 \end{subfigure}
+\begin{subfigure}[t]{0.45\textwidth}
+\centering
+    \includegraphics[width=\textwidth,keepaspectratio]{figures/static/downlink.pdf}
+    \caption{Downlink bandwidth vs network bitrate}
+	\label{subfig:downlink_bitrate}
+\end{subfigure} 
 \caption{Utilization under different link capacities}
 \label{fig:static}
 \end{figure}
@@ -84,7 +84,7 @@ In this section, we study the impact of network capacity on the VCA performance.
 
 
 
-\subsection{Impact on network data rate} Figure~\ref{fig:downlink_bitrate} shows the median received network bitrate averaged over 5 runs for different downlink shaping levels. We find differences among VCAs in terms of their bitrate configuration and bitrate adaptation leading to different performance under same network conditions. For instance, the peak utilization for \teamsnative is $1.9$ Mbps whereas it is only $0.96$ for \zoomnative and $0.8$ Mbps for \meet. The received bitrate also reflects how different VCAs utilize the network especially under constrained links. Interestingly, we find that \zoomnative has the highest network utilization while \meet has the lowest (only $50\%$ at 0.5 Mbps) for downlink capacity lower than 0.75 Mbps. Finally, we also observe differences between \teamsbrowser and \teamsnative under same network conditions with the former having lower bitrates than the latter. For instance, at 1 Mbps shaping level, the received bitrate is only 0.5 Mbps for \teamsbrowser and 0.8 Mbps for \teamsnative. This suggests that implementation of the VCA can differ across platforms leading to different network and application behavior. 
+\subsection{Impact on network utilization} Figure~\ref{fig:downlink_bitrate} shows the median received network bitrate averaged over 5 runs for different downlink shaping levels. We find differences among VCAs in terms of their bitrate configuration and bitrate adaptation leading to different performance under same network conditions. For instance, the peak utilization for \teamsnative is $1.9$ Mbps whereas it is only $0.96$ for \zoomnative and $0.8$ Mbps for \meet. The received bitrate also reflects how different VCAs utilize the network especially under constrained links. Interestingly, we find that \zoomnative has the highest network utilization while \meet has the lowest (only $50\%$ at 0.5 Mbps) for downlink capacity lower than 0.75 Mbps. Finally, we also observe differences between \teamsbrowser and \teamsnative under same network conditions with the former having lower bitrates than the latter. For instance, at 1 Mbps shaping level, the received bitrate is only 0.5 Mbps for \teamsbrowser and 0.8 Mbps for \teamsnative. This suggests that implementation of the VCA can differ across platforms leading to different network and application behavior. 
 
 \begin{figure}[t]
 	%\vspace{-1em}
@@ -186,7 +186,7 @@ We also plot the statistics related to video freezes during the call as obtained
 
 
 
-\textbf{Takeaway}: VCA performance under same network conditions varies.  
+\textbf{Takeaway}: VCA performance under same network conditions varies among tested VCAs. Further, the minimum bandwidth requirements have implications for broadband policy. The FCC currently recommends a 25/3 Mbps minimum connection. Such a connection would not suffice for two separate video conferences. A household with a parent working and a child attending class remotely would saturate the uplink and lead to poor user experience. 
 %% also plot differences in network utilization and the shaping. 
 
 
