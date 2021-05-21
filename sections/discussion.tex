@@ -1,0 +1,12 @@
+\section{Discussion}
+\label{sec:discussion}
+\subsection{Future Work}
+This work can be extended by investigating how other popular VCAs behave in our experiments. While we focus on three well-known desktop applications, mobile video conferencing apps like Facetime, WhatsApp, and Facebook Messenger are immensely popular. Used primarily on Wifi and LTE, mobile VCAs use connections that experience far more dynamic network conditions than do desktop VCAs. 
+
+We use WebRTC statistics to obtain application performance metrics for Meet and Teams when used in browser. Given the performance degradation seen between the native client and the browser versions of Teams and Zoom, it is of interest to obtain the same performance metrics for calls had in client. While some call stats are available via the Zoom API, they differ from metrics provided by WebRTC in which metrics are collected, how the metrics are defined, and the granularity at which the measurements are taken. To better compare performance across application, a more robust measurement approach is needed.
+
+Investigating whether it is possible to infer application performance metrics from network data. 
+
+
+Future work: 
+- generalizability to other VCAs ? how do we obtain ground truth metrics for other VCAs? can we infer application performance metrics from network data?  
