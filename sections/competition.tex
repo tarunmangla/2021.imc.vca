@@ -6,14 +6,16 @@
 \end{figure}
 
 \section{Competing Flows}
-To test how VCAs handle fairness on a constrained link, we launch a competing application on the same network. We define three sets of competing applications: VCAs, video streaming, and file transfer. We use Meet, Teams, and Zoom for the VCAs, Youtube and Netflix for video streaming, and iPerf3 TCP for file transfer. The competing VCAs are initiated as described above. We play the same gaming video and the same movie on Youtube and Netflix, respectively, for every experiment using \texttt{xdg-open}. Finally, iPerf3 is started as usual on the command line.
 Two fundamental questions:
 \begin{enumerate}
     \item are the apps fair WRT each other, WRT traditional flows (TCP), and other applications (YouTube, NetFlix)
     \item for two flows, what link capacity is required for full performance?
 \end{enumerate}
 
-\jamie{part of what feels weird to me, in using download flows, is that these are SO MUCH lower than what most people by, that they feel irrelevant.  If we had upstream, these same numbers would not be unreasonable, for the ``popular discourse" on broadband thresholds.}
+To test how VCAs handle fairness on a constrained link, we launch a competing application on the same network. We define three sets of competing applications: VCAs, video streaming, and file transfer. We use Meet, Teams, and Zoom for the VCAs, Youtube and Netflix for video streaming, and iPerf3 TCP for file transfer. The competing VCAs are initiated as described above. We play the same gaming video and the same movie on Youtube and Netflix, respectively, for every experiment using Chrome, launched via \texttt{xdg-open}. Finally, iPerf3 is started as usual on the command line.
+\jamie{this is repetitive to the methodology below; saying that we use the command line seems silly}
+
+\jamie{part of what feels weird to me, in using download flows, is that these are SO MUCH lower than what most people by, that they feel irrelevant.  If we had upstream, these same numbers would not be unreasonable, for the ``popular discourse" on broadband thresholds.  We definitely want uplink if we can get it.}
 
 \noindent \textbf{Methodology}.
 
@@ -34,8 +36,8 @@ The ``counter-parties" for these flows are, respectively,
   a dedicated server on the university network,
   consumer laptops, and industry servers.
 In contrast to previous experiments, 
-  we focus on the native versions of Zoom and Teams clients.
-\jamie{Awkward: Meet is native in Chrome.}
+  we focus on the Zoom and Teams clients;
+  and consider Meet to be native in Chrome.
 
 Each single experiment lasts for 4 minutes.
 The ``nominal flow" is established first, and
@@ -51,45 +53,44 @@ The capacity constraints are to 0.5, 1, 2, 3, 4, and 5 Mbps.
 Bitrates are measured from packet captures.
   
 \begin{figure}[t]
-    \includegraphics[width=\linewidth]{comp/zoom_netflix_dl_time_series.pdf}
-    \caption{Time series of bitrate for Zoom in competition with a Netflix flow, at different link capacity. \jamie{timing offset bug}}
+    \includegraphics[width=\linewidth]{comp/netflix_time_series.pdf}
+    \caption{Time series of bitrate for Zoom in competition with a Netflix flow, at different link capacity.}
 	\label{fig:ts_zoom_netflix}
 \end{figure}
 
-\begin{figure}[t]
-    \includegraphics[width=\linewidth]{comp/zoom_iperf_scatter.pdf}
-    \caption{Competition between Zoom and an iperf3 TCP flow. \jamie{kind of pretty, but not obviously useful}}
-	\label{fig:comp_zoom_iperf}
-\end{figure}
+% \begin{figure}[t]
+%     \includegraphics[width=\linewidth]{comp/zoom_iperf_scatter.pdf}
+%     \caption{Competition between Zoom and an iperf3 TCP flow. \jamie{kind of pretty, but not obviously useful}}
+% 	\label{fig:comp_zoom_iperf}
+% \end{figure}
 
-\begin{figure}[t]
-    \includegraphics[width=\linewidth]{comp/teams_competition.pdf}
-    \caption{Link share and share of nominal bitrate for Teams, in competition with other flows, as a function of downlink bitrate cap. \jamie{Combine this and following figures into one full-width / 6-panel figure.  Increase font sizes, etc.}}
-	\label{fig:teams_comp_bitrates}
-\end{figure}
+\begin{figure*}[t]
+    \includegraphics[width=\linewidth]{comp/dl_competition_all.pdf}
+    \caption{Link share and share of nominal bitrate for Teams, in competition with other flows, as a function of downlink bitrate cap. }
+	\label{fig:comp_bitrates}
+\end{figure*}
 
-\begin{figure}[t]
-    \includegraphics[width=\linewidth]{comp/meet_competition.pdf}
-    \caption{Link share and share of nominal bitrate for Meet, in competition with other flows, as a function of downlink bitrate cap.}
-	\label{fig:meet_comp_bitrates}
-\end{figure}
+\begin{table}
+    \setlength{\tabcolsep}{3pt}
+    \fontsize{10.5}{13} \selectfont
+    \centering
+\begin{tabular}{lcccccc}
+\toprule
+{} &       Meet &       Teams &        Zoom &     Netflix &     YouTube & iperf3 \\
+\midrule
+Meet  &  \cbss{0.51} &  \cbsss{0.75} &   \cbss{0.43} &  \cbsss{0.73} &  \cbsss{0.72} &  \cbsss{0.77} \\
+Teams &    \cb{0.19} &   \cbss{0.42} &    \cbs{0.21} &     \cb{0.15} &    \cbs{0.27} &    \cbs{0.22} \\
+Zoom  &  \cbss{0.58} &  \cbsss{0.76} &  \cbsss{0.61} &  \cbsss{0.77} &  \cbsss{0.72} &  \cbsss{0.75} \\
+\bottomrule
+\end{tabular}
+    \caption{In which we compare things}
+    \label{tab:comp}
+\end{table}
 
-\begin{figure}[t]
-    \includegraphics[width=\linewidth]{comp/zoom_competition.pdf}
-    \caption{Link share and share of nominal bitrate for Zoom, in competition with other flows, as a function of downlink bitrate cap.}
-	\label{fig:zoom_comp_bitrates}
-\end{figure}
+\subsection{Results}
 
-\begin{figure}[t]
-    \includegraphics[width=\linewidth]{comp/meet_performance.pdf}
-    \caption{Meet frames per second, in competition with other flows and as a function of link capacity.}
-	\label{fig:meet_comp_performance}
-\end{figure}
-
-
-
-From these flows we construct two variables
-  to reflect fairness and performance.
+We construct two variables
+  to reflect fairness and performance in the measured flows.
 Fairness is represented 
   as the nominal flow's share of the constrained link.
 Performance is the flow's share of its bitrate 
@@ -98,7 +99,7 @@ Performance is the flow's share of its bitrate
 Figures~\ref{fig:teams_comp_bitrates}-\ref{fig:zoom_comp_bitrates}
   display results for Teams, Meet, and Zoom respectively.
 
-Each application in ``competition" with itself, uses half the link.
+Each application uses half the link in ``competition" with itself.
 Competition is in evidence primarily at the low end of the domain,
   with the most severe constraints.
 With weaker constraints, most applications reach their nominal bitrates
