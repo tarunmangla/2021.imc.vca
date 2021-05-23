@@ -1,61 +1,48 @@
 \begin{figure}[t]
    \centering
     \includegraphics[width=0.5\textwidth,keepaspectratio]{../figures/methodology/competition-setup.pdf}
-    \caption{Setup for competition experiments}
-    \label{fig:loss_latency}
+    \caption{Setup for competition experiments. \jamie{Text needs to be bigger.}}
+    \label{fig:competition-setup}
 \end{figure}
 
 \section{Competing Flows}
-Two fundamental questions:
-\begin{enumerate}
-    \item are the apps fair WRT each other, WRT traditional flows (TCP), and other applications (YouTube, NetFlix)
-    \item for two flows, what link capacity is required for full performance?
-\end{enumerate}
 
-To test how VCAs handle fairness on a constrained link, we launch a competing application on the same network. We define three sets of competing applications: VCAs, video streaming, and file transfer. We use Meet, Teams, and Zoom for the VCAs, Youtube and Netflix for video streaming, and iPerf3 TCP for file transfer. The competing VCAs are initiated as described above. We play the same gaming video and the same movie on Youtube and Netflix, respectively, for every experiment using Chrome, launched via \texttt{xdg-open}. Finally, iPerf3 is started as usual on the command line.
-\jamie{this is repetitive to the methodology below; saying that we use the command line seems silly}
+In the ``real world," network links must support multiple applications simultaneously.
+How effectively -- or aggressively~-- do VCAs compete with each other applications?
+What is the minimum network bandwidth required, to support Meet, Teams, or Zoom 
+    in conjunction with each other other common applications?
+These questions became critical through the coronavirus pandemic,
+  and remain so as remote work remains prevalent.
+    
+This Section measures the performance and fairness of VCAs
+    in competition with other flows on constrained links.
+We consider three types of flows: 
+  the VCAs themselves, classical TCP flows, and consumer applications.
+For consumer applications, we use Youtube and Netflix,
+  because video streaming makes up a majority of internet traffic and 
+  these are the two most popular services.
 
-\jamie{part of what feels weird to me, in using download flows, is that these are SO MUCH lower than what most people by, that they feel irrelevant.  If we had upstream, these same numbers would not be unreasonable, for the ``popular discourse" on broadband thresholds.  We definitely want uplink if we can get it.}
-
-\noindent \textbf{Methodology}.
 
 
+\noindent \textbf{Methodology}: As illustrated in Figure \ref{fig:competition-setup}, the setup for these experiments differs slightly from earlier ones. 
+Instead of connecting the client directly to the router, the two matched clients, C1 and F1, are connected to the router via a switch. 
+The link between the switch and the router is shaped by the router.
 
-The experiment is built within the framework already described.
-The distinguishing feature of this measurement is that the 
-  constrained link is between a switch and an OpenWRT Router 
-    (which constrains the link).
-The router has a gigabit link to the Internet.
-The competing flows are initiated from two matched consumer laptops,
-  connected to the switch over unconstrained, gigabit links.
-We consider three forms of competitive flows:
-  a standard TCP flow through iperf3 with cubic congestion control,
-  other video conferencing applications, and 
-  common video streaming services.
-The ``counter-parties" for these flows are, respectively,
-  a dedicated server on the university network,
-  consumer laptops, and industry servers.
-In contrast to previous experiments, 
-  we focus on the Zoom and Teams clients;
-  and consider Meet to be native in Chrome.
+For each test, C1 first establish a VCA call with C2.
+Approximately 30 seconds later, F1 establishes a competing flow, which lasts for two minutes.
+F1's counter-party, F2, depends on the type of flow.
+If the competing flow is another VCA call, then it another consumer laptop.
+If the competing flow is an iPerf3 (TCP) flow, then F2 is a server on the University network
+  and if the flow is Netflix or Youtube, then F2 is a server for the respective service.
+Netflix and Youtube are launched directly in Chrome via \texttt{xdg-open}.
+After the competing flow terminates, the incumbent flow continues for an additional minute.
+We repeat each experiment with bandwidth shaped symmetrically at 0.5, 1, 2, 3, 4, and 5~Mbps.
 
-Each single experiment lasts for 4 minutes.
-The ``nominal flow" is established first, and
-  and the competing flow follow 30 seconds later.
-The competing flow lasts for 2.5 minutes.
-The experiment concludes with 1 minute
-  with the nominal flow alone.
-This setup is illustrated in Figure~\ref{fig:ts_zoom_netflix},
-  with the time series for a six experiments between Zoom and Netflix.
-Each configuration of nominal and competing flows and link constraint
-  is repeated five times.
-The capacity constraints are to 0.5, 1, 2, 3, 4, and 5 Mbps.
-Bitrates are measured from packet captures.
-  
+
 \begin{figure}[t]
     \includegraphics[width=\linewidth]{comp/netflix_time_series.pdf}
-    \caption{Time series of bitrate for Zoom in competition with a Netflix flow, at different link capacity.}
-	\label{fig:ts_zoom_netflix}
+    \caption{Downlink bitrate over time between Netflix and each VCA on a 3 Mbps link.}
+	\label{fig:ts_comp_netflix}
 \end{figure}
 
 % \begin{figure}[t]
@@ -70,6 +57,37 @@ Bitrates are measured from packet captures.
 	\label{fig:comp_bitrates}
 \end{figure*}
 
+\subsection{Downlink Shaping}
+
+We illustrate the basic setup in Figure~\ref{fig:ts_comp_netflix}, 
+  pitting the VCAs against Netflix at on a link constrained to 3~Mbps.
+
+From these flows, we construct two variables
+  to reflect fairness and performance in the measured flows.
+Fairness is represented 
+  as the nominal flow's share of two flows constrained link.
+In other words, the denominator for the ``share" is
+  is the sum of the two flows rather than 
+  the shaped link level.
+Performance is proxied by bitrate.
+Figure~\ref{fig:comp_bitrates}
+  displays results for all three VCAs.
+
+Each application uses half the link in ``competition" with itself.
+Competition is in evidence primarily at the low end of the domain,
+  with the most severe constraints.
+Table~\ref{tab:comp} shows the share
+  of the flows that each VCA uses,
+  at the most-constrained 0.5~Mbps level.
+Here, at the low end, Zoom competes
+  aggressively and effectively with all other flows:
+  it consumes more than three-quarters of the link against Teams, Netflix, and iperf3, 
+  and 0.72 against YouTube.
+Meet is also quite aggressive at this level, 
+  though Zoom ``wins" in direct competition.
+Teams fares worse on very-constrained links,
+  and does not even compete with the TCP flow.
+
 \begin{table}
     \setlength{\tabcolsep}{3pt}
     \fontsize{10.5}{13} \selectfont
@@ -83,58 +101,57 @@ Teams &    \cb{0.19} &   \cbss{0.42} &    \cbs{0.21} &     \cb{0.15} &    \cbs{0
 Zoom  &  \cbss{0.58} &  \cbsss{0.76} &  \cbsss{0.61} &  \cbsss{0.77} &  \cbsss{0.72} &  \cbsss{0.75} \\
 \bottomrule
 \end{tabular}
-    \caption{In which we compare things}
+    \caption{Share of 0.5 Mbps link. Rows are the ``incumbent" VCAs and columns are competing applications.}
     \label{tab:comp}
 \end{table}
 
-\subsection{Results}
-
-We construct two variables
-  to reflect fairness and performance in the measured flows.
-Fairness is represented 
-  as the nominal flow's share of the constrained link.
-Performance is the flow's share of its bitrate 
- as measured on a fully unconstrained call (see Table~\ref{}).
-\jamie{The fully-unconstrained values are important benchmarks that we should measure carefully.  I know Tarun quoted these.  But we should establish these and put them in a table early on.}
-Figures~\ref{fig:teams_comp_bitrates}-\ref{fig:zoom_comp_bitrates}
-  display results for Teams, Meet, and Zoom respectively.
-
-Each application uses half the link in ``competition" with itself.
-Competition is in evidence primarily at the low end of the domain,
-  with the most severe constraints.
 With weaker constraints, most applications reach their nominal bitrates
-  and the ratios in the upper panels simply show the ratio of their bandwidth demands.
+  and the ratios in the upper panels of Figure~\ref{fig:comp_bitrates}
+  simply show the ratio of their bandwidth demands.
 For example, 
   the low VCA shares with respect to iperf at weak constraint
   simply illustrates the "inexhaustible" demand of a TCP flow,
   whereas link share's of Zoom vs Meet or Meet vs Zoom 
   at link capacity of 5 Mbps (0.4 or 0.6) simply 
-  reflect the nominal bandwidths.
+  reflect different nominal bandwidths.
+As already shown, in the time series plots, there is some subtlety in the timing of competition.
+Video streaming services (YouTube and NetFlix)
+  can and do buffer, ifthe bandwidth is high enough.
+This means that they may not compete most of the time.
+The VCAs and the iPerf3 TCP flows on the other hand, 
+  are continuous, though only iPerf3 has inexhaustible demand.
+The VCAs seem to ``test" the bandwidth early in the call, 
+  and the fist moments may not illustrate their long-term strategies.
+This is analogous to TCP ``slow-start,"
+  but appears to be much slower.
 
-\jamie{ambiguity: NetFlix or YouTube buffering, vs slow-start from teams}
-  
-At the low end, Zoom competes
-  aggressively and effectively with all other flows:
-  it consumes nearly the entire link against Meet (\textcolor{red}{95\%}), 
-  and \textcolor{red}{80\%} of the link against Teams.
-Both Teams and Meet fare worse on constrained links.
-  
-The lower panels of the figures show
-  the link bandwidth required for the VCAs' consumption
-  to converge to their nominal levels.
+The lower panels of Figure~\ref{fig:comp_bitrates} show
+  the VCAs' bitrates, in competition.
 Again, Zoom is quick out of the gate, and 
-  achieves over \textcolor{red}{90\%} of nominal link bitrate,
+  achieves over 90 of nominal link bitrate,
   for constraints weaker than 2 Mbps.
 On the other hand, Teams does not achieve full bitrate
-  until \jamie{we gotta run higher..}
-Depending on the flow, Meet achieves full 
-  performance when the shared link has capacity greater than 3 Mbps, 
-  except for the (unlimited) TCP flow.
+  below 5~Mbps;
+  \jamie{at 10~Mbps, it achieves a flow of X}.
+Depending on the flow, Meet's used bitrate saturates
+  when the shared link has capacity greater than 3 Mbps.
+The same is true for Zoom, though its plateau is higher and noisier.
   
-\jamie{Zoom competing with meet nominal is flat, whereas the inverse is not.  These aren't exactly the same -- there's an ``incumbency" advantage -- but worth noting.}
+\jamie{We start getting repetitive here}
+Immediately noticeable is the consistency at which Meet reaches a stable bitrate. By [X] Mbps, its downlink bitrate does not increase along with link capacity. Looking first at how Meet competes with other VCAs, it uses slightly less than Zoom but dominates Teams. Meet is also remarkably fair when competing with another Meet flow, splitting the available link capacity almost exactly evenly. Against TCP applications, Meet commands roughly $75\%$ of the available link capacity at the 0.5 Mbps shaping level. 
 
-\jamie{Add notes on performance, e.g., through Meet, though I think that the preceding is most of the story.}
+While not quite as consistent as Meet, Zoom nevertheless shares the link in a similar manner regardless of the competing application. At low link capacities, Zoom uses up to [X] \% of the the available bandwidth. By [X] Mbps, its downlink bitrate remainly roughly the same. 
 
+This consistency manifests differently in how Teams competes. 
+Where Zoom and Meet aggressively use the available link capacity at low bandwidths, Teams backs off, in almost all cases using less than $25\%$ of the available bandwidth on a 0.5 Mbps downlink connection. Consider first how Teams behaves with other VCAs. While still dominated at the low end, as the link capacity increases and Zoom and Meet reach a stable downlink bitrate, Teams begins to also increase its downlink bitrate. Notice, however, that even at a 5 Mbps link capacity, Teams's downlink bitrate does not exceed 1.25 Mbps. Looking next at how Teams competes with the TCP-based applications, we observe even more startling behavior. When competing against Netflix and the iPerf3 flow, the downlink bitrate never exceeds 0.25 Mbps. This is especially inexpedient given the sensitivity of VCAs to drops in bandwidth and the goal of equitably sharing the link.  \jamie{Maybe careful here?  This isn't necessarily how peaky ``TCP applications" fare, it's how a single continuous flow fares.  It may be that individual TCP requests can get through fine, cf buffer bloat etc.}
+  
+Unlike VCAs, which can not buffer, the average bitrate of video streaming applications can change drastically over time. Figure \ref{fig:ts_zoom_netflix} shows how Netflix and each VCA interact over the course of the experiment. Each interaction is characterized uniquely by a given VCA. \jamie{I would move this up, to part of an `illustration.'}
+
+First, Zoom and Meet do not back off in the presence of Netflix, and continue to receive at the same rate as before. Meet and Zoom both send at a rate lower than $50\%$ of the link capacity. But while Meet and Zoom exhibit similar behavior, their affect on Netflix is different. Because Meet receives at a lower bitrate than Zoom, Netflix maintains a high downlink bitrate as it buffers, before changing to only sporadic bursts of downlink usage. With Zoom, Netflix is not able to buffer, so maintains a constant downlink bitrate. 
+
+Netflix also buffers when competing against Teams. But soon as Netflix is launched, Teams decreases its downlink bitrate, going as low as [insert min bitrate] Mbps. This is both undesirable for VCAs, which are sensitive to changes in bitrate, and an inefficient use of the link. Even in the face of a TCP-based application like Netflix, Teams reduces its downlink consumption. Teams only recovers to its average bitrate once Netflix has finished buffering. 
+
+\subsection{Uplink Shaping}
 
 % \begin{figure}[t]
 %     \includegraphics[width=\linewidth]{comp/meet_iperf_scatter.pdf}
