@@ -1,3 +1,18 @@
+  
+ \begin{figure*}[t]
+    \includegraphics[width=\linewidth]{comp/ul_competition_all.pdf}
+    \caption{Share of upstream link and VCA bitrates for VCAs in competition with other flows, as a function of downlink bitrate cap.}
+	\label{fig:comp_bitrates_ul}
+\end{figure*}
+
+
+
+\begin{figure}[]
+   \centering
+    \includegraphics[width=0.5\textwidth,keepaspectratio]{methodology/competition-setup.pdf}
+    \caption{Setup for competition experiments.}
+    \label{fig:competition-setup}
+\end{figure}
 
 
 \section{Competing Flows}
@@ -17,12 +32,7 @@ For consumer applications, we use Youtube and Netflix,
   because video streaming makes up a majority of internet traffic and 
   these are the two most popular services.
 
-\begin{figure}[]
-   \centering
-    \includegraphics[width=0.5\textwidth,keepaspectratio]{../figures/methodology/competition-setup.pdf}
-    \caption{Setup for competition experiments.}
-    \label{fig:competition-setup}
-\end{figure}
+
 
 \begin{figure*}[t]
     \includegraphics[width=\linewidth]{comp/dl_competition_all.pdf}
@@ -68,6 +78,15 @@ If the competing flow is an iPerf3 (TCP) flow, then F2 is a server on the Univer
 Netflix and Youtube are launched directly in Chrome via \texttt{xdg-open}.
 After the competing flow terminates, the incumbent flow continues for an additional minute.
 We repeat each experiment with bandwidth shaped symmetrically at 0.5, 1, 2, 3, 4, and 5~Mbps.
+
+\subsection{Uplink Shaping}
+
+We observe that the VCAs share the uplink equitably at all bandwidth capacities. Zoom and Meet use roughly $50\%$ of the available bandwidth until the link capacity reaches 2 Mbps. At which point, they do not increase their sending bitrate. Teams has a higher nominal uplink bitrate and continues to increses its sending rate until the link capacity is 3Mbps. Nevertheless, it only uses more than $50\%$ of the available bandwidth when the competing applications have reached their maximum sending rate. 
+
+\begin{itemize}
+    \item Interesting to check this, since the links aren't just one endless, direct stream -- there is compute in between, and e.g., Meet can simulcast, and the bitrates are different UL and DL.
+    \item Teams is much more aggressive upstream than downstream.
+\end{itemize}
 
 
 
@@ -184,18 +203,6 @@ First, Zoom and Meet do not back off in the presence of Netflix, and continue to
 Netflix also buffers when competing against Teams. But soon as Netflix is launched, Teams decreases its downlink bitrate, going as low as [insert min bitrate] Mbps. This is both undesirable for VCAs, which are sensitive to changes in bitrate, and an inefficient use of the link. Even in the face of a TCP-based application like Netflix, Teams reduces its downlink consumption. Teams only recovers to its average bitrate once Netflix has finished buffering. 
 
 
-
-\begin{figure*}[t]
-    \includegraphics[width=\linewidth]{comp/ul_competition_all.pdf}
-    \caption{Share of upstream link and VCA bitrates for VCAs in competition with other flows, as a function of downlink bitrate cap.}
-	\label{fig:comp_bitrates_ul}
-\end{figure*}
-\subsection{Uplink Shaping}
-
-\begin{itemize}
-    \item Interesting to check this, since the links aren't just one endless, direct stream -- there is compute in between, and e.g., Meet can simulcast, and the bitrates are different UL and DL.
-    \item Teams is much more aggressive upstream than downstream.
-\end{itemize}
 
 
 

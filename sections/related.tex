@@ -1,12 +1,13 @@
 \section{Related Work}\label{sec:related}
+
+\textbf{VCA measurement}: Some of the early VCA measurement work has focused on uncovering the design of the Skype focusing on its streaming protocols~\cite{baset2004analysis}, architecture~\cite{guha2005experimental}, traffic characterization~\cite{bonfiglio2008tracking}, and application performance~\cite{hossfeld2008analysis}. More recent work has included other VCAs and streaming contexts~\cite{xu2012video, yu2014can, azfar2016android}. Xu et al.~\cite{xu2012video} use controlled experiments to study the design and performance of Google+, iChat, and Skype. The work is further extended to include performance of the three services on mobile video calls~\cite{yu2014can}. 
+
+Closest to our work is work by Jansen et al.~\cite{jansen2018performance} and Nistico et. al~\cite{nistico2020comparative}. Jansen et al. evaluate WebRTC performance using their custom VCA under controlled network conditions~\cite{jansen2018performance}. Emulating similar network conditions, we consider performance of commercial and more recent VCAs that widely used for education and work. Even between tested VCAs using WebRTC, namely \meet and \teamsbrowser, we find significant performance differences, likely due to different design parameters (e.g., codecs, default bitrates). Nistico et al.~\cite{nistico2020comparative} consider a wider range of recent VCAs, focusing on their design differences including protocols and architecture. Our work provides a complimentary performance analysis for a subset of the VCAs studied by them. We use the insights from their work to explain the differences among VCAs' network utilization and performance under similar streaming contexts. 
+
+\textbf{VCA congestion control}: Several congestion control algorithms have been proposed for VCAs. These algorithms rely on a variety of signals such as loss~\cite{handley2003tcp}, delay~\cite{carlucci2016analysis}, and even VCA performance metrics~\cite{singh2012rate} for adjusting the sending rate. Google Congestion Control~\cite{carlucci2016analysis}, also implemented in WebRTC, uses one-way delay gradient for adjusting the sender rate while SCReAM~\cite{johansson2015self} relies on both loss and delay along with TCP-like self-clocking. A recent work, Salsify~\cite{fouladi2018salsify}, proposes a tighter integration between congestion control and video encoding. However, most VCAs have their own proprietary implementations of congestion control. In this work, we study the efficacy of the VCA congestion control in the case of transient interruptions and background applications. A recent study by Sander et al. evaluates \zoom's congestion control along these dimensions~\cite{sandervideo}. Our work observes similar results for \zoom and also analyses more VCAs, including their fairness to each other and other popular internet applications, namely YouTube (UDP-based) and Netflix (TCP-based). 
+
+
+\begin{comment}
 \textbf{Performance of Internet applications}
 There is also related work on measuring other applications over the Internet including video streaming~\cite{}, web browsing~\cite{}, and online gaming~\cite{}. Our work focuses on VCAs which are characterized by their strict latency requirements and upstream link utilization.  
-
-\textbf{VCA measurement studies}
-Early VCA measurement work has focused on uncovering the design of the Skype focusing on the streaming protocols~\cite{guha2005experimental} and architecture~\cite{baset2004analysis, bonfiglio2008detailed, bonfiglio2008tracking}. More recent work including other streaming applications~\cite{xu2012video, nistico2020comparative} highlighting the differences in design of these applications. In this paper, we take a fresh take on the measurement focusing on the application performance and impact of new application modalities on network utilization. 
-
-
-
-\textbf{Application fairness}
-There is also work on measuring application fairness including fairness among TCP variants, or fairness of TCP vs other UDP-based protocols (e.g., QUIC, WebRTC), or applications. Our work focuses on how VCAs share bandwidth with other VCAs, standard TCP implementations, and also applications with their additional bandwidth adaptation over TCP. 
-
+\end{comment}
