@@ -1,3 +1,16 @@
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{VCA}} & \multicolumn{2}{c|}{\textbf{Utilization {[}Mbps{]}}} \\ \cline{2-3} 
+                              & Uplink                   & Downlink                  \\ \hline
+Meet                          & 0.95                     & 0.84                      \\ \hline
+Teams                         & 1.40                      & 1.86                      \\ \hline
+Zoom                          & 0.78                     & 0.95                      \\ \hline
+\end{tabular}
+\caption{Unconstrained network utilization}
+\label{tab:vca_static}
+\end{table}
 
 \section{Static Network Conditions}\label{sec:static}
 
@@ -5,42 +18,42 @@
 	%\vspace{-10em}
     \begin{subfigure}[t]{0.33\textwidth}      
     		\centering
-        \includegraphics[width=\textwidth,keepaspectratio]{figures/static/downlink_r_qpsum.pdf}
+        \includegraphics[width=\textwidth,keepaspectratio]{static/downlink_r_qpsum.pdf}
         \caption{Downlink - Quantization parameter}
  		\label{subfig:downlink_video_qp}
     \end{subfigure}%
     \hfill
 	\begin{subfigure}[t]{0.33\textwidth}   
         \centering
-        \includegraphics[width=\textwidth]{figures/static/downlink_received_framesPerSecond.pdf}
+        \includegraphics[width=\textwidth]{static/downlink_received_framesPerSecond.pdf}
     \caption{Downlink - Frames per second}
     \label{subfig:downlink_frames_per_second}
     \end{subfigure}% 
     \hfill
 	\begin{subfigure}[t]{0.33\textwidth}   
         \centering
-        \includegraphics[width=\textwidth]{figures/static/downlink_received_frameWidth.pdf}
+        \includegraphics[width=\textwidth]{static/downlink_received_frameWidth.pdf}
     \caption{Downlink - Frame width}
     \label{subfig:downlink_frame_width}
     \end{subfigure}
     \newline
         \begin{subfigure}[t]{0.33\textwidth}      
     		\centering
-        \includegraphics[width=\textwidth,keepaspectratio]{figures/static/uplink_s_qpsum.pdf}
+        \includegraphics[width=\textwidth,keepaspectratio]{static/uplink_s_qpsum.pdf}
         \caption{Uplink - Quantization parameter}
  		\label{subfig:uplink_video_qp}
     \end{subfigure}%
     \hfill
 	\begin{subfigure}[t]{0.33\textwidth}   
         \centering
-        \includegraphics[width=\textwidth]{figures/static/uplink_sent_framesPerSecond.pdf}
+        \includegraphics[width=\textwidth]{static/uplink_sent_framesPerSecond.pdf}
     \caption{Uplink - Frames per second}
     \label{subfig:uplink_frames_per_second}
     \end{subfigure}% 
     \hfill
 	\begin{subfigure}[t]{0.33\textwidth}   
         \centering
-        \includegraphics[width=\textwidth]{figures/static/uplink_sent_frameWidth.pdf}
+        \includegraphics[width=\textwidth]{static/uplink_sent_frameWidth.pdf}
     \caption{Uplink - Frame width}
     \label{subfig:uplink_frame_width}
     \end{subfigure}
@@ -62,7 +75,7 @@ In this section, we study the impact of network capacity on the VCA performance.
 
 
 \subsection{Network utilization}
-\textbf{Uplink shaping}: Figure~\ref{subfig:uplink_bitrate} shows the median sent network bitrate at different uplink shaping levels. The bands represent the 90\% confidence intervals. We find differences in uplink network utilization among VCAs under the same network conditions. For unconstrained uplink (10 Mbps), the average uplink utilization for \teamsnative is $1.44$ Mbps whereas it is only $0.95$ for \meet and $0.77$ Mbps for \zoom. All three VCAs utilize the uplink efficiently (above 85\%) for constrained uplink (0.8 Mbps or lower) with \meet slightly better than the other VCAs.  
+\textbf{Uplink shaping}: Figure~\ref{subfig:uplink_bitrate} shows the median sent network bitrate at different uplink shaping levels. The bands represent the 90\% confidence intervals. We find differences in uplink network utilization among VCAs for the same shaping levels. For unconstrained uplink (10 Mbps), the average uplink utilization for \teamsnative is $1.44$ Mbps whereas it is only $0.95$ for \meet and $0.77$ Mbps for \zoom. All three VCAs utilize the uplink efficiently (above 85\%) for constrained uplink (0.8 Mbps or lower) with \meet slightly better than the other VCAs.  
 
 
 \textbf{Downlink shaping}: We next analyze the impact of downlink shaping on VCAs' network utilization as shown in Figure~\ref{subfig:downlink_bitrate}. Similar to uplink shaping, the VCAs differ in terms of their downlink utilization under unconstrained link. The unconstrained downlink utilization is also different from the uplink counterpart as shown in Table~\ref{tab:vca_static}. To understand this, we analyze the traffic captured on both C1 and C2. For \teams, we found that the sent traffic on C1 is almost same as the received traffic on C2 and vice versa. Thus, the differences may largely be due to the variability across runs in \teams as is also evident in the larger confidence intervals compared to \zoom and \meet. 
@@ -80,13 +93,13 @@ For \meet, in addition to the asymmetric unconstrained utilization, the behavior
 \begin{figure}[t]
     \centering
     \begin{subfigure}[t]{0.35\textwidth}      
-        \includegraphics[width=\textwidth,keepaspectratio]{figures/static/downlink_freezeRatio.pdf}
+        \includegraphics[width=\textwidth,keepaspectratio]{static/downlink_freezeRatio.pdf}
         \caption{Downlink: Freeze ratio}
  		\label{subfig:downlink_freeze_ratio}
     \end{subfigure}
 	\begin{subfigure}[t]{0.35\textwidth}   
         \centering
-        \includegraphics[width=\textwidth]{figures/static/uplink_sent_firCount.pdf}
+        \includegraphics[width=\textwidth]{static/uplink_sent_firCount.pdf}
         \vspace{-2em}
     \caption{Full Intra Request (FIR) count}
     \label{subfig:uplink_fir}
@@ -97,19 +110,7 @@ For \meet, in addition to the asymmetric unconstrained utilization, the behavior
 \end{figure}
 
 
-\begin{table}[]
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-\multirow{2}{*}{\textbf{VCA}} & \multicolumn{2}{c|}{\textbf{Utilization {[}Mbps{]}}} \\ \cline{2-3} 
-                              & Uplink                   & Downlink                  \\ \hline
-Meet                          & 0.95                     & 0.84                      \\ \hline
-Teams                         & 1.40                      & 1.86                      \\ \hline
-Zoom                          & 0.78                     & 0.95                      \\ \hline
-\end{tabular}
-\caption{Unconstrained network utilization}
-\label{tab:vca_static}
-\end{table}
+
 
 
 
@@ -117,7 +118,7 @@ Zoom                          & 0.78                     & 0.95                 
 
 \subsection{Application performance}
 Here we describe how the link shaping level impacts application performance metrics. %However, obtaining application metrics can be challenging for VCAs. 
-We rely on the WebRTC stats API available in Google Chrome to obtain application metrics for \teamsbrowser and \meet~\cite{webrtc_stats}. We could not obtain the same statistics for \zoombrowser as it uses DataChannels instead of RTP MediaStream API in WebRTC to transmit media. Video quality statistics are not exposed for DataChannels. Obtaining application metrics is challenging for native clients.  % We could not obtain the same statistics for \zoombrowser as it used different transport channels to transmit media, i.e., datachannels instead of the RTP MediaStream~\cite{webrtc_stats} as it may provides more flexibility (e.g., flexible encoding standards) to \zoom. However, video quality statistics are not exposed anymore through the WebRTC stats API. %In addition, we also obtained access to Zoom API through our campus network operator. The Zoom API provides limited application performance (e.g., video resolution, FPS) at a per-minute granularity~\cite{zoom_qos_api}. 
+We rely on the WebRTC stats API available in Google Chrome to obtain application metrics for \teamsbrowser and \meet~\cite{webrtc_stats}. We could not obtain the same statistics for \zoombrowser as it uses DataChannels instead of RTP MediaStream in WebRTC to transmit media. DataChannels statistics lack any video quality metrics and mostly contain data volume information. mainly provide. Obtaining application metrics is challenging for native clients.  % We could not obtain the same statistics for \zoombrowser as it used different transport channels to transmit media, i.e., datachannels instead of the RTP MediaStream~\cite{webrtc_stats} as it may provides more flexibility (e.g., flexible encoding standards) to \zoom. However, video quality statistics are not exposed anymore through the WebRTC stats API. %In addition, we also obtained access to Zoom API through our campus network operator. The Zoom API provides limited application performance (e.g., video resolution, FPS) at a per-minute granularity~\cite{zoom_qos_api}. 
 Thus, we limit this analysis to only \meet and \teamsbrowser. We focus on a subset of metrics available from WebRTC Stats API that relate to video \textit{quality} and \textit{freezes}. These metrics are available at a per-second granularity within the call. % The metrics are described in the We consider only a subset of metrics 
 
 %More specifically, we consider the following application metrics: Frames per second, video resolution, freeze ratio. 
