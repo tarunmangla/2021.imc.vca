@@ -1,81 +1,52 @@
-\begin{figure*}[ht!]
-%\vspace{-2em}
-\begin{subfigure}[t]{0.33\textwidth}
-    \centering
-    \includegraphics[width=\textwidth,keepaspectratio]{figures/static/uplink.pdf}
-    \caption{Uplink bandwidth vs network bitrate}
-	\label{subfig:uplink_bitrate}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.33\textwidth}
-\centering
-    \includegraphics[width=\textwidth,keepaspectratio]{figures/static/downlink.pdf}
-    \caption{Downlink bandwidth vs network bitrate}
-	\label{subfig:downlink_bitrate}
-\end{subfigure} \hfill
-\begin{subfigure}[t]{0.33\textwidth}
-\centering
-    \includegraphics[width=\textwidth,keepaspectratio]{figures/static/uplink_browser.pdf}
-    \caption{Impact of VCA platform}
-	\label{subfig:uplink_browser}
-\end{subfigure} 
-\caption{Utilization under different link capacities}
-\label{fig:static}
-\end{figure*}
 
 \section{Static Network Conditions}\label{sec:static}
 
 \begin{figure*}[]
 	%\vspace{-10em}
-    \begin{subfigure}[t]{0.3\textwidth}      
+    \begin{subfigure}[t]{0.33\textwidth}      
     		\centering
         \includegraphics[width=\textwidth,keepaspectratio]{figures/static/downlink_r_qpsum.pdf}
-        \vspace{-2em}
-        \caption{Quantization parameter}
- 		\label{subfig:downlink_video_bitrate}
+        \caption{Downlink - Quantization parameter}
+ 		\label{subfig:downlink_video_qp}
     \end{subfigure}%
     \hfill
-	\begin{subfigure}[t]{0.3\textwidth}   
+	\begin{subfigure}[t]{0.33\textwidth}   
         \centering
         \includegraphics[width=\textwidth]{figures/static/downlink_received_framesPerSecond.pdf}
-        \vspace{-2em}
-    \caption{Frames per second}
+    \caption{Downlink - Frames per second}
     \label{subfig:downlink_frames_per_second}
     \end{subfigure}% 
     \hfill
-	\begin{subfigure}[t]{0.3\textwidth}   
+	\begin{subfigure}[t]{0.33\textwidth}   
         \centering
         \includegraphics[width=\textwidth]{figures/static/downlink_received_frameWidth.pdf}
-        \vspace{-2em}
-    \caption{Frame width}
+    \caption{Downlink - Frame width}
     \label{subfig:downlink_frame_width}
     \end{subfigure}
     \newline
-        \begin{subfigure}[t]{0.3\textwidth}      
+        \begin{subfigure}[t]{0.33\textwidth}      
     		\centering
-        \includegraphics[width=\textwidth,keepaspectratio]{figures/static/downlink_freezeRatio.pdf}
-        \vspace{-2em}
-        \caption{Freeze ratio}
- 		\label{subfig:downlink_freeze_ratio}
+        \includegraphics[width=\textwidth,keepaspectratio]{figures/static/uplink_s_qpsum.pdf}
+        \caption{Uplink - Quantization parameter}
+ 		\label{subfig:uplink_video_qp}
     \end{subfigure}%
     \hfill
-	\begin{subfigure}[t]{0.3\textwidth}   
+	\begin{subfigure}[t]{0.33\textwidth}   
         \centering
-        \includegraphics[width=\textwidth]{figures/static/downlink_freezeCountPerSecond.pdf}
-        \vspace{-2em}
-    \caption{Number of freezes per second}
-    \label{subfig:downlink_freeze_per_sec}
+        \includegraphics[width=\textwidth]{figures/static/uplink_sent_framesPerSecond.pdf}
+    \caption{Uplink - Frames per second}
+    \label{subfig:uplink_frames_per_second}
     \end{subfigure}% 
     \hfill
-	\begin{subfigure}[t]{0.3\textwidth}   
+	\begin{subfigure}[t]{0.33\textwidth}   
         \centering
-        \includegraphics[width=\textwidth]{figures/static/downlink_jitter_buffer.pdf}
-        \vspace{-2em}
-    \caption{Jitter buffer delay}
-    \label{subfig:downlink_jitter_buffer}
+        \includegraphics[width=\textwidth]{figures/static/uplink_sent_frameWidth.pdf}
+    \caption{Uplink - Frame width}
+    \label{subfig:uplink_frame_width}
     \end{subfigure}
-	\vspace{-1em}
-	\caption{Downlink bandwidth and application performance metrics}
-	\label{fig:downlink_application}
+	%\vspace{-1em}
+	\caption{Video quality metrics under downlink and uplink shaping}
+	\label{fig:video_qual}
 	%\vspace{-1em}
 \end{figure*}
 
@@ -94,7 +65,7 @@ In this section, we study the impact of network capacity on the VCA performance.
 \textbf{Uplink shaping}: Figure~\ref{subfig:uplink_bitrate} shows the median sent network bitrate at different uplink shaping levels. The bands represent the 90\% confidence intervals. We find differences in uplink network utilization among VCAs under the same network conditions. For unconstrained uplink (10 Mbps), the average uplink utilization for \teamsnative is $1.44$ Mbps whereas it is only $0.95$ for \meet and $0.77$ Mbps for \zoom. All three VCAs utilize the uplink efficiently (above 85\%) for constrained uplink (0.8 Mbps or lower) with \meet slightly better than the other VCAs.  
 
 
-\textbf{Downlink shaping}: We next analyze the impact of downlink shaping on VCAs' network utilization as shown in Figure~\ref{subfig:downlink_bitrate}. Similar to uplink shaping, the VCAs differ in terms of their downlink utilization under unconstrained link. The unconstrained downlink utilization is also different from the uplink counterpart as shown in Table~\ref{tab:}. To understand this, we analyze the traffic captured on both C1 and C2. For \teams, we found that the sent traffic on C1 is almost same as the received traffic on C2 and vice versa. Thus, the differences may largely be due to the variability across runs in \teams as is also evident in the larger confidence intervals compared to \zoom and \meet. 
+\textbf{Downlink shaping}: We next analyze the impact of downlink shaping on VCAs' network utilization as shown in Figure~\ref{subfig:downlink_bitrate}. Similar to uplink shaping, the VCAs differ in terms of their downlink utilization under unconstrained link. The unconstrained downlink utilization is also different from the uplink counterpart as shown in Table~\ref{tab:vca_static}. To understand this, we analyze the traffic captured on both C1 and C2. For \teams, we found that the sent traffic on C1 is almost same as the received traffic on C2 and vice versa. Thus, the differences may largely be due to the variability across runs in \teams as is also evident in the larger confidence intervals compared to \zoom and \meet. 
 
 For \zoom, we found an asymmetry in sent and received data on both C1 and C2. For instance, in a single instance with 10 Mbps downlink shaping, C2 sent a median 0.85 Mbps and C1 received a median 1.10 Mbps. We analyze the traffic source and find that \zoom uses a relay server instead of direct communication. Related work by Nistico et al.~\cite{nistico2020comparative} alludes that \zoom uses Forward Error Correction (FEC) for error recovery. This is further supported by a related patent from \zoom itself, which talks about a methodology to generate FEC data at the server~\cite{liu2019error}. Thus, the extra data may correspond to FEC data added by the relay server leading to asymmetric uplink and downlink utilization.  
 
@@ -107,46 +78,25 @@ For \meet, in addition to the asymmetric unconstrained utilization, the behavior
 
 
 \begin{figure}[t]
-	%\vspace{-1em}
-    \begin{subfigure}[t]{0.23\textwidth}      
-    		\centering
-        \includegraphics[width=\textwidth,keepaspectratio]{figures/static/uplink_s_qpsum.pdf}
-        \vspace{-2em}
-        \caption{Quantization parameter}
- 		\label{subfig:uplink_video_quantization}
-    \end{subfigure}%
-\hfill
-	\begin{subfigure}[t]{0.23\textwidth}   
-        \centering
-        \includegraphics[width=\textwidth]{figures/static/uplink_sent_framesPerSecond.pdf}
-        \vspace{-2em}
-    \caption{Frames per second}
-    \label{subfig:uplink_frames_per_second}
-    \end{subfigure}% 
-        \newline
-    \hfill
-	\begin{subfigure}[t]{0.23\textwidth}   
-        \centering
-        \includegraphics[width=\textwidth]{figures/static/uplink_sent_frameWidth.pdf}
-        \vspace{-2em}
-    \caption{Frame width}
-    \label{subfig:uplink_frame_width}
+    \centering
+    \begin{subfigure}[t]{0.35\textwidth}      
+        \includegraphics[width=\textwidth,keepaspectratio]{figures/static/downlink_freezeRatio.pdf}
+        \caption{Downlink: Freeze ratio}
+ 		\label{subfig:downlink_freeze_ratio}
     \end{subfigure}
-        \begin{subfigure}[t]{0.23\textwidth}      
-    		\centering
-        \includegraphics[width=\textwidth,keepaspectratio]{figures/static/uplink_sent_firCount.pdf}
+	\begin{subfigure}[t]{0.35\textwidth}   
+        \centering
+        \includegraphics[width=\textwidth]{figures/static/uplink_sent_firCount.pdf}
         \vspace{-2em}
-        \caption{FIR Count}
- 		\label{subfig:uplink_fir}
-    \end{subfigure}%
-	\vspace{-1em}
-	\caption{Uplink bandwidth and application performance metrics}
-	\label{fig:uplink_application}
+    \caption{Full Intra Request (FIR) count}
+    \label{subfig:uplink_fir}
+    \end{subfigure}% 
+	\caption{Video freeze under downlink and uplink shaping}
+	\label{fig:video_freeze}
 	%\vspace{-1em}
 \end{figure}
 
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
+
 \begin{table}[]
 \centering
 \begin{tabular}{|c|c|c|}
@@ -161,24 +111,6 @@ Zoom                          & 0.78                     & 0.95                 
 \label{tab:vca_static}
 \end{table}
 
-\begin{figure*}[h!]
-\begin{subfigure}[t]{.5\textwidth}
-    \centering
-    \includegraphics[width=\textwidth,keepaspectratio]{interrupt/Interrupt-upld.pdf}
-    \captionsetup{width=.9\linewidth}
-    \caption{Average uplink bitrate over time. Grey region indicates period where uplink capacity is constrained to 0.25 Mbps. Vertical dotted lines indicate when the uplink bitrate has returned to the average. Dotted horizontal line indicates the uplink shaping level.}
-    \label{fig:ts_upld}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{.5\textwidth}
-      \centering
-    \includegraphics[width=1\textwidth,keepaspectratio]{interrupt/TTR-upld.pdf}
-    \captionsetup{width=.9\linewidth}
-    \caption{The time to recover to average sending bitrate following a drop to the indicated uplink shaping level}
-    \label{fig:TTR_upld}
-\end{subfigure}
-\caption{VCA response to a 30s drop in available uplink capacity}
-\label{fig:interrupt-upld}
-\end{figure*}
 
 
 %We next analyze the median sent network bitrate for different uplink capacity (see Figure~\ref{fig:uplink_bitrate}). As expected, we find similar differences in terms of the maximum bitrate among the VCAs and between browser and native clients for \teams as observed in the downlink shaping experiment. However, the network utilization is higher, especially for \meet, when the upstream link is constrained as compared to downlink. Thus, there seems to be a discrepancy in bitrate adaptation when the upstream is constrained. We explore this discrepancy in more detail in Section~\ref{sec:interruption}. 
@@ -186,18 +118,22 @@ Zoom                          & 0.78                     & 0.95                 
 \subsection{Application performance}
 Here we describe how the link shaping level impacts application performance metrics. %However, obtaining application metrics can be challenging for VCAs. 
 We rely on the WebRTC stats API available in Google Chrome to obtain application metrics for \teamsbrowser and \meet~\cite{webrtc_stats}. We could not obtain the same statistics for \zoombrowser as it uses DataChannels instead of RTP MediaStream API in WebRTC to transmit media. Video quality statistics are not exposed for DataChannels. Obtaining application metrics is challenging for native clients.  % We could not obtain the same statistics for \zoombrowser as it used different transport channels to transmit media, i.e., datachannels instead of the RTP MediaStream~\cite{webrtc_stats} as it may provides more flexibility (e.g., flexible encoding standards) to \zoom. However, video quality statistics are not exposed anymore through the WebRTC stats API. %In addition, we also obtained access to Zoom API through our campus network operator. The Zoom API provides limited application performance (e.g., video resolution, FPS) at a per-minute granularity~\cite{zoom_qos_api}. 
-Thus, we limit this analysis to only \meet and \teamsbrowser. While WebRTC Stats API provides a variety of metrics, we focus on a subset of metrics relating to video \textit{quality} and \textit{freezes} described in their respective sections. These metrics are available at a per-second granularity within the call. % The metrics are described in the We consider only a subset of metrics 
+Thus, we limit this analysis to only \meet and \teamsbrowser. We focus on a subset of metrics available from WebRTC Stats API that relate to video \textit{quality} and \textit{freezes}. These metrics are available at a per-second granularity within the call. % The metrics are described in the We consider only a subset of metrics 
 
 %More specifically, we consider the following application metrics: Frames per second, video resolution, freeze ratio. 
 
-\textbf{Video quality}: VCAs adapt to the network conditions by changing the target encoding bitrate. The transport provides the encoder with estimates of available bandwidth which are then used to select the encoding parameters. Ideally, VCA can adjust one or more of the following three parameters to acheive a target bitrate: i) frames per second (\textit{FPS}), ii) \textit{quantization parameter} used in video compression, and  iii) \textit{video resolution} indicating the number of pixels in each dimension. We can obtain all three parameters from the WebRTC stats. In our analysis, we indicate resolution with one of the dimension, i.e., the \textit{frame width}. 
+\textbf{Video quality}: VCAs adapt the video quality by adjusting the encoding parameters to achieve a target bitrate estimate provided by the transport. Ideally, VCAs can adjust one or more of the following three parameters: i) frames per second (\textit{FPS}), ii) \textit{quantization parameter} used in video compression, and  iii) \textit{video resolution} indicating the number of pixels in each dimension. We can obtain all three parameters from the WebRTC stats. In our analysis, we indicate resolution with one of the dimension, i.e., the \textit{frame width}. 
 
-Figure~\ref{fig:downlink_application} shows the above parameters for \meet and \teamsbrowser under different downlink shaping levels. We find that \teamsbrowser simultaneously degrades all three parameters as the downlink becomes more constrained. There is also significant variance across multiple repetitions under the same network bandwidth as shown by the $90\%$ confidence interval bands in the plot. \meet, on the other hand, follows a more consistent trend. In the 0.7-1 Mbps region, the bitrate is controlled mostly by adapting the FPS while keeping the quantization parameter and frame width similar to the nominal levels. However, after 0.7 Mbps, both \textit{resolution} and \textit{quantization parameter} degrade whereas there is an increase in the FPS. Below 0.5 Mbps, the frame width and the FPS stabilize while the quantization parameter actually reduces. It is not clear as to why \meet chose to reduce the quantization parameter after 0.5 Mbps and increase the FPS after 0.8 Mbps. 
+We first look at these parameters for different downlink shaping levels (see~\Cref{subfig:downlink_video_qp,subfig:downlink_frames_per_second,subfig:downlink_frame_width}). We find that \teamsbrowser simultaneously degrades all three parameters as the downlink becomes more constrained. There is also significant variance across multiple repetitions under the same network bandwidth as shown by the $90\%$ confidence interval bands in the plot. \meet, on the other hand, follows a more consistent trend where it adjusts parameters differently based on the shaping level. Within 0.7-1 Mbps region, the bitrate is controlled mostly by adapting the \textit{FPS} while keeping the \textit{quantization parameter} and \textit{frame width} similar to the nominal levels. However, going from 0.7 to 0.5 Mbps, both \textit{frame width} and \textit{quantization parameter} degrade whereas there is an increase in the FPS. From a closer inspection of the per-second statistics within this region, we find that the relay server starts switching to the lower quality copy of the stream it received via \textit{simulcast}. \meet does not seem to reduce the bitrate any further by reducing the FPS for the low quality stream indicated by consistent FPS below 0.5 Mbps. It is not clear why the quantization parameter reduces from 38 to 33 at 0.3 Mbps in \meet. 
 
-\textbf{Video Freezes}: We also plot the statistics related to video freezes during the call as obtained from the WebRTC stats. A freeze is assumed to occur if the frame inter-arrival is either greater than 3 $\times$ average frame duration or $150 ms$ + average frame duration.  Figure~\ref{subfig:downlink_freeze_ratio} and~\ref{subfig:downlink_freeze_per_sec} show the freeze ratio and number of freezes per second for \meet and \teamsbrowser. We find that both freeze ratio and freezes per second increase as the downlink bandwidth degrades. For \meet, the degradation is more severe than \teamsbrowser with $10\%$ freeze ratio at 0.3 Mbps. 
+We next analyze the impact of uplink shaping on encoding parameters (see~\Cref{subfig:uplink_video_qp,subfig:uplink_frames_per_second,subfig:uplink_frame_width}). We find that \teams adapts to the shaping level mainly by increasing the quantization parameter and reducing the frame width, while keeping the FPS almost constant. The frame width, surprisingly, increases at 0.3 Mbps uplink shaping level. This may be an artifact of a poor design decision as we find that it leads to frame losses (see next paragraph). \meet follows a similar trend by mostly increasing the quantization parameter until the uplink bandwidth degrades to 0.5 Mbps. At 0.4 Mbps, it also reduces frame width and the FPS. 
+
+\textbf{Video Freezes}: We also analyze the statistics related to video freezes. For downlink shaping, we directly obtain the freeze duration from WebRTC stats wherein a freeze is assumed to occur if the frame inter-arrival $>$ max (3$\delta$, $\delta$ + $150 ms$). $\delta$ is the average frame duration. We normalize the freeze duration with the call duration to obtain freeze ratio.  Figure~\ref{subfig:downlink_freeze_ratio} show the freeze ratio under different downlink shaping levels. Freeze ratio increases as the downlink bandwidth degrades. The freezes are more severe in \meet than \teamsbrowser with $10\%$ freeze ratio at 0.3 Mbps. Interestingly, \teamsbrowser incurs some freezes ($3.6\%$) even under unconstrained links. 
+
+For uplink shaping, we could not obtain freeze statistics directly as logging is done at C1. Instead, we analyze the total count of Full Intra Requests (FIR) during a session. An FIR is sent if the receiver cannot decode the video or falls behind, likely due to frame losses. Note that a low FIR count does not rule out freezes on the receiver but a high count does indicate issues. Figure~\ref{subfig:uplink_fir} shows that the FIR count is particularly high for \teamsbrowser at uplink capacity below 0.5 Mbps. A high FIR count in \teamsbrowser may be triggered due to the sender sending high resolution video (see Figure~\ref{subfig:uplink_frame_width})
 
 
-
+% \textbf{Takeaway}: Uplink 
 
 \textbf{Takeaway}: VCA performance under same network conditions varies among tested VCAs. Further, the minimum bandwidth requirements have implications for broadband policy. The FCC currently recommends a 25/3 Mbps minimum connection. Such a connection would not suffice for two separate video conferences. A household with a parent working and a child attending class remotely would saturate the uplink and lead to poor user experience. 
 %% also plot differences in network utilization and the shaping. 
@@ -211,26 +147,3 @@ Figure~\ref{fig:downlink_application} shows the above parameters for \meet and \
 
 
 
-
-\begin{comment}
-\begin{figure}[t]
-    \includegraphics[width=0.35\textwidth,keepaspectratio]{figures/static/downlink_video_qual_meet_teams_zoom.pdf}
-    \caption{Downlink bandwidth vs video quality \jamie{I think that width and height are almost always exactly redundant information.  I would choose one.  We should also keep the same colors across plots -- blue shouldn't be both Meet and Zoom client, for instance.}}
-    \label{fig:downlink_video_qual}
-\end{figure}
-
-
-\begin{figure}[t]
-    \includegraphics[width=0.35\textwidth,keepaspectratio]{figures/static/downlink_freeze_meet_teams.pdf}
-    \caption{Downlink bandwidth and video freezes}
-    \label{fig:downlink_freeze}
-\end{figure}
-
-
-
-\begin{figure}[t]
-    \includegraphics[width=0.35\textwidth,keepaspectratio]{figures/static/downlink_qos_zoom.pdf}
-    \caption{Downlink bandwidth vs Zoom QoS. \jamie{It looks fishy, that zoom client latency and jitter are identical.  All data from browser seems to be zeroed out?}} 
-    \label{fig:downlink_qos_zoom}
-\end{figure}
-\end{comment}
