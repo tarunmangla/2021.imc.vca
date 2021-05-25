@@ -27,10 +27,11 @@ Our goal in this study is to understand the following:
 
 We answer these questions by a series of controlled experiments collecting VCA performance data under a variety of network conditions and call modalities (e.g., number of participants). The collected data show that the answers to the questions differ substantially depending on the VCA. The main findings are summarized below:% 
 \begin{itemize}[noitemsep]
-    \item The minimum bandwidth requirements range from 0.8 Mbps to 1.9 Mbps, with performance varying especially at low link capacities. 
-    \item Recovery times following transient drops in bandwidth are quite different and determined by each VCA's congestion control mechanism. We observe that Teams tends to recover slower than Meet and Zoom because it follows a cubic-like recovery, slowly increasing bitrate before eventually returning to the average bitrate. Zoom, however, follows a stepwise function following the interruption, increasing well over its average sending rate, before eventually falling back to the average rate.
-    \item Differences in proprietary congestion control also create unfair bandwidth allocations: in constrained bandwidth settings, Zoom can consume over $75\%$ of the available bandwidth.
-    \item For some VCAs, client utilization can decrease as the number of participants increases, due to the reduced video resolution of each participant's video stream given a larger number of participants.
+    \item The average network utilization on an unconstrained link ranges from 0.8 Mbps to 1.9 Mbps. 
+    \item Despite using the same WebRTC API, Meet and Teams differ significantly in how they adapt video encoding parameters (e.g. FPS, resolution, quantization) to reduced link capacity.  
+    \item Recovery times following transient drops in bandwidth are quite different and depend on both VCA's congestion control mechanism and the direction of the drop, i.e. uplink or downlink. However, all VCAs take at least 20 seconds to recover from severe uplink drops to 0.25 Mbps. 
+    \item Differences in proprietary congestion control also create unfair bandwidth allocations in constrained bandwidth settings. Zoom and Meet can consume over $75\%$ of the available downlink bandwidth when competing with Teams or a TCP flow.
+    \item Each participant's video layout impacts its own and others' network utilization. Pinning a user's video to the screen (speaker mode) leads to an increase in the user's uplink utilization.
 \end{itemize}
 
 % \begin{itemize}
