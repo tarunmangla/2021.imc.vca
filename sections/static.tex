@@ -92,15 +92,14 @@ For \meet, in addition to the asymmetric unconstrained utilization, the behavior
 
 \begin{figure}[t]
     \centering
-    \begin{subfigure}[t]{0.35\textwidth}      
+    \begin{subfigure}[t]{0.45\textwidth}      
         \includegraphics[width=\textwidth,keepaspectratio]{static/downlink_freezeRatio.pdf}
         \caption{Downlink: Freeze ratio}
  		\label{subfig:downlink_freeze_ratio}
     \end{subfigure}
-	\begin{subfigure}[t]{0.35\textwidth}   
+	\begin{subfigure}[t]{0.45\textwidth}   
         \centering
         \includegraphics[width=\textwidth]{static/uplink_sent_firCount.pdf}
-        \vspace{-2em}
     \caption{Full Intra Request (FIR) count}
     \label{subfig:uplink_fir}
     \end{subfigure}% 
@@ -117,6 +116,7 @@ For \meet, in addition to the asymmetric unconstrained utilization, the behavior
 %We next analyze the median sent network bitrate for different uplink capacity (see Figure~\ref{fig:uplink_bitrate}). As expected, we find similar differences in terms of the maximum bitrate among the VCAs and between browser and native clients for \teams as observed in the downlink shaping experiment. However, the network utilization is higher, especially for \meet, when the upstream link is constrained as compared to downlink. Thus, there seems to be a discrepancy in bitrate adaptation when the upstream is constrained. We explore this discrepancy in more detail in Section~\ref{sec:interruption}. 
 
 \subsection{Application performance}
+\label{subsec:application_performance}
 Here we describe how the link shaping level impacts application performance metrics. %However, obtaining application metrics can be challenging for VCAs. 
 We rely on the WebRTC stats API available in Google Chrome to obtain application metrics for \teamsbrowser and \meet~\cite{webrtc_stats}. We could not obtain the same statistics for \zoombrowser as it uses DataChannels instead of RTP MediaStream in WebRTC to transmit media. DataChannels statistics lack any video quality metrics and mostly contain data volume information. mainly provide. Obtaining application metrics is challenging for native clients.  % We could not obtain the same statistics for \zoombrowser as it used different transport channels to transmit media, i.e., datachannels instead of the RTP MediaStream~\cite{webrtc_stats} as it may provides more flexibility (e.g., flexible encoding standards) to \zoom. However, video quality statistics are not exposed anymore through the WebRTC stats API. %In addition, we also obtained access to Zoom API through our campus network operator. The Zoom API provides limited application performance (e.g., video resolution, FPS) at a per-minute granularity~\cite{zoom_qos_api}. 
 Thus, we limit this analysis to only \meet and \teamsbrowser. We focus on a subset of metrics available from WebRTC Stats API that relate to video \textit{quality} and \textit{freezes}. These metrics are available at a per-second granularity within the call. % The metrics are described in the We consider only a subset of metrics 
@@ -136,7 +136,7 @@ For uplink shaping, we could not obtain freeze statistics directly as logging is
 
 % \textbf{Takeaway}: Uplink 
 
-\textbf{Takeaway}: VCA performance under same network conditions varies among tested VCAs. Further, the minimum bandwidth requirements have implications for broadband policy. The FCC currently recommends a 25/3 Mbps minimum connection. Such a connection would not suffice for two separate video conferences. A household with a parent working and a child attending class remotely would saturate the uplink and lead to poor user experience. 
+\textbf{Takeaways}: VCA performance under same network conditions varies among tested VCAs. Further, the VCAs' average uplink utilization on an unconstrained link has implications for broadband policy. The FCC currently recommends a 25/3 Mbps minimum connection. Such a connection may not suffice for two simultaneous video calls. For example, a household with both a parent working and a child attending class remotely can saturate the uplink and lead to poor user experience. 
 %% also plot differences in network utilization and the shaping. 
 
 

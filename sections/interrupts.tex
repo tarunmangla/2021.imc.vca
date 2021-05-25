@@ -6,15 +6,15 @@ In this section, we analyze how VCAs respond to temporary bandwidth drops during
 
 \begin{figure}[t!]
 \centering
-\begin{subfigure}[t]{.45\textwidth}
+\begin{subfigure}[t]{.5\textwidth}
     \centering
-    \includegraphics[width=.75\textwidth,keepaspectratio]{interrupt/Interrupt-upld.pdf}
+    \includegraphics[width=.9\textwidth,keepaspectratio]{interrupt/Interrupt-upld.pdf}
     \caption{Average uplink bitrate over time. Grey region indicates period where uplink capacity is constrained to 0.25 Mbps. Vertical dotted lines indicate when the uplink bitrate has returned to the average.}
     \label{fig:ts_upld}
 \end{subfigure}\hfill
-\begin{subfigure}[t]{.45\textwidth}
+\begin{subfigure}[t]{.5\textwidth}
       \centering
-    \includegraphics[width=.75\textwidth,keepaspectratio]{interrupt/TTR-upld.pdf}
+    \includegraphics[width=.9\textwidth,keepaspectratio]{interrupt/TTR-upld.pdf}
     \caption{The time to recover to average sending bitrate following a drop to the indicated uplink shaping level}
     \label{fig:TTR_upld}
 \end{subfigure}
@@ -31,15 +31,15 @@ Focusing first on uplink shaping, Figure \ref{fig:ts_upld} illustrates VCA uplin
 
 \begin{figure}[t!]
  \centering
-\begin{subfigure}[t]{.45\textwidth}
+\begin{subfigure}[t]{.5\textwidth}
    \centering
-    \includegraphics[width=.75\textwidth,keepaspectratio]{interrupt/Interrupt-dnld.pdf}
+    \includegraphics[width=.9\textwidth,keepaspectratio]{interrupt/Interrupt-dnld.pdf}
     \caption{Average downlink bitrate over time. Grey region indicates period where downlink capacity is constrained to 0.25 Mbps. Vertical dotted lines indicate when the dowlink bitrate has returned to the average.}
     \label{fig:ts-dnld}
 \end{subfigure}
-\begin{subfigure}[t]{.45\textwidth}
+\begin{subfigure}[t]{.5\textwidth}
   \centering
-    \includegraphics[width=.75\textwidth,keepaspectratio]{figures/interrupt/TTR-dnld.pdf}
+    \includegraphics[width=.9\textwidth,keepaspectratio]{figures/interrupt/TTR-dnld.pdf}
     \caption{The time to recover to average receiving bitrate following a drop to the indicated downlink shaping level}
     \label{fig:TTR_dnld}
 \end{subfigure}
@@ -58,18 +58,32 @@ Similarly, Zoom uses \textit{scalable video coding} when transmitting video~\cit
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.35\textwidth,keepaspectratio]{../figures/interrupt/Interrupt-sender.pdf}
+    \includegraphics[width=0.45\textwidth,keepaspectratio]{../figures/interrupt/Interrupt-sender.pdf}
     \caption{Client 2 (C2) uplink bitrate. Grey region indicates when C1's downlink capacity is reduced to 0.25 Mbps}
     \label{fig:interrupt-sender}
 \end{figure}
 
+
+\begin{figure}[]
+   \centering
+    \includegraphics[width=0.5\textwidth,keepaspectratio]{methodology/competition-setup.pdf}
+    \caption{Setup for competition experiments.}
+    \label{fig:competition-setup}
+\end{figure}
+
+ \begin{figure*}[t]
+    \includegraphics[width=\linewidth]{comp/ul_competition_all.pdf}
+    \caption{Share of upstream link and VCA bitrates for VCAs in competition with other flows, as a function of downlink bitrate cap.}
+	\label{fig:comp_bitrates_ul}
+\end{figure*}
+
+
 While the intermediary server for Zoom and Meet does congestion control, it only acts as a relay for Teams. During a Teams call, C2 will recognize C1 has limited downlink capacity and adjust its behavior, sending at only the bitrate it knows C1 can handle. Once C1 has more available bandwidth, however, C2 must first probe the connection before returning to its average sending rate. Figure \ref{fig:interrupt-sender} illustrates how C2's sending rate does not change during a Meet call, but drops below the shaping threshold during a Teams call, leading to the slow recovery.
+
 
 In terms of how efficiently each VCA uses the constrained link, Zoom's downlink and uplink bitrate stays at the shaping level while Meet and Teams fall even lower than the shaping level. Zoom's efficient network utilization may be an artifact of its encoding mechanisms, wherein it can more effectively control the encoding parameters (e.g., svc-encoded layers, FPS, resolution etc.) to match the target bitrate.  
 
-\noindent \textbf{Takeaways}: The observed VCA responses to interruptions portend even greater recovery times on real home networks. Greater fluctuations in link capacity will lead to frequent interruptions. While all VCAs take close to 20 seconds to recover from severe drops in available bandwidth, Teams consistently requires at least 20 seconds to recover from even moderate drops to 1 Mbps to either the uplink or the downlink.
-
-
+\noindent \textbf{Takeaways}: VCAs are slow to recover from reduction to uplink capacity, all requiring over 25 seconds to recover from severe interruptions to 0.25 Mbps. Only Teams is consistently slow to recover from drops in downlink capacity, even following moderate drops to 1 Mbps. This result can be attributed to how each VCA handles congestion control. Nevertheless, these observations portend lengthy recovery periods for all VCAs on networks with frequent fluctuations in uplink capacity. 
 
 
 

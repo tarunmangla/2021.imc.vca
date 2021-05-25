@@ -1,18 +1,5 @@
-  
- \begin{figure*}[t]
-    \includegraphics[width=\linewidth]{comp/ul_competition_all.pdf}
-    \caption{Share of upstream link and VCA bitrates for VCAs in competition with other flows, as a function of downlink bitrate cap.}
-	\label{fig:comp_bitrates_ul}
-\end{figure*}
 
 
-
-\begin{figure}[]
-   \centering
-    \includegraphics[width=0.5\textwidth,keepaspectratio]{methodology/competition-setup.pdf}
-    \caption{Setup for competition experiments.}
-    \label{fig:competition-setup}
-\end{figure}
 
 
 \section{Competing Flows}
@@ -203,7 +190,12 @@ First, Zoom and Meet do not back off in the presence of Netflix, and continue to
 Netflix also buffers when competing against Teams. But soon as Netflix is launched, Teams decreases its downlink bitrate, going as low as [insert min bitrate] Mbps. This is both undesirable for VCAs, which are sensitive to changes in bitrate, and an inefficient use of the link. Even in the face of a TCP-based application like Netflix, Teams reduces its downlink consumption. Teams only recovers to its average bitrate once Netflix has finished buffering. 
 
 
-
+\begin{figure}[h]
+\centering
+    \includegraphics[width=0.35\textwidth,keepaspectratio]{../figures/methodology/modality-setup.pdf}
+    \caption{Setup for modality experiments. All clients are connected a single call via a cloud server.}
+    \label{fig:modality-setup}
+\end{figure}
 
 
 
