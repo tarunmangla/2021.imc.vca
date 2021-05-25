@@ -6,9 +6,16 @@
 \usepackage{xcolor}
 \usepackage{comment}
 \usepackage{float}
-\usepackage{cleveref}
+
+\usepackage[colorlinks=true,linkcolor=blue]{cleveref}
+\hypersetup{citecolor = blue}
+\usepackage[framemethod=TikZ]{mdframed}
 \usepackage[utf8]{inputenc}
 \graphicspath{{figures/}}
+
+\crefformat{section}{\S#2\color{blue}#1#3} % see manual of cleveref, section 8.2.1
+\crefformat{subsection}{\S#2\color{blue}#1#3}
+\crefformat{subsubsection}{\S#2#1#3}
 
 
 
@@ -44,7 +51,7 @@
 
 %\newcommand{\todo}[1]{[\textcolor{red}{\textit{ToDo: #1}}]}
 \newcommand{\tarun}[1]{[\textcolor{blue}{\textit{Tarun: #1}}]}
-\newcommand{\jamie}[1]{[\textcolor{red}{\textit{Jamie: #1}}]}
+\newcommand{\jamie}[1]{[\footnote{\textcolor{red}{\textit{Jamie: #1}}]}}
 \newcommand{\kyle}[1]{[\textcolor{green}{\textit{Kyle: #1}}]}
 
 \usepackage[table]{xcolor}
