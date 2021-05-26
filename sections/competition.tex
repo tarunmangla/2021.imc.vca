@@ -78,7 +78,7 @@ We repeat each experiment 3 times, with bandwidth shaped symmetrically at levels
 \subsection{VCA vs. VCA}
 
 
-
+\begin{comment}
 We first analyze link sharing between each possible pair of the three VCAs for different shaping level.  
 
 The simplest question is how much bandwidth is required for each VCA to achieve its nominal bitrate, on a shared and constrained link.  Recognizing that the FCC's nominal definition of bandwidth (25/3 Mbps) far exceeds the requirements of multiple VCAs in the downstream direction, we focus on the upstream where the official constraint is less generous.  Figure~\ref{fig:comp_ul} presents the results.  Zoom and Meet plateau around 2~Mbps, while Teams in conjunction with another VCA requires at least 3~Mbps upstream.  Figures for the downstream direction are included in the Appendix, but Meet achieves its nominal performance with a shared link of just 1~Mbps, Zoom, requires 2~Mbps, and within our limited statistics, Teams' downstream consumption does not plateau even at 5 Mbps.
@@ -90,7 +90,11 @@ The simplest question is how much bandwidth is required for each VCA to achieve 
     \label{fig:comp_ul}
 \end{figure*}
 
-Next, we focus on the region with tighter constraints, and competition between the VCAs. Given that there are only two competing clients, we use the proportion of the link shared as a metric to assess fairness. A VCA is termed as aggressive, if it uses more than half of the link capacity under competition, and passive otherwise. 
+Next, we focus on the region with tighter constraints, and competition between the VCAs. Given that there are only two competing clients, we use the proportion of the link shared as a metric to assess fairness. A VCA is termed as aggressive, if it uses more than half of the link capacity under competition, and passive otherwise.
+\end{comment}
+
+
+We find that VCAs are able to achieve their nominal bitrate when the link capacity is 4 Mbps or higher. This is expected as the link capacity exceeds the sum of nominal bitrates of each VCAs. We then focus on the region, when the link capacity is lower, leading to competition between the VCAs. Given that there are only two competing clients, we use the proportion of the link shared as a metric to assess fairness. A VCA is termed as aggressive, if it uses more than half of the link capacity under competition, and passive otherwise.
 
 Looking first at the uplink, we observe differences in how each VCA shares the link. Figure~\ref{fig:boxplot-upld} shows a box plot of the upstream share of an incumbent VCA and a competing VCA when the uplink capacity is 0.5~Mbps.  We find that an incumbent Meet client shares the link fairly with a new Meet or Teams client but backs off when a Zoom client joins (see Figure~\ref{fig:meet_ul_box}). The results are similar for Teams except it receives a slightly higher share while competing with Zoom compared to Meet. Interestingly, Zoom is highly aggressive, both as an incumbent and a competing application, using at least $75\%$ of the link capacity in the case it is an incumbent client (see Figure~\ref{fig:zoom_ul_box}). In fact, Zoom's congestion control is not even fair to itself. Figure~\ref{subfig:zoom_zoom_0_5} illustrates this more clearly with the link sharing between two Zoom clients for a single experiment under 0.5~Mbps uplink capacity. We contrast this with the link sharing between two Meet clients in Figure~\ref{subfig:meet_meet_0_5} where both converge to their fair share of 0.25~Mbps. The results are similar for other uplink capacity with aggressive applications leaving more room for new clients if they achieve their nominal bitrate.  % Clearly, the incumbent Zoom client does not give much room for the   We show the  suggesting that the incumbent Zoom application prioritizes itself regardless of the competing application. 
 
@@ -267,43 +271,4 @@ Zoom  &  \cbsss{0.66} &  \cbsss{0.76} &  \cbsss{0.68} &  \cbsss{0.75} &  \cbsss{
 
 
 
-With weaker constraints, most applications reach their nominal bitrates
-  and the ratios in the upper panels of Figure~\ref{fig:comp_bitrates}
-  simply show the ratio of their bandwidth demands.
-For example, 
-  the low VCA shares with respect to iperf at weak constraint
-  simply illustrates the "inexhaustible" demand of a TCP flow,
-  whereas link share's of Zoom vs Meet or Meet vs Zoom 
-  at link capacity of 5 Mbps (0.4 or 0.6) simply 
-  reflect different nominal bandwidths.
-As already shown, in the time series plots, there is some subtlety in the timing of competition.
-Video streaming services (YouTube and NetFlix)
-  can and do buffer, ifthe bandwidth is high enough.
-This means that they may not compete most of the time.
-The VCAs and the iPerf3 TCP flows on the other hand, 
-  are continuous, though only iPerf3 has inexhaustible demand.
-The VCAs seem to ``test" the bandwidth early in the call, 
-  and the fist moments may not illustrate their long-term strategies.
-This is analogous to TCP ``slow-start,"
-  but appears to be much slower.
-
-The lower panels of Figure~\ref{fig:comp_bitrates} show
-  the VCAs' bitrates, in competition.
-Again, Zoom is quick out of the gate, and 
-  achieves over 90 of nominal link bitrate,
-  for constraints weaker than 2 Mbps.
-On the other hand, Teams does not achieve full bitrate
-  below 5~Mbps;
-  \jamie{at 10~Mbps, it achieves a flow of X}.
-Depending on the flow, Meet's used bitrate saturates
-  when the shared link has capacity greater than 3 Mbps.
-The same is true for Zoom, though its plateau is higher and noisier.
-  
-\jamie{We start getting repetitive here}
- Looking first at how Meet competes with other VCAs, it uses slightly less than Zoom but dominates Teams. Meet is also remarkably fair when competing with another Meet flow, splitting the available link capacity almost exactly evenly. Against TCP applications, Meet commands roughly $75\%$ of the available link capacity at the 0.5 Mbps shaping level. 
-
-While not quite as consistent as Meet, Zoom nevertheless shares the link in a similar manner regardless of the competing application. At low link capacities, Zoom uses up to [X] \% of the the available bandwidth. By [X] Mbps, its downlink bitrate remainly roughly the same. 
-
-This consistency manifests differently in how Teams competes. 
-Where Zoom and Meet aggressively use the available link capacity at low bandwidths, Teams backs off, in almost all cases using less than $25\%$ of the available bandwidth on a 0.5 Mbps downlink connection. Consider first how Teams behaves with other VCAs. While still dominated at the low end, as the link capacity increases and Zoom and Meet reach a stable downlink bitrate, Teams begins to also increase its downlink bitrate. Notice, however, that even at a 5 Mbps link capacity, Teams's downlink bitrate does not exceed 1.25 Mbps. Looking next at how Teams competes with the TCP-based applications, we observe even more startling behavior. When competing against Netflix and the iPerf3 flow, the downlink bitrate never exceeds 0.25 Mbps. This is especially inexpedient given the sensitivity of VCAs to drops in bandwidth and the goal of equitably sharing the link.  \jamie{Maybe careful here?  This isn't necessarily how peaky ``TCP applications" fare, it's how a single continuous flow fares.  It may be that individual TCP requests can get through fine, cf buffer bloat etc.}
 \end{comment}
