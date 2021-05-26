@@ -25,11 +25,11 @@ In this section, we analyze how VCAs respond to temporary network disruptions du
 \end{figure}
 
 \subsection{Uplink Disruptions}
-Focusing first on uplink shaping, Figure \ref{fig:ts_upld} illustrates VCA uplink bitrate over the course of a call. It is clear that both the path to recovery and the time to recovery following an interruption differ greatly among the VCAs. We quantify the time it takes to VCA utilization to return to normal by introducing a metric called \textit{time to recovery} (TTR). We define TTR as the time between when the interruption ends and when the 5-second rolling median bitrate reaches the median bitrate before interruption, also referred to as nominal bitrate. %In other words, how long it takes the VCA performance to return to normal following the interruption. 
+Focusing first on uplink shaping, Figure \ref{fig:ts_upld} illustrates VCA uplink bitrate over the course of a call. It is clear that both the path to recovery and the time to recovery following an interruption differ greatly among the VCAs. We quantify the time it takes for VCA utilization to return to normal by introducing a metric called \textit{time to recovery} (TTR). We define TTR as the time between when the interruption ends and when the 5-second rolling median bitrate reaches the median bitrate before interruption, also referred to as nominal bitrate. %In other words, how long it takes the VCA performance to return to normal following the interruption. 
 
 \paragraph{Time to Recovery}: Figure \ref{fig:TTR_upld} shows how the uplink shaping level affects each VCA's time to recovery. There is a clear trend that the more severe the uplink shaping, the longer the VCAs need to recover. This trend, however, is less pronounced for Teams than it is for Meet and Zoom as it takes longer to recover even at less severe shaping levels. This is because of two reasons: i) the nominal bitrate of Teams is higher than Meet and Teams, ii)  Teams increases the uplink bitrate slowly immediately after the interruption before increasing quickly back to normal (see  Figure~\ref{fig:ts_upld}), almost resembling a cubic function. Meet also observes this cubic-like recovery at the 0.25 Mbps shaping level. However, it recovers much faster at other shaping levels, mostly because its nominal bitrate is around 0.96 Mbps. 
 
-\paragraph{Recovery Patterns}: While Meet and Teams seem to follow a cubic-like trendline, Zoom's recovery is markedly different. It takes the longest time to recover under severe interruptions. Looking at Figure \ref{fig:ts_upld}, Zoom follows a stepwise recovery, with an almost-linear increase right after interruption. It then enters into a periodic-probing phase where it increases the sending rate, stays at it for sometime before increasing it again. The probing phase continues well above the its nominal bitrate, before finally dropping back. Zoom does not return to a ``normal'' sending pattern until 2 minutes after the interruption, sending at much higher rates than necessary. At first look, such probing seems like a bad design as it introduces packet loss on the link, hurting Zoom's own performance let alone others. However, we believe that Zoom may be using redundant FEC packets to gauge available bandwidth similar to the FBRA congestion control proposed by Nagy et al.~\cite{nagy2014congestion}. Thus, even if there is packet loss, the user performance does not suffer. This inefficient use of the uplink, however, could disturb other applications on the same link, leading to a poor quality of experience for competing applications. 
+\paragraph{Recovery Patterns}: While Meet and Teams seem to follow a cubic-like trendline, Zoom's recovery is markedly different. It takes the longest time to recover under severe interruptions. Looking at Figure \ref{fig:ts_upld}, Zoom follows a stepwise recovery, with an almost-linear increase right after interruption. It then enters into a periodic-probing phase where it increases the sending rate, stays at it for sometime before increasing it again. The probing phase continues well above the its nominal bitrate, before finally dropping back. Zoom does not return to a ``normal'' sending pattern until 2 minutes after the interruption, sending at much higher rates than necessary. At first look, such probing seems like a bad design as it introduces packet loss on the link, hurting Zoom's own performance let alone others. However, Zoom may be using redundant FEC packets to gauge available bandwidth similar to the FBRA congestion control proposed by Nagy et al.~\cite{nagy2014congestion}. Thus, even if there is packet loss, the user performance does not suffer. This inefficient use of the uplink, however, could disturb other applications on the same link, leading to a poor quality of experience for competing applications. 
 
 \begin{figure}[t!]
  \centering
@@ -56,7 +56,7 @@ Turning now to downlink shaping, it is clear from Figure~\ref{fig:TTR_dnld} that
 
 As mentioned in Section~\ref{sec:static}, Meet uses an encoding technique called \textit{simulcast}, where the client encodes two versions. The server then sends the appropriate version based on the perceived downlink capacity at the receiver. This way, a sender transmitting on an unconstrained link does not have to adjust its sending and can rely on the server to send the appropriate version. The server can then quickly switch between which version to send to the receiver based on the feedback it receives. This quick recovery is clearly illustrated in \ref{fig:interrupt-dnld}, in which Meet returns to its average rate in under 10 seconds, regardless the severity of the interruption.
 
-Similarly, Zoom uses \textit{scalable video coding} when transmitting video~\cite{zoom_encoding}. Instead of sending several versions of varying quality, Zoom sends many hierarchical "layers" that, when superimposed, produce a high quality video. This allows C2 to continue sending uninterrupted even when C1's downlink capacity shrinks. The server can then recover faster by sending additional layers, once the network conditions improve.  
+Similarly, Zoom uses \textit{scalable video coding} when transmitting video~\cite{zoom_encoding}. Instead of sending several versions of varying quality, Zoom sends many hierarchical ``layers" that, when superimposed, produce a high quality video. This allows C2 to continue sending uninterrupted even when C1's downlink capacity shrinks. The server can then recover faster by sending additional layers, once the network conditions improve.  
 
 
 \begin{figure}[t]
@@ -88,19 +88,19 @@ Similarly, Zoom uses \textit{scalable video coding} when transmitting video~\cit
         \centering
         \includegraphics[width=1\textwidth]{figures/comp_all/box_plot_meet_ul_0.5_all.pdf}
         \caption{Meet}
-        \label{fig:meet_ul_box}
+      \label{subfig:meet_ul_box}
     \end{subfigure}\hfill
     \begin{subfigure}[t]{.33\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{figures/comp_all/box_plot_teams_ul_0.5_all.pdf}
         \caption{Teams}
-        \label{fig:teams_ul_box}
+        \label{subfig:teams_ul_box}
     \end{subfigure}
     \begin{subfigure}[t]{.33\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{figures/comp_all/box_plot_zoom_ul_0.5_all.pdf}
         \caption{Zoom}
-        \label{fig:zoom_ul_box}
+        \label{subfig:zoom_ul_box}
     \end{subfigure}
     \caption{Uplink bitrate of applications in competition with each VCA, with a link shaped symmetrically at 0.5~Mbps.}
     \label{fig:boxplot-upld}
