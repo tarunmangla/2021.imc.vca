@@ -2,9 +2,28 @@
 
 \section{Network Disruptions}
 \label{sec:interruption}
-One challenge in VCA design is deciding how to handle network disruptions. This challenge is especially pertinent as many use VCAs on home networks. Home networks are especially susceptible to disruptions caused by temporary congestion along the end-to-end path.
 
-In this section, we analyze how VCAs respond to temporary network disruptions during the call by introducing transient drops in available bandwidth. Using the same setup as Figure \ref{fig:static_setup}, a 5-minute VCA call is initiated between two clients, C1 and C2, both of which sit behind unconstrained links. One minute after initiating the call, we reduce the available bandwidth between C1 and the router for 30 seconds, before reverting back to an unconstrained link. We conduct two sets of experiments, shaping the uplink in the first and the downlink in the second. We consider the following shaping levels: {0.25, 0.5, 0.75, 1.0} Mbps. We don't shape beyond 1.0 Mbps because both Zoom and Meet's average utilization is below 1.0 Mbps.
+VCAs must handle network disruptions; they may do so in different ways.
+Designing to cope with disruptions, such as interruptions to network
+connectivity, has become even more pertinent over the past year as users have
+increasingly relied on broadband Internet access to use VCAs, which can
+sometimes experience connectivity disruptions.  In addition to experiencing
+periodic outages, home networks are susceptible to disruptions caused by
+temporary congestion along the end-to-end path.
+
+In this section, we aim to understand how VCAs respond to the types of
+disruptions that home Internet users might sometimes eperience. We analyze how
+VCAs respond to temporary network disruptions during the call by introducing
+transient capacity reductions. Using the same setup as in
+Figure~\ref{fig:static_setup}, we initiate a five-minute VCA session between
+two clients, C1 and C2, both of which are connected to the Internet via a
+1~Gbps link. One minute after initiating the call, we reduce the capacity
+between C1 and the router for 30 seconds, before reverting back to an
+unconstrained link. We conduct two sets of experiments, shaping the uplink in
+the first and the downlink in the second. We consider the following shaping
+levels: {0.25, 0.5, 0.75, 1.0} Mbps. We only consider disruptions in capacity
+to levels of more than 1~Mbps because both Zoom and Meet's average utilization
+is below 1~Mbps.
 
 \begin{figure}[t!]
 \centering
@@ -24,12 +43,48 @@ In this section, we analyze how VCAs respond to temporary network disruptions du
 \label{fig:interrupt-upld}
 \end{figure}
 
-\subsection{Uplink Disruptions}
-Focusing first on uplink shaping, Figure \ref{fig:ts_upld} illustrates VCA uplink bitrate over the course of a call. It is clear that both the path to recovery and the time to recovery following an interruption differ greatly among the VCAs. We quantify the time it takes to VCA utilization to return to normal by introducing a metric called \textit{time to recovery} (TTR). We define TTR as the time between when the interruption ends and when the 5-second rolling median bitrate reaches the median bitrate before interruption, also referred to as nominal bitrate. %In other words, how long it takes the VCA performance to return to normal following the interruption. 
+\subsection{Upstream Disruptions}
 
-\paragraph{Time to Recovery}: Figure \ref{fig:TTR_upld} shows how the uplink shaping level affects each VCA's time to recovery. There is a clear trend that the more severe the uplink shaping, the longer the VCAs need to recover. This trend, however, is less pronounced for Teams than it is for Meet and Zoom as it takes longer to recover even at less severe shaping levels. This is because of two reasons: i) the nominal bitrate of Teams is higher than Meet and Teams, ii)  Teams increases the uplink bitrate slowly immediately after the interruption before increasing quickly back to normal (see  Figure~\ref{fig:ts_upld}), almost resembling a cubic function. Meet also observes this cubic-like recovery at the 0.25 Mbps shaping level. However, it recovers much faster at other shaping levels, mostly because its nominal bitrate is around 0.96 Mbps. 
+Figure \ref{fig:ts_upld} illustrates VCA uplink bitrate over the course of a
+call. Following a disruption, both the time to recovery and the
+characteristics of that recover
+differ across VCAs. We quantify the time it takes to
+VCA utilization to return to normal by defining a 
+\textit{time to recovery} (TTR) metric. We define TTR as the time between when the
+interruption ends and when the five-second rolling median bitrate reaches the
+median bitrate before interruption, also referred to as nominal bitrate. 
 
-\paragraph{Recovery Patterns}: While Meet and Teams seem to follow a cubic-like trendline, Zoom's recovery is markedly different. It takes the longest time to recover under severe interruptions. Looking at Figure \ref{fig:ts_upld}, Zoom follows a stepwise recovery, with an almost-linear increase right after interruption. It then enters into a periodic-probing phase where it increases the sending rate, stays at it for sometime before increasing it again. The probing phase continues well above the its nominal bitrate, before finally dropping back. Zoom does not return to a ``normal'' sending pattern until 2 minutes after the interruption, sending at much higher rates than necessary. At first look, such probing seems like a bad design as it introduces packet loss on the link, hurting Zoom's own performance let alone others. However, we believe that Zoom may be using redundant FEC packets to gauge available bandwidth similar to the FBRA congestion control proposed by Nagy et al.~\cite{nagy2014congestion}. Thus, even if there is packet loss, the user performance does not suffer. This inefficient use of the uplink, however, could disturb other applications on the same link, leading to a poor quality of experience for competing applications. 
+\paragraph{Time to Recovery}: Figure \ref{fig:TTR_upld} shows how extent of
+the disruption to upstream connectivity affects each VCA's time to recovery.
+The more severe the capacity reduction, the longer the VCAs need to recover.
+
+\teams takes longer to recover even at less severe shaping levels for two
+reasons: (1)~the nominal bitrate of Teams is higher than Meet and Teams,
+(2)~Teams increases the upstream bitrate slowly immediately after the
+interruption before increasing quickly back to normal (as shown in
+Figure~\ref{fig:ts_upld}). Meet also observes a similar recovery pattern when
+the disruption drops capacity to 0.25~Mbps. However, it recovers much faster
+for the case of less severe disruptions, mostly because its nominal bitrate is
+around 0.96 Mbps. 
+
+\paragraph{Recovery Patterns}: While Meet and Teams follow a more rapid trend,
+Zoom's recovery is different: It takes the longest time to recover under
+severe disruptions. According to Figure \ref{fig:ts_upld}, Zoom follows a
+stepwise recovery, with an almost-linear increase immediately after
+interruption. It then enters into a periodic-probing phase where it increases
+the sending rate, stays at it for sometime before increasing it again. The
+probing phase continues well above the its nominal bitrate, before finally
+reducing the bitrate.  Zoom does not return to a steady-state sending pattern
+until two minutes after the disruption, in the meantime sending at much higher
+rates. At first glance, such probing might appear to be bad design as it could
+introduce additional packet loss and delay harming both Zoom's own performance
+and the performance of other applications.  We believe, however, that Zoom may
+be using redundant FEC packets to gauge available bandwidth similar to the
+FBRA congestion control proposed by Nagy et al.~\cite{nagy2014congestion}.
+Thus, even if such behavior induces packet loss, the user performance may not
+suffer. Nevertheless, this inefficient use of the uplink, however, could
+disturb other applications on the same link, leading to a poor quality of
+experience for competing applications. 
 
 \begin{figure}[t!]
  \centering
@@ -49,7 +104,7 @@ Focusing first on uplink shaping, Figure \ref{fig:ts_upld} illustrates VCA uplin
 \label{fig:interrupt-dnld}
 \end{figure}
 
-\subsection{Downlink Disruptions}
+\subsection{Downstream Disruptions}
 
 Turning now to downlink shaping, it is clear from Figure~\ref{fig:TTR_dnld} that Teams recovers much slower than Meet and Zoom, always taking at least 20 seconds longer to return to the average rate, regardless of the magnitude of the interruption. Furthermore, Meet and Zoom recover much faster in this case compared to uplink interruptions. This can be explained by the way each VCA sends video. In all three VCAs, C1 and C2 communicate through an intermediary server. Thus, the recovery times depend on the congestion control capabilities at the server. 
 
