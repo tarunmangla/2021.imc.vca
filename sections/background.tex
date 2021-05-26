@@ -1,83 +1,94 @@
-\begin{comment}
-\begin{table*}[t!]
-\centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-\paragraph{VCA} & \textbf{Platforms}     & \textbf{Encoding} & \textbf{Direct connection?} & \textbf{Network Protocol} \\ \hline
-\hline 
-Meet  & Browser, Phone         & VP9/VP8   & No                 & RTP (WebRTC)     \\ \hline
-Teams & Native, Browser, Phone & VP9       & ?                  & RTP              \\ \hline
-Zoom  & Native, Browser, Phone & H.264 SVC & Yes                & Variation of RTP \\ \hline
-\end{tabular}
-\caption{Design parameters of selected VCAs}
-\label{tab:vca_overview}
-\end{table*}
-\end{comment}
-\section{Background and Setup}
-
-
+\section{Background \& Experiment Setup}
 \label{sec:background}
-Most VCAs use Real-time Transport Protocol (RTP)~\cite{schulzrinne1996rtp, schulzrinne2003rfc3550} or its variants~\cite{baugher2004secure, zoom_rtp} to transmit media content. The audio and video data is generally transmitted over separate RTP connections. RTP also uses two other protocols in conjunction, Session Initiation Protocol (SIP)~\cite{rosenberg2002sip} to establish connection between clients and RTP Control Protocol (RTCP)~\cite{schulzrinne2003rfc3550} to share performance statistics and control information during a call. Despite using well-known protocols, VCAs can differ from each other significantly across the following dimensions:
+
+We provide a brief background on video conferencing transport, technology, and
+architecture before turning to our experiment setup.
+
+\subsection{Video Conferencing Applications}
+
+Most modern VCAs use Real-time Transport Protocol (RTP)~\cite{schulzrinne1996rtp,
+schulzrinne2003rfc3550} or its variants~\cite{baugher2004secure, zoom_rtp} to
+transmit media content. The audio and video data is generally transmitted over
+separate RTP connections. RTP also uses two other protocols in conjunction,
+Session Initiation Protocol (SIP)~\cite{rosenberg2002sip} to establish
+connection between clients and RTP Control Protocol
+(RTCP)~\cite{schulzrinne2003rfc3550} to share performance statistics and
+control information during a call. Despite using well-known protocols, VCAs
+can differ from each other significantly across the following dimensions:
 
 
 \begin{itemize}[noitemsep]
-    \item \textbf{Network mechanisms}: RTP and the associated protocols are implemented in the application-layer. Thus, the specific implementation of the protocols can vary across VCAs. For instance, Zoom reportedly uses a custom extension of RTP~\cite{zoom_rtp}). Furthermore, the key network functions, i.e., congestion control and error recovery, can also be different and proprietary. %are also implemented in the application-layer as RTP runs over UDP.
+    \item \textbf{Network mechanisms}: RTP and the associated protocols are
+        implemented in the application-layer. Thus, the specific
+        implementation of the protocols can vary across VCAs. For instance,
+        Zoom reportedly uses a custom extension of RTP~\cite{zoom_rtp}).
+        Furthermore, the key network functions, i.e., congestion control and
+        error recovery, can also be different and proprietary. 
 
-    \item \textbf{Application-layer parameters}: These include media encoding standards and default bitrates. More recent video codecs (e.g., VP9, H.264) can encode at the same video quality with fewer bytes when compared to older codec (e.g., VP8), albeit with a higher compute overhead~\cite{bienik2016performance}. % The audio data is encoded using constant-bitrate. Video is encoded using standard codecs such as VP9 and H.264 with the bitrate controlled based on the underlying network conditions.
+    \item \textbf{Application-layer parameters}: These include media encoding
+        standards and default bitrates. More recent video codecs (e.g., VP9,
+        H.264) can encode at the same video quality with fewer bytes when
+        compared to older codec (e.g., VP8), albeit with a higher compute
+        overhead~\cite{bienik2016performance}. 
     
-    \item \textbf{Streaming architecture}: VCAs can either choose to use direct connections or use relay servers. Centralized servers are almost always used for multi-point calls to combine data from multiple users. VCAs can differ in the exact strategies of data combination as well as the geographic footprint of their servers. For instance, Zoom rapidly expanded its server infrastructure to support increased call volume because of COVID-19~\cite{liu2020characterizing}. 
+    \item \textbf{Streaming architecture}: VCAs can either choose to use
+        direct connections or use relay servers. Centralized servers are
+        almost always used for multi-point calls to combine data from multiple
+        users. VCAs can differ in the exact strategies of data combination as
+        well as the geographic footprint of their servers. For instance, Zoom
+        rapidly expanded its server infrastructure to support increased call
+        volume because of COVID-19~\cite{liu2020characterizing}. 
 
 \end{itemize}
+\noindent
+Differences across one or more of these factors can lead to different VCA
+network utilization and performance. In this paper, we aim to dig deeper into
+some of these differences for a subset of VCAs. 
 
 
-Differences across one or more of these factors can lead to different VCA network utilization and performance. In this paper, we aim to dig deeper into some of these differences for a subset of VCAs. 
-
-% use P2P or a relay server. STUN servers used to by pass NAT. TURN servers are used for multi-party calls or when a direct connection cannot be established. In some cases, using a relay server can also improve performance~\cite{via}.
-
-% \textbf{Networking mechanisms}: These include important functions such as congestion control and error correction mechanisms. VCAs have their own proprietary implementations of these mechanisms. 
-
-%\textbf{Application-layer parameters}: 
-
-%\textbf{Video conferencing architecture}: Direct vs relay-based. Also differ in the capabilities of the relaying server. 
-
-
-
-
-% Thus, the logic for congestion control is implemented in the application-layer. Audio and video data are usually transmitted over separate RTP channels. T RTCP is the control channel that provides end-to-end feedback about the network. 
-
-
-
-\subsection{VCA selection} 
-We focus on three popular VCAs, namely \zoom, Google \meet, Microsoft \teams. These VCAs have been used extensively worldwide over the past year, especially in enterprises and educational institutions~\cite{vca_share}. %Table~\ref{tab:vca_overview} provides an overview of the design of the VCAs. 
-Teams and Zoom provide desktop applications as well as browser clients, whereas Meet only has browser clients. Most of our tests are conducted using the desktop applications for Teams and Zoom, and using the Chrome browser for Meet. In-browser tests for Teams and Zoom are specified by \textit{\teamsbrowser} and \textit{\zoombrowser}, respectively. We use Chrome (Meet) version 89.0.4389, Zoom client version 5.6.1, and Teams client version 1.4.00.7556.
-
-% While our analysis focuses on three VCAs, most of our experiment methodology can be extended to other VCAs. We plan to make our code public to facilitate replication to other VCAs.
-
-
-\subsection{Setup}
+\subsection{Experiment Setup} 
 \label{subsec:setup}
+
+\paragraph{Video Conferencing Applications}:
+In this paper, we study three popular VCAs---\zoom, Google \meet, and Microsoft \teams.
+These VCAs have been used extensively worldwide over the past year, especially
+in enterprises and educational institutions~\cite{vca_share}.  Teams and Zoom
+provide desktop applications as well as browser clients, whereas Meet only has
+browser clients. Most of our tests are conducted using the desktop
+applications for Teams and Zoom, and using the Chrome browser for Meet.
+In-browser tests for Teams and Zoom are specified by \textit{\teamsbrowser}
+and \textit{\zoombrowser}, respectively. We use Chrome (Meet) version
+89.0.4389, Zoom client version 5.6.1, and Teams client version 1.4.00.7556.
+
+
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.45\textwidth,keepaspectratio]{methodology/normal-setup.pdf}
-\caption{Setup for 2-person call}
+\caption{Setup for two-client call.}
 \label{fig:static_setup}
 \end{figure}
 
 
-We conduct experiments in a controlled environment.
-We begin by describing our experimental setup for a 2-party call.
-The two client the call are C1 and C2,
-  connected with the topology of Figure~\ref{fig:static_setup}.
-We use two identical Dell Latitude 3300 laptops with a screen resolution of 1366 $\times$ 768 pixels and running Ubuntu 20.04.1. The laptops have a wired connection to a Turris Omnia 2020
-router and access an unconstrained 1-gigabit link to the public Internet.
-Each experiment consists of a call between C1 and C2 under a pre-specified network bandwidth profile and VCA. The bandwidth profile is emulated by shaping on the \textit{C1-router} link using traffic control (\texttt{tc}). A
-pre-recorded talking-head video\footnote{Using the device webcam feed is a non-starter because without movement, VCAs compress the video and ultimately send at a much
-lower rate than during a normal call.} with a resolution of 1280 $\times$ 720 is used as the video source for the call. This is done to both replicate a real video call
-and ensure consistency across experiments. All experiments are conducted with the laptop lid open and the application window maximized. % Run otherwise, the applications may adapt their behavior. [Tarun: not needed]
+\paragraph{Laboratory Environment}:
+We conduct experiments in a controlled environment.  We begin by describing
+our experimental setup for a 2-party call.  The two client the call are C1 and
+C2, connected with the topology of Figure~\ref{fig:static_setup}.  We use two
+identical Dell Latitude 3300 laptops with a screen resolution of 1366 $\times$
+768 pixels and running Ubuntu 20.04.1. The laptops have a wired connection to
+a Turris Omnia 2020 router and access an unconstrained, dedicated 1~Gbps link
+to the Internet.  Each experiment consists of a call between C1 and C2 under a
+pre-specified network bandwidth profile and VCA. The bandwidth profile is
+emulated by shaping on the \textit{C1-router} link using traffic control
+(\texttt{tc}). A pre-recorded talking-head video\footnote{Using the device
+webcam feed is a non-starter because without movement, VCAs compress the video
+and ultimately send at a much lower rate than during a normal call.} with a
+resolution of 1280 $\times$ 720 is used as the video source for the call. This
+is done to both replicate a real video call and ensure consistency across
+experiments. All experiments are conducted with the laptop lid open and the
+application window maximized. 
 
-\begin{figure*}[ht!]
-%\vspace{-2em}
+\begin{figure*}[t!]
 \begin{subfigure}[t]{0.33\textwidth}
     \centering
     \includegraphics[width=\textwidth,keepaspectratio]{figures/static/uplink.pdf}
@@ -103,19 +114,22 @@ and ensure consistency across experiments. All experiments are conducted with th
 \end{figure*}
 %on the laptop and router for uplink and downlink shaping, respectively. During the competition experiments, all shaping occurs at the router.
 
-\paragraph{Automating Calls}: To conduct a large number of experiments, we automated the entire in-call process. %It is crucial that the automated calls are as close to an actual call as possible, as any deviation from real call use may warp results. We take several steps to recreate the in-call process. 
-We use the Python PyAutoGUI package~\cite{pyautogui} to automate joining and leaving calls. The package enables to programmatically control the keyboard and the mouse by specifying coordinates or visual elements on the screen. For \zoombrowser, we encountered CAPTCHA before joining a call on the default browser. Using the Selenium-based Chrome browser~\cite{selenium}, however, enabled us to bypass the CAPTCHA. Note the experiments using Selenium are run exactly as it would be in default Chrome browser. The workflow is controlled from C1, 
-  with TCP sockets used to coordinate between C1 and C2. 
+\paragraph{Automating Experiments}: To conduct experiments at scale, we
+automated the entire in-call process. We take several steps to recreate the
+in-call process.  We use the Python PyAutoGUI package~\cite{pyautogui} to
+automate joining and leaving calls. The package enables to programmatically
+control the keyboard and the mouse by specifying coordinates or visual
+elements on the screen. For \zoombrowser, we encountered CAPTCHA before
+joining a call on the default browser. Using the Selenium-based Chrome
+browser~\cite{selenium}, however, enabled us to bypass the CAPTCHA. Note the
+experiments using Selenium are run exactly as it would be in default Chrome
+browser. The workflow is controlled from C1, with TCP sockets used to
+coordinate between C1 and C2.  We modify this setup slightly for subsequent
+experiments (e.g., multi-party calls); those slight modifications are
+described in the respective sections.
 
 
-
-
-
-The setup is modified for later experiments (e.g., multi-party calls) and the modifications are described in the respective sections.
-
-
-
-
+%%%%%%%%%%%%%%%%%
 
 
 
@@ -133,7 +147,7 @@ The setup is modified for later experiments (e.g., multi-party calls) and the mo
 Most of our analysis is using network bitrate. We consider other application performance metrics when they can be extracted from Google Chrome\footnote{chrome://webrtc-internals}. Our analysis shows that there is a strong correlation between network bitrate and application performance. This is intuitive as real-time streaming is characterized by low latency and thus any network interruptions usually lead to degradation in application performance. 
 
 
-\subsection{Measurement Methodology}
+\subsection{Measurement Method}
   
 The measurement setup consists of several components:
 
@@ -164,4 +178,19 @@ Hardware
     \item Zoom API access (\& limitations?)
     \item control over sockets?
 \end{itemize}
+
+\begin{table*}[t!]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\paragraph{VCA} & \textbf{Platforms}     & \textbf{Encoding} & \textbf{Direct connection?} & \textbf{Network Protocol} \\ \hline
+\hline 
+Meet  & Browser, Phone         & VP9/VP8   & No                 & RTP (WebRTC)     \\ \hline
+Teams & Native, Browser, Phone & VP9       & ?                  & RTP              \\ \hline
+Zoom  & Native, Browser, Phone & H.264 SVC & Yes                & Variation of RTP \\ \hline
+\end{tabular}
+\caption{Design parameters of selected VCAs}
+\label{tab:vca_overview}
+\end{table*}
 \end{comment}
+

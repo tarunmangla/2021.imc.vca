@@ -65,14 +65,37 @@ applications:
         vs. gallery viewing) affect network utilization?
 \end{enumerate}
 \noindent
-We answer these questions by a series of controlled experiments collecting VCA
-performance data under a variety of network conditions and call modalities
-(e.g., number of participants). The collected data show that the answers to
+We explore these questions by performing controlled laboratory experiments
+with emulated network conditions across a collection of clients, collecting
+application performance data using provided application APIs. We collect
+application data under a variety of network conditions and call modalities,
+including different numbers of participants and viewing modes. 
+The collected data show that the answers to
 the questions differ substantially depending on the VCA. Many of the answers
 to these questions surprised us; as we will discover,
 sometimes the answers depend quite a lot on the particular video
 conferencing application. Table~\ref{tab:results} summarizes our main findings
-and where they can be found in the paper.
+and where they can be found in the paper. In particular, we found significant
+differences in network utilization, encoding strategy, and recovery time after
+network disruption. We also discovered that VCAs share available network
+resources with other applications differently. A particularly surprising
+finding was that one participant's
+choice of how to interact in the video conference can affect the network
+utilization of {\em other} participants.
+
+Our findings have broad implications, for network management, as well as for
+policy. For network management, our findings concerning network utilization
+and performance under various network conditions have implications for network
+provisioning, as access ISPs seek to provision home networks to achieve good
+performance for consumers. From a policy perspective, our results are
+particularly important: questions about the throughput needed to support
+quality video conferencing, especially in multi-user households, was a
+question from city government officials that motivated this paper in the first
+place. Looking ahead, as city, state, and federal governments both subsidize
+broadband connectivity and build out new infrastructure, understanding how
+these increasingly popular video conferencing applications consume and share
+network resources is of critical importance.
+
 
 \begin{table}[t]
     \begin{small}
@@ -95,7 +118,7 @@ and where they can be found in the paper.
     \\ \hline
 \end{tabular}
     \end{small}
-    \caption{Main results.\label{tab:results}}
+    \caption{Main results, and where they can be found in the paper.\label{tab:results}}
 \end{table}
 \if 0
 VCAs are unique among Internet applications in terms of their network resource
