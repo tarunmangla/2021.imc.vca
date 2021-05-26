@@ -83,12 +83,12 @@ We first analyze link sharing between each possible pair of the three VCAs for d
 
 The simplest question is how much bandwidth is required for each VCA to achieve its nominal bitrate, on a shared and constrained link.  Recognizing that the FCC's nominal definition of bandwidth (25/3 Mbps) far exceeds the requirements of multiple VCAs in the downstream direction, we focus on the upstream where the official constraint is less generous.  
 
-Figure~\ref{fig:com_ul} presents the results.  We find that 
+Figure~\ref{fig:com_ul} presents the results.  Zoom and Meet plateau around 2~Mbps, while Teams in conjunction with another VCA requires at least 3~Mbps upstream.  Figures for the downstream direction are included in the Appendix, but Meet achieves its nominal performance with a shared link of just 1~Mbps, Zoom, requires 2~Mbps, and within our limited statistics, Teams' downstream consumption does not plateau even at 5 Mbps.
 
 \begin{figure*}
     \centering
-    \includegraphics{figures/comp/ul_competition_all.pdf}
-    \caption{VCA bitrates on a constrained link, shared with other applications.}
+    \includegraphics[width=\linewidth]{figures/comp/ul_competition_all.pdf}
+    \caption{VCA bitrates on a constrained upstream link, shared with other applications.}
     \label{fig:comp_ul}
 \end{figure*}
 
@@ -132,7 +132,7 @@ We find similar results for Zoom and Meet when the downlink is constrained. Howe
 
 
 \subsection{VCA vs TCP-flow}
-We now compare how the three VCAs compete with a 120 seconds long TCP flow from iPerf3. In a home network, a long TCP flow can be created by file download or upload. We find that Meet and Zoom are not TCP-friendly especially at low uplink and downlink capacity. Teams, on the other hand,  is passive and backs-off against a TCP flow in both upstream and downstream even at high link capacity. Figure~\ref{fig:boxplot-iperf} and~\ref{fig:} show how each VCA shares a 2~Mbps downlink and uplink with iPerf3, respectively. Teams is able to use only x\% in uplink and y\% in the downlink. The low upstream throughput for Teams is particularly surprising as it was able to achieve fair contrast to suggesting that the congestion control.  Meet and Teams achieve their nominal bitrate allowing iPerf3 to use rest of the link. 
+We now compare how the three VCAs compete with a 120 seconds long TCP flow from iPerf3. In a home network, a long TCP flow can be created by file download or upload. We find that Meet and Zoom are not TCP-friendly especially at low uplink and downlink capacity. Teams, on the other hand,  is passive and backs-off against a TCP flow in both upstream and downstream even at high link capacity. Figure~\ref{fig:boxplot-iperf} and~\ref{fig:} show how each VCA shares a 2~Mbps downlink and uplink with iPerf3, respectively. Teams is able to use only x\% in uplink and y\% in the downlink. The low upstream throughput for Teams with a TCP flow is particularly surprising as it was able to achieve its fair-share when competing against Meet and Zoom (to a lesser extent). Clearly, all the VCAs are not   contrast to suggesting that the congestion control. Meet and Teams achieve their nominal bitrate allowing iPerf3 to use rest of the link. 
 
 
 In the previous section, Figures \ref{fig:ts_upld} and \ref{fig:ts-dnld} showed how Zoom can send bursts of data for an extended period of time following a network disruption. Figure \ref{fig:zoom-iperf-dl-2} shows how this behavior is also exhibited when in competition with iPerf3. Around XXX seconds, Zoom's increased sending rate causes iPerf3 to abruptly lower its utilization. These temporary bursts seem to adversely affect competing applications. 
