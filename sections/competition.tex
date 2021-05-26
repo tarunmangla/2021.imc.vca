@@ -81,18 +81,14 @@ We repeat each experiment 3 times, with bandwidth shaped symmetrically at levels
 
 We first analyze link sharing between each possible pair of the three VCAs for different shaping level.  
 
-The simplest question is how much bandwidth is required for each VCA to achieve its nominal bitrate, on a shared and constrained link.  Recognizing that the FCC's nominal definition of bandwidth (25/3 Mbps) far exceeds the requirements of multiple VCAs in the downstream direction, we focus on the upstream where the official constraint is less generous.  
-
-Figure~\ref{fig:com_ul} presents the results.  Zoom and Meet plateau around 2~Mbps, while Teams in conjunction with another VCA requires at least 3~Mbps upstream.  Figures for the downstream direction are included in the Appendix, but Meet achieves its nominal performance with a shared link of just 1~Mbps, Zoom, requires 2~Mbps, and within our limited statistics, Teams' downstream consumption does not plateau even at 5 Mbps.
+The simplest question is how much bandwidth is required for each VCA to achieve its nominal bitrate, on a shared and constrained link.  Recognizing that the FCC's nominal definition of bandwidth (25/3 Mbps) far exceeds the requirements of multiple VCAs in the downstream direction, we focus on the upstream where the official constraint is less generous.  Figure~\ref{fig:comp_ul} presents the results.  Zoom and Meet plateau around 2~Mbps, while Teams in conjunction with another VCA requires at least 3~Mbps upstream.  Figures for the downstream direction are included in the Appendix, but Meet achieves its nominal performance with a shared link of just 1~Mbps, Zoom, requires 2~Mbps, and within our limited statistics, Teams' downstream consumption does not plateau even at 5 Mbps.
 
 \begin{figure*}
     \centering
     \includegraphics[width=\linewidth]{figures/comp/ul_competition_all.pdf}
-    \caption{VCA bitrates on a constrained upstream link, shared with other applications.}
+    \caption{VCA bitrates on a constrained upstream link, shared with other applications.  Figure labels (a-c) denote the incumbent application, whose bandwidth is plotted.}
     \label{fig:comp_ul}
 \end{figure*}
-
-We find that both Meet and Zoom are able to achieve their nominal bitrate when the link capacity is 4 Mbps or higher. Teams, \tarun{wait for new results} This is expected as the link capacity exceeds the sum of nominal bitrates of each VCAs
 
 Next, we focus on the region with tighter constraints, and competition between the VCAs. Given that there are only two competing clients, we use the proportion of the link shared as a metric to assess fairness. A VCA is termed as aggressive, if it uses more than half of the link capacity under competition, and passive otherwise. 
 
