@@ -2,9 +2,9 @@
 
 The experiments are conducted in a lab environment but aim to simulate realistic VCA usage. To that end, we use the following setup throughout the experiments.
 
-\textbf{Hardware}: All data is collected on two identical Dell Latitude 3300 laptops running 20.04.1 Ubuntu. The laptops have a resolution of the laptops is 1366 $\times$ 768 pixels. The laptops have a wired connection to a Turris Omnia 2020 router and access an unconstrained gigabit link on the University of Chicago network. 
+\paragraph{Hardware}: All data is collected on two identical Dell Latitude 3300 laptops running 20.04.1 Ubuntu. The laptops have a resolution of the laptops is 1366 $\times$ 768 pixels. The laptops have a wired connection to a Turris Omnia 2020 router and access an unconstrained gigabit link on the University of Chicago network. 
 
-\textbf{Automating Calls}: It is crucial that the automated calls are as close to an actual call as possible, as any deviation from real call use may warp results. We take several steps to recreate the in-call process.
+\paragraph{Automating Calls}: It is crucial that the automated calls are as close to an actual call as possible, as any deviation from real call use may warp results. We take several steps to recreate the in-call process.
 
 All VCAs are tested in their native client unless otherwise indicated. Note, the application's "native client" refers to the Chrome browser for Meet and the desktop applications for Zoom and Teams. In the first set of experiments, we compare browser vs. client utilization for Teams and Zoom. In-browser tests will be specified by \textit{Teams-chrome} or \textit{Zoom-chrome}. 
 
@@ -12,6 +12,6 @@ We use the PyAutoGui and AutoGui Python packages to automate joining and leaving
 
 Finally, we use a 1280 $\times$ 720 pre-recorded talking-head video as the video source during calls to both replicate a real video call and ensure consistency across experiments. Using the webcam feed is a non-starter because without movement, the VCAs compress the video and ultimately send at a much lower rate than during a normal call. 
 
-\textbf{Network Shaping}: We simulate network conditions by configuring traffic control using \texttt{tc} on the laptop and router for uplink and downlink shaping, respectively. During the competition experiments, all shaping occurs at the router.
+\paragraph{Network Shaping}: We simulate network conditions by configuring traffic control using \texttt{tc} on the laptop and router for uplink and downlink shaping, respectively. During the competition experiments, all shaping occurs at the router.
 
-\textbf{Inter-Laptop Communication}: The workflow is controlled with by a wrapper script on laptop 1. Laptop 1 establishes a socket connection with laptop 2 to control automation on laptop 2.
+\paragraph{Inter-Laptop Communication}: The workflow is controlled with by a wrapper script on laptop 1. Laptop 1 establishes a socket connection with laptop 2 to control automation on laptop 2.

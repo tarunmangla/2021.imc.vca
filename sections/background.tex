@@ -1,9 +1,9 @@
 \begin{comment}
-\begin{table*}[ht!]
+\begin{table*}[t!]
 \centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\textbf{VCA} & \textbf{Platforms}     & \textbf{Encoding} & \textbf{Direct connection?} & \textbf{Network Protocol} \\ \hline
+\paragraph{VCA} & \textbf{Platforms}     & \textbf{Encoding} & \textbf{Direct connection?} & \textbf{Network Protocol} \\ \hline
 \hline 
 Meet  & Browser, Phone         & VP9/VP8   & No                 & RTP (WebRTC)     \\ \hline
 Teams & Native, Browser, Phone & VP9       & ?                  & RTP              \\ \hline
@@ -14,13 +14,6 @@ Zoom  & Native, Browser, Phone & H.264 SVC & Yes                & Variation of R
 \end{table*}
 \end{comment}
 \section{Background and Setup}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.45\textwidth,keepaspectratio]{methodology/normal-setup.pdf}
-\caption{Setup for 2-person call}
-\label{fig:static_setup}
-\end{figure}
 
 
 \label{sec:background}
@@ -64,6 +57,13 @@ Teams and Zoom provide desktop applications as well as browser clients, whereas 
 \subsection{Setup}
 \label{subsec:setup}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.45\textwidth,keepaspectratio]{methodology/normal-setup.pdf}
+\caption{Setup for 2-person call}
+\label{fig:static_setup}
+\end{figure}
+
 
 We conduct experiments in a controlled environment.
 We begin by describing our experimental setup for a 2-party call.
@@ -103,7 +103,7 @@ and ensure consistency across experiments. All experiments are conducted with th
 \end{figure*}
 %on the laptop and router for uplink and downlink shaping, respectively. During the competition experiments, all shaping occurs at the router.
 
-\textbf{Automating Calls}: To conduct a large number of experiments, we automated the entire in-call process. %It is crucial that the automated calls are as close to an actual call as possible, as any deviation from real call use may warp results. We take several steps to recreate the in-call process. 
+\paragraph{Automating Calls}: To conduct a large number of experiments, we automated the entire in-call process. %It is crucial that the automated calls are as close to an actual call as possible, as any deviation from real call use may warp results. We take several steps to recreate the in-call process. 
 We use the Python PyAutoGUI package~\cite{pyautogui} to automate joining and leaving calls. The package enables to programmatically control the keyboard and the mouse by specifying coordinates or visual elements on the screen. For \zoombrowser, we encountered CAPTCHA before joining a call on the default browser. Using the Selenium-based Chrome browser~\cite{selenium}, however, enabled us to bypass the CAPTCHA. Note the experiments using Selenium are run exactly as it would be in default Chrome browser. The workflow is controlled from C1, 
   with TCP sockets used to coordinate between C1 and C2. 
 
@@ -120,7 +120,7 @@ The setup is modified for later experiments (e.g., multi-party calls) and the mo
 
 
 \begin{comment}
-\textbf{Performance metrics}: We mainly focus on the following application metrics. 
+\paragraph{Performance metrics}: We mainly focus on the following application metrics. 
 \begin{itemize}
     \item \textbf{Network bitrate}
     \item Video resolution
