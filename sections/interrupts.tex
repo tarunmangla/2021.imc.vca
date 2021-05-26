@@ -34,13 +34,13 @@ is below 1~Mbps.)
 \centering
 \begin{subfigure}[t]{.5\textwidth}
     \centering
-    \includegraphics[width=.8\textwidth,keepaspectratio]{interrupt/Interrupt-upld.pdf}
+    \includegraphics[width=.7\textwidth,keepaspectratio]{interrupt/Interrupt-upld.pdf}
     \caption{Average upstream bitrate over time. Grey region indicates period where uplink capacity is constrained to 0.25 Mbps. Vertical dotted lines indicate when the uplink bitrate has returned to the average.}
     \label{fig:ts_upld}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{.5\textwidth}
       \centering
-    \includegraphics[width=.8\textwidth,keepaspectratio]{interrupt/TTR-upld.pdf}
+    \includegraphics[width=.7\textwidth,keepaspectratio]{interrupt/TTR-upld.pdf}
     \caption{Time to recover.}
     \label{fig:TTR_upld}
 \end{subfigure}
@@ -95,13 +95,13 @@ experience for competing applications.
  \centering
 \begin{subfigure}[t]{.5\textwidth}
    \centering
-    \includegraphics[width=.9\textwidth,keepaspectratio]{interrupt/Interrupt-dnld.pdf}
+    \includegraphics[width=.7\textwidth,keepaspectratio]{interrupt/Interrupt-dnld.pdf}
     \caption{Average downlink bitrate over time. Grey region indicates period where downlink capacity is constrained to 0.25 Mbps. Vertical dotted lines indicate when the dowlink bitrate has returned to the average.}
     \label{fig:ts-dnld}
 \end{subfigure}
 \begin{subfigure}[t]{.5\textwidth}
   \centering
-    \includegraphics[width=.9\textwidth,keepaspectratio]{figures/interrupt/TTR-dnld.pdf}
+    \includegraphics[width=.7\textwidth,keepaspectratio]{figures/interrupt/TTR-dnld.pdf}
     \caption{Time to recover.}
     \label{fig:TTR_dnld}
 \end{subfigure}
@@ -137,7 +137,7 @@ by sending additional layers once the network conditions improve.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.45\textwidth,keepaspectratio]{../figures/interrupt/Interrupt-sender.pdf}
+    \includegraphics[width=0.35\textwidth,keepaspectratio]{../figures/interrupt/Interrupt-sender.pdf}
     \caption{Client 2 (C2) uplink bitrate. Grey region indicates when C1's downlink capacity is reduced to 0.25 Mbps}
     \label{fig:interrupt-sender}
 \end{figure}
@@ -148,15 +148,6 @@ by sending additional layers once the network conditions improve.
     \caption{Setup for competition experiments.}
     \label{fig:competition-setup}
 \end{figure}
-
-
-\begin{comment}
- \begin{figure*}[t]
-    \includegraphics[width=\linewidth]{comp/ul_competition_all.pdf}
-    \caption{Share of upstream link and VCA bitrates for VCAs in competition with other flows, as a function of downlink bitrate cap.}
-	\label{fig:comp_bitrates_ul}
-\end{figure*}
-\end{comment}
 
 
 \begin{figure*}[t!]
@@ -171,7 +162,7 @@ by sending additional layers once the network conditions improve.
         \centering
         \includegraphics[width=1\textwidth]{figures/comp/box_plot_teams_ul_0.5_all.pdf}
         \caption{Teams}
-        \label{fig:teams_ul_box}
+        \label{subfig:teams_ul_box}
     \end{subfigure}
     \begin{subfigure}[t]{.33\textwidth}
         \centering
@@ -179,7 +170,7 @@ by sending additional layers once the network conditions improve.
         \caption{Zoom}
         \label{fig:zoom_ul_box}
     \end{subfigure}
-    \caption{Uplink bitrate of applications in competition with each VCA, with a link shaped symmetrically at 0.5~Mbps.}
+    \caption{Upstream bitrate of applications in competition with each VCA, with a symmetric link capacity of 0.5~Mbps.}
     \label{fig:boxplot-upld}
 \end{figure*}
 
