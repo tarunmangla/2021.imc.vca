@@ -1,13 +1,18 @@
 \section{Static Network Conditions}\label{sec:static}
 
-In this section, we study the effect of network capacity on the VCA
-performance. Each experiment consists of a 2.5-minute call between C1 and C2
-under a specific shaping level. We conduct two sets of experiments, shaping
-first the uplink and then the downlink.  We constrain the bandwidth to \{$0.3,
-0.4, \dots, 1.5, 2, 3, 4, 5, 10$\}~Mbps, and we perform five experiments at
-each level.  We also include the browser clients for \zoom and \teams,
-referred to as \zoombrowser and \teamsbrowser, respectively. This is done to
-understand if there are any platform-related differences. 
+In this section, we study the effect of network capacity on VCA performance.
+To do so, we conduct a series of experiments, each consisting of a 2.5-minute
+call between two clients, C1 and C2 (as described in
+Section~\ref{subsecsec:setup}), under a specific shaping level. We conduct two
+sets of experiments, shaping first the uplink and then the downlink.  We
+constrain throughput to \{$0.3, 0.4, \dots, 1.5, 2, 3, 4, 5, 10$\}~Mbps (in
+each of the upstream and downstream directions, as well as in both
+directions). For each condition, we perform five 2.5-minute experiments; our
+data show that due to relatively low variance in most observations, this
+number of experiments is sufficient to achieve statistically significant
+results.  For \zoom and \teams clients, we perform measurements both for
+native clients as well as for browser-based clients, referred
+to as \zoombrowser and \teamsbrowser, respectively. 
 
 %% experiment setup
 %% what is the experiment duration 
@@ -19,7 +24,16 @@ understand if there are any platform-related differences.
 
 \subsection{Network Utilization}
 \label{subsec:network_utilization}
-\paragraph{Uplink shaping}: Figure~\ref{subfig:uplink_bitrate} shows the median sent network bitrate at different uplink shaping levels. The bands represent the 90\% confidence intervals. We find differences in uplink network utilization among VCAs for the same shaping levels. For unconstrained uplink (10 Mbps), the average uplink utilization for \teamsnative is $1.44$ Mbps whereas it is only $0.95$ for \meet and $0.77$ Mbps for \zoom. All three VCAs utilize the uplink efficiently (above 85\%) when that link is constrained (0.8 Mbps or lower).  Nevertheless, \meet's bitrate is slightly higher than the other VCAs.  
+
+\paragraph{Constrained uplink}: Figure~\ref{subfig:uplink_bitrate} shows the
+median sent network bitrate for different upstream capacities. The bands
+represent 90\% confidence intervals. We observe differences in uplink network
+utilization among VCAs given the same available upstream network capacity. In
+the case of a 10~Mbps uplink, for example, the average uplink utilization for
+\teamsnative is $1.44$ Mbps whereas it is only $0.95$ for \meet and $0.77$
+Mbps for \zoom. All three VCAs utilize the uplink efficiently (above 85\%)
+when that link is constrained (0.8 Mbps or lower), although \meet's
+bitrate is slightly higher than the other VCAs.  
 
 \begin{table}[t]
 \centering
@@ -86,20 +100,53 @@ Zoom                          & 0.78                     & 0.95                 
 
 
 
-\paragraph{Downlink shaping}: We next analyze the effect of downlink shaping
-on VCAs' network utilization as shown in Figure~\ref{subfig:downlink_bitrate}.
-Similar to uplink shaping, the VCAs differ in terms of their downlink
+\paragraph{Constrained downlink}: We explored the effect of constrained
+downstream capacity
+on VCAs' network utilization. Figure~\ref{subfig:downlink_bitrate} shows this
+result.
+As with a constrained uplink, the VCAs differ in terms of their downlink
 utilization under unconstrained link. The unconstrained downlink utilization
-is also different from the uplink counterpart as shown in
-Table~\ref{tab:vca_static}. To understand this, we analyze the traffic
-captured on both C1 and C2. For \teams, we found that the sent traffic on C1
-is almost same as the received traffic on C2 and vice versa. Thus, the
-differences may largely be due to the variability across runs in \teams as is
-also evident in the larger confidence intervals compared to \zoom and \meet. 
+differs from unconstrained uplink utilization, as shown in
+Table~\ref{tab:vca_static}. To better understand this phenomenon, we analyzed the traffic
+captured from both clients. 
 
-For \zoom, we found an asymmetry in sent and received data on both C1 and C2. For instance, in a single instance with 10 Mbps downlink shaping, C2 sent a median 0.85 Mbps and C1 received a median 1.10 Mbps. We analyze the traffic source and find that \zoom uses a relay server instead of direct communication. Related work by Nistico et al.~\cite{nistico2020comparative} suggests that \zoom uses Forward Error Correction (FEC) for error recovery. This is further supported by a related patent from \zoom itself, which talks about a methodology to generate FEC data at the server~\cite{liu2019error}. Thus, the extra data may correspond to FEC data added by the relay server leading to asymmetric uplink and downlink utilization.  
+In the case of \teams, we found that the sent traffic from C1
+is almost same as the received traffic at C2, and vice versa. 
+We suspect the small
+differences in upstream and downstream utilization may largely be due to the
+variability in utilization across experiments in \teams, as is
+also evident in the larger confidence intervals as compared to \zoom and \meet. 
 
-For \meet, in addition to the asymmetric unconstrained utilization, the behavior under constrained links is also markedly different. Specifically, the network utilization under constrained downlink (< 0.8 Mbps) is only 39\%-70\% (Figure~\ref{subfig:downlink_bitrate}), while it is more than $90\%$ in the case of uplink shaping (Figure~\ref{subfig:uplink_bitrate}). Digging deeper, we find that \meet also uses a relay server. In addition, it uses \textit{simulcast} wherein the sender (C2) transmits multiple copies of the video to the server, each at a different quality level~\cite{nistico2020comparative}. The server then relays one of the quality stream to C1 depending on the inferred available capacity of the server-C1 link. We observe two simultaneous video streams in our experiments, one at 320x180 and other at 640x360 resolution. For constrained link, the relay server still can't switch to a higher quality video and keeps sending at low quality bitrate. This explains why \meet's network utilization at 0.5 Mbps is only 0.19 Mbps, almost similar to its utilization at 0.3 Mbps.  The use of \textit{simulcast} also explains the higher uplink utilization compared to downlink. %To further validate it, we plot the utilization at 
+In contrast, \zoom's utilization patterns were asymmetric: we found an
+asymmetry in sent and received data rates at both clients. For instance, in a
+single instance with 10~Mbps downlink shaping, C2 sent a median 0.85~Mbps and
+C1 received a median 1.10 Mbps. Investigating this asymmetry further, we
+discovered an interesting phenomenon: We found that \zoom uses a relay server
+instead of direct communication. Additionally, related work by Nistico et
+al.~\cite{nistico2020comparative} suggests that \zoom uses Forward Error
+Correction (FEC) for error recovery. This is further supported by a related
+patent from \zoom itself, which talks about a methodology to generate FEC data
+at the server~\cite{liu2019error}. We suspect that the extra data may thus
+correspond to FEC added by the relay server, leading to asymmetric uplink and
+downlink utilization.  
+
+For \meet, in addition to the asymmetric unconstrained utilization, the
+behavior under constrained links is also markedly different. Specifically, the
+network utilization under constrained downlink (< 0.8 Mbps) is only 39\%-70\%
+(Figure~\ref{subfig:downlink_bitrate}), while it is more than $90\%$ in the
+case of uplink shaping (Figure~\ref{subfig:uplink_bitrate}). Digging deeper,
+we find that \meet also uses a relay server. In addition, it uses
+\textit{simulcast} wherein the sender (C2) transmits multiple copies of the
+video to the server, each at a different quality
+level~\cite{nistico2020comparative}. The server then relays one of the quality
+stream to C1 depending on the inferred available capacity of the server-C1
+link. We observe two simultaneous video streams in our experiments, one at
+320x180 and other at 640x360 resolution. For constrained link, the relay
+server still can't switch to a higher quality video and keeps sending at low
+quality bitrate. This explains why \meet's network utilization at 0.5 Mbps is
+only 0.19 Mbps, almost similar to its utilization at 0.3 Mbps.  The use of
+\textit{simulcast} also explains the higher uplink utilization compared to
+downlink. %To further validate it, we plot the utilization at 
 
 % The network utilization of \teams is also lower during downlink shaping, compared to uplink utilization. While, it is not clear \zoom, on the other hand, uses a scalable video coding (SVC), wherein the video is encoded at multiple hierarchical layers at the sender. The server now can construct multiple versions of the video by using a subset of layers. \teams, on the other hand, uses the server as a true relay server without any congestion control at the sender. 
 
