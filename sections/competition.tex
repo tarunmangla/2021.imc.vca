@@ -64,7 +64,7 @@ With work and school continuing online, it is more common now to have multiple a
 \end{figure}
 
 
-\noindent \textbf{Methodology}: As illustrated in Figure \ref{fig:competition-setup}, the setup for these experiments differs slightly from earlier ones. 
+\noindent \textbf{Method}: As illustrated in Figure \ref{fig:competition-setup}, the setup for these experiments differs slightly from earlier ones. 
 Instead of connecting the client directly to the router, the two matched clients, C1 and F1, are connected to the router via a switch. 
 The link between the switch and the router is shaped by the router. For each test, C1 first establishes a VCA call with C2.
 Approximately 30 seconds later, F1 initiates a competing application, which lasts for two minutes.
@@ -75,7 +75,7 @@ If the competing flow is an iPerf3\footnote{The iPerf3 server uses TCP CUBIC and
 After the competing flow terminates, the incumbent flow continues for an additional minute.
 We repeat each experiment 3 times, with bandwidth shaped symmetrically at levels of \{0.5, 1, 2, 3, 4, 5\}~Mbps.
 
-\subsection{VCA vs VCA}
+\subsection{VCA vs. VCA}
 
 
 
@@ -127,8 +127,22 @@ We find similar results for Zoom and Meet when the downlink is constrained. Howe
 \end{figure}
 
 
-\subsection{VCA vs TCP-flow}
-We now compare how the three VCAs compete with a 120 seconds long TCP flow from iPerf3. In a home network, a long TCP flow can be created by file download or upload. We find that Zoom is highly aggressive,  especially at low uplink and downlink capacity, consuming more than 75\% of the bandwidth under a symmetric 0.5~Mbps link. Meet is TCP-friendly in the uplink direction but not in the downlink, consuming $75\%$ of the bandwidth at 0.5~Mbps downlink (figures omitted due to lack of space). Teams, on the other hand, is passive and backs-off against a TCP flow in both upstream and downstream even at high link capacity. Figure~\ref{subfig:boxplot-iperf-ul} and~\ref{subfig:boxplot-iperf-dl} show how each VCA shares a 2~Mbps downlink and uplink with iPerf3, respectively. Teams is able to use 37\% in uplink and only 20\% in the downlink even at 2~Mbps. The low upstream throughput for Teams with a TCP flow is particularly surprising as it was able to achieve its fair-share when competing against (more aggressive) Meet and Zoom (see~\Figure~\ref{subfig:teams_ul_box}). Meet and Teams achieve their nominal bitrate allowing iPerf3 to use rest of the link. Clearly, all the VCAs are not TCP CUBIC-friendly with Meet and Zoom being more aggressive and Teams being highly passive. 
+\subsection{VCA vs. TCP}
+
+We now compare how the three VCAs compete with a 120 seconds long TCP flow
+from iPerf3. In a home network, a long TCP flow can be created by file
+download or upload. We find that Zoom is highly aggressive,  especially at low
+uplink and downlink capacity, consuming more than 75\% of the bandwidth under
+a symmetric 0.5~Mbps link. Meet is TCP-friendly in the uplink direction but
+not in the downlink, consuming $75\%$ of the bandwidth at 0.5~Mbps downlink
+(figures omitted due to lack of space). Teams, on the other hand, is passive
+and backs-off against a TCP flow in both upstream and downstream even at high
+link capacity. Figure~\ref{subfig:boxplot-iperf-ul}
+and~\ref{subfig:boxplot-iperf-dl} show how each VCA shares a 2~Mbps downlink
+and uplink with iPerf3, respectively. Teams is able to use 37\% in uplink and
+only 20\% in the downlink even at 2~Mbps. The low upstream throughput for
+Teams with a TCP flow is particularly surprising as it was able to achieve its
+fair-share when competing against (more aggressive) Meet and Zoom, as shown in Figure~\ref{subfig:teams_ul_box}). Meet and Teams achieve their nominal bitrate allowing iPerf3 to use rest of the link. Clearly, all the VCAs are not TCP CUBIC-friendly with Meet and Zoom being more aggressive and Teams being highly passive. 
 
 
 \textbf{Anomalous Zoom Bursts}: In the previous section, Figures \ref{fig:ts_upld} and \ref{fig:ts-dnld} showed how Zoom can send bursts of data for an extended period of time following a network disruption. Figure \ref{fig:zoom-iperf-dl-2} shows how this behavior is also exhibited when in competition with iPerf3. At about 125 seconds, Zoom's increased sending rate causes iPerf3 to abruptly lower its utilization. This confirms that the temporary bursts in Zoom, likely for inferring available bandwidth, can adversely affect other applications on a scare link. 
@@ -151,7 +165,7 @@ We now compare how the three VCAs compete with a 120 seconds long TCP flow from 
 \caption{Netflix and Zoom competition on a 0.5~Mbps capacity link.}
 \label{fig:comp_netflix_zoom}
 \end{figure}
-\subsection{VCA vs video streaming}
+\subsection{VCA vs. Video Streaming}
 We also compared VCAs link share against video streaming applications, which are bandwidth intensive downstream. We consider Netflix and YouTube for this analysis. Note that YouTube uses QUIC, a UDP-based transport protocol, which is known to be TCP friendly under some configurations. The goal of this was to understand if there were any differences in VCA's link sharing with applications implemented over TCP or TCP-friendly protocols. We did not find significant deviations from iPerf3 in the downstream. Both Meet and Zoom are highly aggressive, using over $75\%$ of the link capacity while Teams uses less than $25\%$ while competing with YouTube and Netflix at 0.5 Mbps.
 We illustrate this in Figure~\ref{subfig:comp_zoom_netflix_bitrate} when a Netflix client competes with an incumbent Zoom client at 0.5 Mbps downlink capacity. Clearly, Zoom achieves an average throughput around 0.4 Mbps while Netflix struggles to reach more than 0.1 Mbps. This is despite Netflix is known to using multiple TCP connections, especially under constrained bandwidth. Figure~\ref{subfig:comp_netflix_conn} shows the TCP connections opened by Netflix during the 120 seconds competition. In total, there are 28 TCP connections with greater than 100 Kbits of data and almost 11 parallel TCP connections at a point. Clearly, It is clear that opening many TCP connections does not improve link sharing for Netflix while competing with Zoom. 
 
