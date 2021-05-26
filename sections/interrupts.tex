@@ -39,7 +39,7 @@ is below 1~Mbps.
     \caption{The time to recover to average sending bitrate following a drop to the indicated uplink shaping level.}
     \label{fig:TTR_upld}
 \end{subfigure}
-\caption{VCA response to a 30s drop in available uplink capacity}
+\caption{VCA response to a 30s drop in uplink capacity}
 \label{fig:interrupt-upld}
 \end{figure}
 
@@ -79,7 +79,7 @@ until two minutes after the disruption, in the meantime sending at much higher
 rates. At first glance, such probing might appear to be bad design as it could
 introduce additional packet loss and delay harming both Zoom's own performance
 and the performance of other applications.  We believe, however, that Zoom may
-be using redundant FEC packets to gauge available bandwidth similar to the
+be using redundant FEC packets to gauge capacity similar to the
 FBRA congestion control proposed by Nagy et al.~\cite{nagy2014congestion}.
 Thus, even if such behavior induces packet loss, the user performance may not
 suffer. Nevertheless, this inefficient use of the uplink, however, could
@@ -100,7 +100,7 @@ experience for competing applications.
     \caption{The time to recover to average receiving bitrate following a drop to the indicated downlink shaping level.}
     \label{fig:TTR_dnld}
 \end{subfigure}
-\caption{VCA response to a 30s drop in available downlink capacity.}
+\caption{VCA response to a 30s drop in downlink capacity.}
 \label{fig:interrupt-dnld}
 \end{figure}
 
@@ -164,7 +164,7 @@ Similarly, Zoom uses \textit{scalable video coding} when transmitting video~\cit
 
 
 
-While the intermediary server for Zoom and Meet does congestion control, it only acts as a relay for Teams. During a Teams call, C2 will recognize C1 has limited downlink capacity and adjust its behavior, sending at only the bitrate it knows C1 can handle. Once C1 has more available bandwidth, however, C2 must first probe the connection before returning to its average sending rate. Figure \ref{fig:interrupt-sender} illustrates how C2's sending rate does not change during a Meet call, but drops below the shaping threshold during a Teams call, leading to the slow recovery.
+While the intermediary server for Zoom and Meet does congestion control, it only acts as a relay for Teams. During a Teams call, C2 will recognize C1 has limited downlink capacity and adjust its behavior, sending at only the bitrate it knows C1 can handle. Once C1's capacity increases, however, C2 must first probe the connection before returning to its average sending rate. Figure \ref{fig:interrupt-sender} illustrates how C2's sending rate does not change during a Meet call, but drops below the shaping threshold during a Teams call, leading to the slow recovery.
 
 
 In terms of how efficiently each VCA uses the constrained link, Zoom's downlink and uplink bitrate stays at the shaping level while Meet and Teams fall even lower than the shaping level. Zoom's efficient network utilization may be an artifact of its encoding mechanisms, wherein it can more effectively control the encoding parameters (e.g., svc-encoded layers, FPS, resolution etc.) to match the target bitrate.  

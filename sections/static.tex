@@ -143,7 +143,7 @@ further exploration, we discovered that
 \textit{simulcast}, wherein the sender (C2) transmits multiple copies of the
 video to the server, each at a different quality
 level~\cite{nistico2020comparative}. The server then relays one of the quality
-stream to C1 depending on the inferred available capacity of the server-C1
+streams to C1 depending on the inferred available capacity of the server-C1
 link. We observe two simultaneous video streams in our experiments, one at
 320x180 and other at 640x360 resolution. When downstream throughput is
 constrained, the relay
@@ -192,7 +192,7 @@ throughput is constrained.
 \label{subsec:application_performance}
 
 Next, we explore how video conference application performance varies depending
-on available network capacity.  To do so, we rely on the WebRTC stats API
+on network capacity.  To do so, we rely on the WebRTC stats API
 available in Google Chrome to obtain application metrics for \teamsbrowser and
 \meet~\cite{webrtc_stats}. We could not obtain the same statistics for
 \zoombrowser as it uses DataChannels instead of RTP MediaStream in WebRTC to
