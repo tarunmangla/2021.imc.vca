@@ -5,17 +5,17 @@ With work and school continuing online, it is more common now to have multiple a
 
 \begin{figure}[t!]
 \centering
-\begin{subfigure}[t]{.5\textwidth}
+\begin{subfigure}[t]{.35\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{comp/zoom_vs_zoom_0_5.pdf}
     \caption{Zoom}
-    \label{fig:zoom_box_1}
+    \label{subfig:zoom_zoom_0_5}
 \end{subfigure}\hfill
-\begin{subfigure}[t]{.5\textwidth}
+\begin{subfigure}[t]{.35\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{figures/comp/meet_vs_meet_0_5.pdf}
     \caption{Meet}
-    \label{fig:zoom_box_1}
+    \label{subfig:meet_meet_0_5}
 \end{subfigure}
 \caption{Upstream utilization of competition between Zoom/Zoom and Meet/Meet}
 \label{fig:meet-zoom-upld-0.5}
@@ -25,19 +25,19 @@ With work and school continuing online, it is more common now to have multiple a
 \centering
 \begin{subfigure}[t]{.33\textwidth}
     \centering
-    \includegraphics[width=1\textwidth]{figures/comp_all/box_plot_meet_dl_0.5_all.pdf}
+    \includegraphics[width=1\textwidth]{figures/comp/box_plot_meet_dl_0.5_all.pdf}
     \caption{Meet}
     \label{fig:meet-dl-boxplot-0.5}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{.33\textwidth}
     \centering
-    \includegraphics[width=1\textwidth]{figures/comp_all/box_plot_teams_dl_0.5_all.pdf}
+    \includegraphics[width=1\textwidth]{figures/comp/box_plot_teams_dl_0.5_all.pdf}
     \caption{Teams}
     \label{fig:teams-dl-boxplot-0.5}
 \end{subfigure}
 \begin{subfigure}[t]{.33\textwidth}
     \centering
-    \includegraphics[width=1\textwidth]{figures/comp_all/box_plot_zoom_dl_0.5_all.pdf}
+    \includegraphics[width=1\textwidth]{figures/comp/box_plot_zoom_dl_0.5_all.pdf}
     \caption{Zoom}
     \label{fig:zoom-dl-boxplot-0.5}
 \end{subfigure}
@@ -67,13 +67,13 @@ With work and school continuing online, it is more common now to have multiple a
 \noindent \textbf{Methodology}: As illustrated in Figure \ref{fig:competition-setup}, the setup for these experiments differs slightly from earlier ones. 
 Instead of connecting the client directly to the router, the two matched clients, C1 and F1, are connected to the router via a switch. 
 The link between the switch and the router is shaped by the router. For each test, C1 first establishes a VCA call with C2.
-Approximately 30 seconds later, F1 establishes a competing flow, which lasts for two minutes.
+Approximately 30 seconds later, F1 initiates a competing application, which lasts for two minutes.
 F1's counter-party, F2, depends on the type of flow.
 If the competing flow is a VCA call, then F2 is another consumer laptop.
 If the competing flow is an iPerf3 (TCP) flow, then F2 is a server on the same network,
   and if the flow is Netflix or Youtube, then F2 is a server for the respective service. Netflix and Youtube are launched directly in Chrome via \texttt{xdg-open}.
 After the competing flow terminates, the incumbent flow continues for an additional minute.
-We repeat each experiment with bandwidth shaped symmetrically at \{0.5, 1, 2, 3, 4, 5\}~Mbps.
+We repeat each experiment 3 times, with bandwidth shaped symmetrically at levels of \{0.5, 1, 2, 3, 4, 5\}~Mbps.
 
 \subsection{VCA vs VCA}
 
@@ -96,18 +96,11 @@ We repeat each experiment with bandwidth shaped symmetrically at \{0.5, 1, 2, 3,
 \label{fig:comp_netflix_zoom}
 \end{figure}
 
-We first analyze link sharing between each possible pair of the three VCAs under different symm  
-We find that VCAs are able to achieve their nominal bitrate when the link capacity is 4 Mbps or higher. This is expected as the link capacity exceeds the sum of nominal bitrates of each VCAs. We then focus on the region, when the link capacity is lower, leading to competition between the VCAs. Given that there are only two competing clients, we use the proportion of the link shared as a metric to assess fairness. A VCA is termed as aggressive, if it uses more than half of the link capacity under competition, and passive otherwise.
+We first analyze link sharing between each possible pair of the three VCAs for different shaping levels. We find that both Meet and Zoom are able to achieve their nominal bitrate when the link capacity is 4 Mbps or higher. Teams, \tarun{wait for new results} This is expected as the link capacity exceeds the sum of nominal bitrates of each VCAs. We then focus on the region, when the link capacity is lower, leading to competition between the VCAs. Given that there are only two competing clients, we use the proportion of the link shared as a metric to assess fairness. A VCA is termed as aggressive, if it uses more than half of the link capacity under competition, and passive otherwise. 
 
+Looking first at the uplink, we observe differences in how each VCA shares the link. Figure~\ref{fig:boxplot-upld} shows a box plot of the upstream share of an incumbent VCA and a competing VCA when the uplink capacity is 0.5~Mbps.  We find that an incumbent Meet client shares the link fairly with a new Meet or Teams client but backs off when a Zoom client joins (see Figure~\ref{subfig:meet_ul_box}). The results are similar for Teams except it receives a slightly higher share while competing with Zoom compared to Meet. Interestingly, Zoom is highly aggressive, both as an incumbent and a competing application, using at least $75\%$ of the link capacity in the case it is an incumbent client (see Figure~\ref{subfig:zoom_ul_box}). In fact, Zoom's congestion control is not even fair to itself. Figure~\ref{subfig:meet_meet_0_5} illustrates this more clearly with the link sharing between two Zoom clients for a single experiment under 0.5~Mbps uplink capacity. We contrast this with the link sharing between two Meet clients in Figure~\ref{subfig:} where both converge to their fair share of 0.25 Mbps. The results are similar for other uplink capacity with aggressive applications leaving more room for new clients if they achieve their nominal bitrate.  % Clearly, the incumbent Zoom client does not give much room for the   We show the  suggesting that the incumbent Zoom application prioritizes itself regardless of the competing application. 
 
-% To study how VCAs compete, the shared link capacity must be less than a threshold defined by each application's nominal bitrate. Using Figure \ref{fig:competition-setup}, let the bottleneck bandwidth be $B$ and C1 and F1's nominal bitrate be $b_1$ and $b_2$, respectively. If $B > b_1 + b_2$, then there is enough bandwidth for both applications to operate at their nominal bitrate. When $B < b_1 + b_2$, the applications must compete over limited bandwidth. We define fairness in competition to be when an application uses half of the available bandwidth. We say that an application is aggressive if it uses more than half and passive if it uses less. 
-
-
-When there are simultaneous VCAs on the same network, there will be competition on both the uplink and downlink.
-Looking first at the uplink, we observe differences in how each VCA shares the link. Figure \ref{fig:boxplot-upld} shows how Meet and Teams tend to share the link fairly with all other VCAs while Zoom aggressively consumes close to $75\%$ of the available bandwidth. Interestingly, Zoom even behaves unfairly with other Zoom flows, suggesting that the incumbent Zoom application prioritizes itself regardless of the competing application. 
-
-
-Turning to downlink sharing, Meet and Teams no longer consistently behave fairly. Meet consumes over $75\%$ of the downlink bandwidth when competing with Teams. Conversely, Teams backs off when competing with Meet and Zoom. This asymmetrical response is exemplified in Figure X, which compares how Teams competes with Meet on the uplink vs. the downlink. 
+We find similar results for Zoom and Meet when the downlink is constrained. However, we find that Teams is highly passive in the downlink, backing off to all the VCAs including itself. Figure~\ref{} shows the link share of an incumbent Teams client compared to the competing VCA under 0.5 Mbps downlink capacity. Teams is able to utilize only 20\% of the link share with Meet and Zoom. We find similar behavior at other downlink capacities. Figure~\ref{} illustrates how link between Zoom and Teams under  two inconsistencies: i) Meet is more aggressive under constrained downlink Turning to downlink sharing, Meet and Teams no longer consistently behave fairly. Meet consumes over $75\%$ of the downlink bandwidth when competing with Teams. Conversely, Teams backs off when competing with Meet and Zoom. This asymmetrical response is exemplified in Figure X, which compares how Teams competes with Meet on the uplink vs. the downlink. 
 
 
 
@@ -115,33 +108,34 @@ The way each VCA shares the link with other applications is made clear in Figure
 
 \begin{figure}[t!]
 \centering
-\begin{subfigure}[t]{.23\textwidth}
+\begin{subfigure}[t]{.4\textwidth}
     \centering
-    \includegraphics[width=1\textwidth]{figures/comp_all/box_plot_iperf_dl_2.0_all.pdf}
+    \includegraphics[width=1\textwidth]{figures/comp/box_plot_iperf_dl_2.0_all.pdf}
     \caption{Downlink}
     \label{fig:boxplot-iperf-dl}
 \end{subfigure}\hfill
-\begin{subfigure}[t]{.23\textwidth}
+\begin{subfigure}[t]{.4\textwidth}
     \centering
-    \includegraphics[width=1\textwidth]{figures/comp_all/box_plot_iperfup_ul_2.0_all.pdf}
+    \includegraphics[width=1\textwidth]{figures/comp/box_plot_iperfup_ul_2.0_all.pdf}
     \caption{Uplink}
     \label{subfig:boxplot-iperf-ul}
 \end{subfigure}
-\caption{iPerf3 link sharing with VCAs}
+\caption{iPerf3 link sharing with VCAs at 2 Mbps}
 \label{fig:boxplot-iperf}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[th]
     \centering
     \includegraphics[width=\linewidth]{figures/comp/zoom_vs_iperf_2_down.pdf}
     \caption{Example of how Zoom probing can adversely affect competing applications}
 	\label{fig:zoom-iperf-dl-2}
 \end{figure}
 
-\subsection{VCA vs TCP-flow}
-We now compare how the three VCAs compete with a TCP flow. We use an iPerf3 server using TCP CUBIC and situated within the same network (RTT ~2ms) to generate the competing TCP traffic. Figure~\ref{} shows the boxplot of . Note that in all these experiments . We find two differences, Meet is even more aggressive compared to TCP during downlink competition. Teams backs off during uplink competition. Zoom behaves similarly in both directions.  
 
-In the previous section, Figures \ref{fig:ts_upld} and \ref{fig:ts-dnld} showed how Zoom can send bursts of data for an extended period of time following a network disruption. Figure X shows how this behavior is also exhibited when in competition with iPerf3. Around XXX seconds, Zoom's increased sending rate causes iPerf3 to abruptly lower its utilization. These temporary bursts seem to adversely affect competing applications. 
+\subsection{VCA vs TCP-flow}
+We now compare how the three VCAs compete with a TCP flow. We use an iPerf3 server using TCP CUBIC and situated within the same network (RTT ~2ms) to generate the competing TCP traffic. Figure~\ref{fig:boxplot-iperf} shows how each application shares downlink and uplink with iPerf3. Note that in all these experiments . We find two differences, Meet is even more aggressive compared to TCP during downlink competition. Teams backs off during uplink competition. Zoom behaves similarly in both directions.  
+
+In the previous section, Figures \ref{fig:ts_upld} and \ref{fig:ts-dnld} showed how Zoom can send bursts of data for an extended period of time following a network disruption. Figure \ref{fig:zoom-iperf-dl-2} shows how this behavior is also exhibited when in competition with iPerf3. Around XXX seconds, Zoom's increased sending rate causes iPerf3 to abruptly lower its utilization. These temporary bursts seem to adversely affect competing applications. 
 
 
 \subsection{VCA vs video streaming}
@@ -165,11 +159,7 @@ On the other hand, Zoom does not lower its consumption, preventing Netflix from 
 
 
 \begin{comment}
-    \begin{figure}[th]
-    \includegraphics[width=\linewidth]{comp/netflix_time_series.pdf}
-    \caption{Teams downlink bitrate when competing against non-VCA applications}
-	\label{fig:ts_comp_netflix}
-\end{figure}
+
   
 Unlike VCAs, which can not buffer, the average bitrate of video streaming applications can change drastically over time. Figure \ref{fig:ts_zoom_netflix} shows how Netflix and each VCA interact over the course of the experiment. Each interaction is characterized uniquely by a given VCA. \jamie{I would move this up, to part of an `illustration.'}
 
@@ -192,6 +182,11 @@ Netflix also buffers when competing against Teams. But soon as Netflix is launch
 % \end{figure}
 
 \begin{comment}
+% To study how VCAs compete, the shared link capacity must be less than a threshold defined by each application's nominal bitrate. Using Figure \ref{fig:competition-setup}, let the bottleneck bandwidth be $B$ and C1 and F1's nominal bitrate be $b_1$ and $b_2$, respectively. If $B > b_1 + b_2$, then there is enough bandwidth for both applications to operate at their nominal bitrate. When $B < b_1 + b_2$, the applications must compete over limited bandwidth. We define fairness in competition to be when an application uses half of the available bandwidth. We say that an application is aggressive if it uses more than half and passive if it uses less. 
+
+% When there are simultaneous VCAs on the same network, there will be competition on both the uplink and downlink.
+
+
 Immediately noticeable is the consistency at which Meet reaches a stable bitrate.%\jamie{awkward} 
 Once the link capacity reaches 1~Mbps, Meet's downlink bitrate does not increase with any further link capacity increases. Similarly, Zoom's downlink bitrate peaks at 1 Mbps, which it reaches once the link capacity is 2 Mbps. However, we observe that Teams is far less efficient in sharing the link with competing VCAs. Teams fails to reach a stable downlink bitrate, even when the link is not saturated. In Figure \ref{fig:comp_bitrates_dl}b, we see that Teams has an average downlink bitrate under 1 Mbps when competing against Zoom on a 3 Mbps link. 
 We illustrate the basic setup in Figure~\ref{fig:ts_comp_netflix}, 
