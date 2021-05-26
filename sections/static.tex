@@ -2,7 +2,7 @@
 
 In this section, we study the effect of network capacity on VCA performance.
 To do so, we conduct a series of experiments, each consisting of a 2.5-minute
-call between two clients, C1 and C2 (as described in
+call between two clients C1 and C2 (as described in
 Section~\ref{subsecsec:setup}), under a specific shaping level. We conduct two
 sets of experiments, shaping first the uplink and then the downlink.  We
 constrain throughput to \{$0.3, 0.4, \dots, 1.5, 2, 3, 4, 5, 10$\}~Mbps (in
@@ -33,7 +33,7 @@ the case of a 10~Mbps uplink, for example, the average uplink utilization for
 \teamsnative is $1.44$ Mbps whereas it is only $0.95$ for \meet and $0.77$
 Mbps for \zoom. All three VCAs utilize the uplink efficiently (above 85\%)
 when that link is constrained (0.8 Mbps or lower), although \meet's
-bitrate is slightly higher than the other VCAs.  
+bitrate is slightly higher than the other VCAs'.  
 
 \begin{table}[t]
 \centering
@@ -42,7 +42,7 @@ bitrate is slightly higher than the other VCAs.
 \multirow{2}{*}{\textbf{VCA}} & 
     \multicolumn{2}{c|}{{\bf Utilization (Mbps)}} \\ 
     \cline{2-3} 
-                              & Uplink                   & Downlink                  \\ \hline
+                              & Upstream                   & Downstream                  \\ \hline
 Meet                          & 0.95                     & 0.84                      \\ 
 Teams                         & 1.40                      & 1.86                      \\ 
 Zoom                          & 0.78                     & 0.95                      \\ \hline
@@ -141,7 +141,7 @@ video to the server, each at a different quality
 level~\cite{nistico2020comparative}. The server then relays one of the quality
 stream to C1 depending on the inferred available capacity of the server-C1
 link. We observe two simultaneous video streams in our experiments, one at
-320x180 and other at 640x360 resolution. For constrained link, the relay
+320x180 and other at 640x360 resolution. For a constrained link, the relay
 server still can't switch to a higher quality video and keeps sending at low
 quality bitrate. This explains why \meet's network utilization at 0.5 Mbps is
 only 0.19 Mbps, almost similar to its utilization at 0.3 Mbps.  The use of
@@ -151,7 +151,7 @@ downlink. %To further validate it, we plot the utilization at
 % The network utilization of \teams is also lower during downlink shaping, compared to uplink utilization. While, it is not clear \zoom, on the other hand, uses a scalable video coding (SVC), wherein the video is encoded at multiple hierarchical layers at the sender. The server now can construct multiple versions of the video by using a subset of layers. \teams, on the other hand, uses the server as a true relay server without any congestion control at the sender. 
 
 
-\paragraph{Effect of device platform}: Figure~\ref{subfig:uplink_browser} compares the uplink utilization of \zoom and \teams between their native and Chrome client. While, the utilization of \zoom matches on both the platforms, we find significant difference between \teams native and browser client. At 1 Mbps uplink, \teams-native client utilizes 0.84 Mbps, whereas \teamsbrowser utilizes only 0.61 Mbps. We found a similar difference between \teams-native and \teamsbrowser under downlink shaping. This suggests that VCA implementation can differ across platforms leading to different network and application behavior. 
+\paragraph{Effect of device platform}: Figure~\ref{subfig:uplink_browser} compares the uplink utilization of \zoom and \teams between their native and Chrome client. While, the utilization of \zoom matches on both the platforms, we find a significant difference between \teams native and browser client. At 1 Mbps uplink, \teams-native client utilizes 0.84 Mbps, whereas \teamsbrowser utilizes only 0.61 Mbps. We found a similar difference between \teams-native and \teamsbrowser under downlink shaping. This suggests that VCA implementation can differ across platforms leading to different network and application behavior. 
 
 
 \begin{figure}[t]
