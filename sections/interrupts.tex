@@ -10,45 +10,50 @@ increasingly relied on broadband Internet access to use VCAs, which can
 sometimes experience connectivity disruptions.  In addition to experiencing
 periodic outages, home networks are susceptible to disruptions caused by
 temporary congestion along the end-to-end path.
-
 In this section, we aim to understand how VCAs respond to the types of
-disruptions that home Internet users might sometimes eperience. We analyze how
+disruptions that home Internet users might sometimes eperience. 
+
+
+\subsection{Experiment Setup}
+
+We analyze how
 VCAs respond to temporary network disruptions during the call by introducing
 transient capacity reductions. Using the same setup as in
 Figure~\ref{fig:static_setup}, we initiate a five-minute VCA session between
 two clients, C1 and C2, both of which are connected to the Internet via a
 1~Gbps link. One minute after initiating the call, we reduce the capacity
-between C1 and the router for 30 seconds, before reverting back to an
-unconstrained link. We conduct two sets of experiments, shaping the uplink in
-the first and the downlink in the second. We consider the following shaping
-levels: {0.25, 0.5, 0.75, 1.0} Mbps. We only consider disruptions in capacity
+between C1 and the router for 30 seconds, before reverting back to the
+unconstrained 1~Gbps link. We repeat each experiment four times.
+We conduct two sets of experiments: first disrupting the uplink, and then
+disrupting the downlink. We reduce capacity to the following
+levels: {0.25, 0.5, 0.75, 1.0} Mbps. (We do not consider disruptions in capacity
 to levels of more than 1~Mbps because both Zoom and Meet's average utilization
-is below 1~Mbps.
+is below 1~Mbps.)
 
 \begin{figure}[t!]
 \centering
 \begin{subfigure}[t]{.5\textwidth}
     \centering
     \includegraphics[width=.8\textwidth,keepaspectratio]{interrupt/Interrupt-upld.pdf}
-    \caption{Average uplink bitrate over time. Grey region indicates period where uplink capacity is constrained to 0.25 Mbps. Vertical dotted lines indicate when the uplink bitrate has returned to the average.}
+    \caption{Average upstream bitrate over time. Grey region indicates period where uplink capacity is constrained to 0.25 Mbps. Vertical dotted lines indicate when the uplink bitrate has returned to the average.}
     \label{fig:ts_upld}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{.5\textwidth}
       \centering
     \includegraphics[width=.8\textwidth,keepaspectratio]{interrupt/TTR-upld.pdf}
-    \caption{The time to recover to average sending bitrate following a drop to the indicated uplink shaping level.}
+    \caption{Time to recover.}
     \label{fig:TTR_upld}
 \end{subfigure}
-\caption{VCA response to a 30s drop in uplink capacity}
+\caption{VCA response to a 30-second reduction in upstream capacity.}
 \label{fig:interrupt-upld}
 \end{figure}
 
 \subsection{Upstream Disruptions}
 
-Figure \ref{fig:ts_upld} illustrates VCA uplink bitrate over the course of a
+Figure \ref{fig:ts_upld} shows VCA upstream bitrate over the course of a
 call. Following a disruption, both the time to recovery and the
-characteristics of that recover
-differ across VCAs. We quantify the time it takes to
+characteristics of that recovery
+differ across VCAs. We quantify the time for
 VCA utilization to return to normal by defining a 
 \textit{time to recovery} (TTR) metric. We define TTR as the time between when the
 interruption ends and when the five-second rolling median bitrate reaches the
@@ -97,10 +102,10 @@ experience for competing applications.
 \begin{subfigure}[t]{.5\textwidth}
   \centering
     \includegraphics[width=.9\textwidth,keepaspectratio]{figures/interrupt/TTR-dnld.pdf}
-    \caption{The time to recover to average receiving bitrate following a drop to the indicated downlink shaping level.}
+    \caption{Time to recover.}
     \label{fig:TTR_dnld}
 \end{subfigure}
-\caption{VCA response to a 30s drop in downlink capacity.}
+\caption{Response to a 30s drop in available downlink capacity.}
 \label{fig:interrupt-dnld}
 \end{figure}
 
@@ -128,7 +133,7 @@ video~\cite{zoom_encoding}. Instead of sending several versions of varying
 quality, Zoom sends many hierarchical encoding layers that, when combined,
 produce a high quality video. This allows C2 to continue sending uninterrupted
 even when C1's downlink capacity decreases. The server can then recover faster
-by sending additional layers once the network conditions improve. 
+by sending additional layers once the network conditions improve.  
 
 \begin{figure}[t]
     \centering
@@ -143,6 +148,7 @@ by sending additional layers once the network conditions improve.
     \caption{Setup for competition experiments.}
     \label{fig:competition-setup}
 \end{figure}
+
 
 \begin{comment}
  \begin{figure*}[t]
@@ -176,8 +182,6 @@ by sending additional layers once the network conditions improve.
     \caption{Uplink bitrate of applications in competition with each VCA, with a link shaped symmetrically at 0.5~Mbps.}
     \label{fig:boxplot-upld}
 \end{figure*}
-
-
 
 While the intermediary server for Zoom and Meet performs congestion control,
 in the case of Teams, this intermediary server acts only as a relay. During a
