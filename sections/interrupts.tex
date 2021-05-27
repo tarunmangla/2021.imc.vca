@@ -32,16 +32,16 @@ is below 1~Mbps.)
 \begin{subfigure}[t]{.5\textwidth}
     \centering
     \includegraphics[width=.7\textwidth,keepaspectratio]{interrupt/Interrupt-upld.pdf}
-    \caption{Average upstream bitrate over time. Grey region indicates period where uplink capacity is constrained to 0.25 Mbps. Vertical dotted lines indicate when the uplink bitrate has returned to the average.}
+    \caption{Average upstream bitrate over time. Grey region indicates period where uplink capacity is constrained to 0.25 Mbps. Vertical dotted lines indicate when the upstream bitrate has returned to the average bitrate before disruption.}
     \label{fig:ts_upld}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{.5\textwidth}
       \centering
     \includegraphics[width=.7\textwidth,keepaspectratio]{interrupt/TTR-upld.pdf}
-    \caption{Time to recover.}
+    \caption{Time to recover from disruption to a given uplink capacity}
     \label{fig:TTR_upld}
 \end{subfigure}
-\caption{VCA response to a 30-second reduction in upstream capacity.}
+\caption{VCA response to a 30-second reduction in uplink capacity.}
 \label{fig:interrupt-upld}
 \end{figure}
 
@@ -93,16 +93,16 @@ experience for competing applications.
 \begin{subfigure}[t]{.5\textwidth}
    \centering
     \includegraphics[width=.7\textwidth,keepaspectratio]{interrupt/Interrupt-dnld.pdf}
-    \caption{Average downlink bitrate over time. Grey region indicates period where downlink capacity is constrained to 0.25 Mbps. Vertical dotted lines indicate when the dowlink bitrate has returned to the average.}
+    \caption{Average downlink bitrate over time. Grey region indicates period where downlink capacity is constrained to 0.25 Mbps. Vertical dotted lines indicate when the downstream bitrate has returned to the average bitrate before disruption.}
     \label{fig:ts-dnld}
 \end{subfigure}
 \begin{subfigure}[t]{.5\textwidth}
   \centering
     \includegraphics[width=.7\textwidth,keepaspectratio]{figures/interrupt/TTR-dnld.pdf}
-    \caption{Time to recover.}
+    \caption{Time to recover from disruption to a given downlink capacity.}
     \label{fig:TTR_dnld}
 \end{subfigure}
-\caption{Response to a 30-second reduction in downstream capacity.}
+\caption{Response to a 30-second reduction in downlink capacity.}
 \label{fig:interrupt-dnld}
 \end{figure}
 
@@ -135,7 +135,7 @@ by sending additional layers once the network conditions improve.
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.35\textwidth,keepaspectratio]{../figures/interrupt/Interrupt-sender.pdf}
-    \caption{Client 2 (C2) uplink bitrate. Grey region indicates when C1's downlink capacity is reduced to 0.25 Mbps}
+    \caption{Client 2 (C2) upstream bitrate. Grey region indicates when C1's downlink capacity is reduced to 0.25 Mbps}
     \label{fig:interrupt-sender}
 \end{figure}
 
@@ -152,22 +152,22 @@ by sending additional layers once the network conditions improve.
     \begin{subfigure}[t]{.33\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{figures/comp/box_plot_meet_ul_0.5_all.pdf}
-        \caption{Meet}
+        \caption{Incumbent: Meet}
         \label{fig:meet_ul_box}
     \end{subfigure}\hfill
     \begin{subfigure}[t]{.33\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{figures/comp/box_plot_teams_ul_0.5_all.pdf}
-        \caption{Teams}
+        \caption{Incumbent: Teams}
         \label{subfig:teams_ul_box}
     \end{subfigure}
     \begin{subfigure}[t]{.33\textwidth}
         \centering
         \includegraphics[width=1\textwidth]{figures/comp/box_plot_zoom_ul_0.5_all.pdf}
-        \caption{Zoom}
+        \caption{Incumbent: Zoom}
         \label{fig:zoom_ul_box}
     \end{subfigure}
-    \caption{Upstream bitrate of applications in competition with each VCA, with a symmetric link capacity of 0.5~Mbps.}
+    \caption{Share of uplink capacity used by VCAs in competition with VCAs on a 0.5~Mbps symmetric link. White boxes are the incumbent application}
     \label{fig:boxplot-upld}
 \end{figure*}
 

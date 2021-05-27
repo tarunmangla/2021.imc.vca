@@ -24,7 +24,7 @@ video streaming applications, Netflix and YouTube (which uses QUIC).
     \caption{Meet vs. Meet}
     \label{subfig:meet_meet_0_5}
 \end{subfigure}
-\caption{Upstream throughput of VCAs in competition on a 0.5~Mbps capacity link. Upper trendline is incumbent application and lower is competing application.}
+\caption{Upstream bitrate of VCAs in competition on a 0.5~Mbps capacity link. Upper trendline is incumbent application and lower is competing application.}
 \label{fig:meet-zoom-upld-0.5}
 \end{figure}
 
@@ -33,22 +33,22 @@ video streaming applications, Netflix and YouTube (which uses QUIC).
 \begin{subfigure}[t]{.33\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{figures/comp/box_plot_meet_dl_0.5_all.pdf}
-    \caption{Meet}
+    \caption{Incumbent: Meet}
     \label{fig:meet-dl-boxplot-0.5}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{.33\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{figures/comp/box_plot_teams_dl_0.5_all.pdf}
-    \caption{Teams}
+    \caption{Incumbent: Teams}
     \label{fig:teams-dl-boxplot-0.5}
 \end{subfigure}
 \begin{subfigure}[t]{.33\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{figures/comp/box_plot_zoom_dl_0.5_all.pdf}
-    \caption{Zoom}
+    \caption{Incumbent: Zoom}
     \label{fig:zoom-dl-boxplot-0.5}
 \end{subfigure}
-\caption{Downstream bitrate of applications in competition with each VCA on a 0.5~Mbps capacity link.}
+\caption{Share of downlink capacity used by VCAs in competition with other VCAs on a 0.5~Mbps symmetric link. White boxes are the incumbent application.}
 \label{fig:dnld-boxplot}
 \end{figure*}
 
@@ -66,21 +66,21 @@ video streaming applications, Netflix and YouTube (which uses QUIC).
     \caption{Downlink}
     \label{fig:teams-zoom-down-1}
 \end{subfigure}
-\caption{Comparison of Teams competition behavior for uplink and downlink.}
+\caption{Comparison of Teams competition behavior for uplink and downlink on a 1~Mbps symmetric link. Teams is the incumbent application.}
 \label{fig:teams-zoom-1}
 \end{figure}
 
 
 \noindent \textbf{Method}: As illustrated in Figure \ref{fig:competition-setup}, the setup for these experiments differs slightly from earlier ones. 
 Instead of connecting the client directly to the router, the two matched clients, C1 and F1, are connected to the router via a switch. 
-The link between the switch and the router is shaped by the router. For each test, C1 first establishes a VCA call with C2.
-Approximately 30 seconds later, F1 initiates a competing application, which lasts for two minutes.
+The link capacity between the switch and the router is set on the router. For each test, C1 (the incumbent application) first establishes a VCA call with C2.
+Approximately 30 seconds later, F1 initiates the competing application, which lasts for two minutes.
 F1's counter-party, F2, depends on the type of competing application.
-If the competing application is another VCA call, then F2 is another consumer laptop.
-If the application is an iPerf3\footnote{The iPerf3 server uses TCP CUBIC and is  within the same network (average RTT ~2ms).} (TCP) flow, then F2 is a server on the same network,
-  and if it is Netflix or Youtube, then F2 is a server for the respective service. Netflix and Youtube are launched directly in Chrome via \texttt{xdg-open}.
-After the competing flow terminates, the incumbent flow continues for an additional minute.
-We repeat each experiment 3 times, with bandwidth shaped symmetrically at levels of \{0.5, 1, 2, 3, 4, 5\}~Mbps.
+If the competing application is a VCA call, then F2 is another laptop.
+If the application is an iPerf3\footnote{The iPerf3 server uses TCP CUBIC and is  within the same network (average RTT ~2ms).} (TCP) flow, then F2 is a server on the same network.
+  If F1 is Netflix or Youtube (launched on Chrome), then F2 is a server for the respective service. 
+After the competing application terminates, the incumbent application continues for an additional minute.
+We repeat each experiment 3 times, with link capacity varied symmetrically at \{0.5, 1, 2, 3, 4, 5\}~Mbps.
 
 \subsection{VCA vs. VCA}
 
