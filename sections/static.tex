@@ -51,6 +51,40 @@ Zoom                          & 0.78                     & 0.95                 
 \label{tab:vca_static}
 \end{table}
 
+
+
+
+
+\paragraph{Constrained downstream throughput}: We explored the effect of constrained
+downstream capacity
+on VCAs' network utilization. Figure~\ref{subfig:downlink_bitrate} shows this
+result.
+As with a constrained uplink, the VCAs differ in terms of their downlink
+utilization under unconstrained link. The unconstrained downlink utilization
+differs from unconstrained upstream utilization, as shown in
+Table~\ref{tab:vca_static}. To better understand this phenomenon, we analyzed the traffic
+captured from both clients. 
+
+In the case of \teams, we found that the sent traffic from C1
+is almost same as the received traffic at C2, and vice versa. 
+We suspect the small
+differences in upstream and downstream utilization may largely be due to the
+variability in utilization across experiments in \teams, as is
+also evident in the larger confidence intervals as compared to \zoom and \meet. 
+
+In contrast, \zoom's utilization patterns were asymmetric: we found an
+asymmetry in sent and received data rates at both clients. For instance, in a
+single instance with 10~Mbps downlink shaping, C2 sent a median 0.85~Mbps and
+C1 received a median 1.10 Mbps. Investigating this asymmetry further, we
+discovered an interesting phenomenon: We found that \zoom uses a relay server
+instead of direct communication. Additionally, related work by Nistico et
+al.~\cite{nistico2020comparative} suggests that \zoom uses Forward Error
+Correction (FEC) for error recovery. This is further supported by a related
+patent from \zoom itself, which talks about a methodology to generate FEC data
+at the server~\cite{liu2019error}. We suspect that the extra data may thus
+correspond to FEC added by the relay server, leading to asymmetric upstream and
+downstream utilization.  
+
 \begin{figure*}[t]
 	%\vspace{-10em}
     \begin{subfigure}[t]{0.33\textwidth}
@@ -98,38 +132,6 @@ Zoom                          & 0.78                     & 0.95                 
     downstream and upstream throughput constraints.}
 	\label{fig:video_qual}
 \end{figure*}
-
-
-
-\paragraph{Constrained downstream throughput}: We explored the effect of constrained
-downstream capacity
-on VCAs' network utilization. Figure~\ref{subfig:downlink_bitrate} shows this
-result.
-As with a constrained uplink, the VCAs differ in terms of their downlink
-utilization under unconstrained link. The unconstrained downlink utilization
-differs from unconstrained upstream utilization, as shown in
-Table~\ref{tab:vca_static}. To better understand this phenomenon, we analyzed the traffic
-captured from both clients. 
-
-In the case of \teams, we found that the sent traffic from C1
-is almost same as the received traffic at C2, and vice versa. 
-We suspect the small
-differences in upstream and downstream utilization may largely be due to the
-variability in utilization across experiments in \teams, as is
-also evident in the larger confidence intervals as compared to \zoom and \meet. 
-
-In contrast, \zoom's utilization patterns were asymmetric: we found an
-asymmetry in sent and received data rates at both clients. For instance, in a
-single instance with 10~Mbps downlink shaping, C2 sent a median 0.85~Mbps and
-C1 received a median 1.10 Mbps. Investigating this asymmetry further, we
-discovered an interesting phenomenon: We found that \zoom uses a relay server
-instead of direct communication. Additionally, related work by Nistico et
-al.~\cite{nistico2020comparative} suggests that \zoom uses Forward Error
-Correction (FEC) for error recovery. This is further supported by a related
-patent from \zoom itself, which talks about a methodology to generate FEC data
-at the server~\cite{liu2019error}. We suspect that the extra data may thus
-correspond to FEC added by the relay server, leading to asymmetric upstream and
-downstream utilization.  
 
 In addition to the asymmetric unconstrained utilization, \meet exhibits
 markedly different behavior with a constrained downlink.

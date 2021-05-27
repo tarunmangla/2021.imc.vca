@@ -62,22 +62,13 @@ and \textit{\zoombrowser}, respectively. We use Chrome (Meet) version
 89.0.4389, Zoom client version 5.6.1, and Teams client version 1.4.00.7556.
 
 
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.45\textwidth,keepaspectratio]{methodology/normal-setup.pdf}
-\caption{Setup for two-client call.}
-\label{fig:static_setup}
-\end{figure}
-
-
 \paragraph{Laboratory Environment}:
 We conduct experiments in a controlled environment.  We begin by describing
-our experimental setup for a 2-party call.  The two clients on the call are C1 and
-C2, connected with the topology of Figure~\ref{fig:static_setup}.  We use two
+our experimental setup for a 2-party call.  The two clients, C1 and C2, are connected
+on a ca.  We use two
 identical Dell Latitude 3300 laptops with a screen resolution of 1366 $\times$
 768 pixels and running Ubuntu 20.04.1. The laptops have a wired connection to
-a Turris Omnia 2020 router and access an unconstrained, dedicated 1~Gbps link
+a Turris Omnia 2020 router and access a dedicated 1~Gbps symmetric link
 to the Internet.  Each experiment consists of a call between C1 and C2 under a
 pre-specified network bandwidth profile and VCA. The bandwidth profile is
 emulated by shaping on the \textit{C1-router} link using traffic control
