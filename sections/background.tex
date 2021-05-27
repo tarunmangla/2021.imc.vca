@@ -56,19 +56,19 @@ These VCAs have been used extensively worldwide over the past year, especially
 in enterprises and educational institutions~\cite{vca_share}.  Teams and Zoom
 provide desktop applications as well as browser clients, whereas Meet is ``native"
 in the Chrome. Most of our tests are conducted using the desktop
-applications for Teams and Zoom, and using the Chrome browser for Meet.
+applications for Teams and Zoom, and using the Google Chrome browser for Meet.
 In-browser tests for Teams and Zoom are specified by \textit{\teamsbrowser}
 and \textit{\zoombrowser}, respectively. We use Chrome (Meet) version
 89.0.4389, Zoom client version 5.6.1, and Teams client version 1.4.00.7556.
 
 
 \paragraph{Laboratory Environment}:
-We conduct experiments in a controlled environment.  We begin by describing our experimental setup for a 2-party call. We use two identical laptops, representing the two VCA clients.  Dell Latitude 3300 laptops with a screen resolution of 1366 $\times$
+We conduct experiments in a controlled environment.  We begin by describing our experimental setup for a 2-party call. We use two identical laptops, referred to as C1 and C2, representing the two VCA clients. Each laptop is a Dell Latitude 3300 with a screen resolution of 1366 $\times$
 768 pixels and running Ubuntu 20.04.1. The laptops have a wired connection to
 a Turris Omnia 2020 router and access a dedicated 1~Gbps symmetric link
 to the Internet.  Each experiment consists of a call between C1 and C2 under a
 pre-specified network bandwidth profile and VCA. The bandwidth profile is
-emulated by shaping on the \textit{C1-router} link using traffic control
+emulated by shaping the link between C1 and the router using traffic control
 (\texttt{tc}). A pre-recorded talking-head video\footnote{It would be inappropriate to use the 
 device webcam as the video, because without movement, VCAs compress the video
 and ultimately send at a much lower rate than during a normal call.} with a

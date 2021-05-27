@@ -1,14 +1,19 @@
 \section{Static Network Conditions}\label{sec:static}
 
 In this section, we study the effect of network capacity on VCA performance.
+<<<<<<< HEAD
 
 \paragraph{Method}: We conduct a series of experiments, each consisting of a
 2.5-minute call between two clients, C1 and C2 (as described in
 Section~\ref{subsecsec:setup}), under a specific shaping level. We conduct two
+=======
+To do so, we conduct a series of experiments, each consisting of a 2.5-minute
+call between two clients, C1 and C2 (as described in
+Section~\ref{subsec:setup}), under a specific shaping level. We conduct two
+>>>>>>> 46648a7c4247fea226933c4a1749eebbd5aedd6c
 sets of experiments, shaping first the uplink and then the downlink.  We
-constrain throughput to \{$0.3, 0.4, \dots, 1.5, 2, 3, 4, 5, 10$\}~Mbps (in
-each of the upstream and downstream directions, as well as in both
-directions). For each condition, we perform five 2.5-minute experiments; our
+constrain throughput to \{$0.3, 0.4, \dots, 1.4, 1.5, 2, 5, 10$\}~Mbps (in
+each of the upstream and downstream directions). For each condition, we perform five 2.5-minute experiments; our
 data show that due to relatively low variance in most observations, this
 number of experiments is sufficient to achieve statistically significant
 results.  For \zoom and \teams clients, we perform measurements both for
@@ -27,8 +32,7 @@ native clients as well as for browser-based clients, referred to as
 \label{subsec:network_utilization}
 
 \paragraph{Constrained upstream utilization}: Figure~\ref{subfig:uplink_bitrate} shows the
-median sent network bitrate for different upstream capacities. The bands
-represent 90\% confidence intervals. We observe differences in upstream network
+median sent network bitrate for different upstream capacities. We observe differences in upstream network
 utilization among VCAs given the same available upstream network capacity. In
 the case of a 10~Mbps uplink, for example, the average upstream utilization for
 \teamsnative is $1.44$ Mbps whereas it is only $0.95$ for \meet and $0.77$
@@ -201,10 +205,9 @@ available in Google Chrome to obtain application metrics for \teamsbrowser and
 \zoombrowser as it uses DataChannels instead of RTP MediaStream in WebRTC to
 transmit media. DataChannels statistics lack any video quality metrics and
 mostly contain data volume information. Obtaining application metrics is
-challenging for native clients.  However, video quality statistics are not
-exposed anymore through the WebRTC stats API. The Zoom API provides limited
+challenging for native clients. The Zoom API does provide limited
 application performance (e.g., video resolution, FPS) at a per-minute
-granularity~\cite{zoom_qos_api}, but this granularity is insufficient to
+granularity~\cite{zoom_qos} for the native client, but this granularity is insufficient to
 observe short-term quality fluctuations.  We thus limit our analysis in this
 section to only \meet and \teamsbrowser. We focus on a subset of metrics
 available from WebRTC Stats API that relate to video \textit{quality} and
@@ -245,8 +248,8 @@ range, we find that the relay server may switch to a lower quality copy of the
 stream it received via {simulcast}. \meet does not appear to reduce the
 bitrate any further by reducing the FPS for the low-quality
 stream---specifically, we observed a consistent frame rate even at rates of
-less than 0.5~Mbps. (It is not clear why the quantization parameter reduces
-from 38 to 33 at 0.3 Mbps in \meet.)
+less than 0.5~Mbps It is not clear why the quantization parameter reduces
+from 38 to 33 at 0.3 Mbps in \meet.
 
 We next analyze the effect of upstream capacity constraints on encoding
 parameters
@@ -288,7 +291,7 @@ Figure~\ref{subfig:uplink_frame_width}.
 
 
 % \textbf{Takeaway}: Uplink 
-
+\vspace{9pt}
 \begin{mdframed}[roundcorner=5pt, backgroundcolor=black!10]
 \paragraph{Takeaways}: VCA performance under same network conditions varies
     among tested VCAs. Further, the VCAs' average upstream utilization on an unconstrained link has implications for broadband policy. The FCC currently recommends a 25/3 Mbps minimum connection. Such a connection may not suffice even for two simultaneous video calls. 

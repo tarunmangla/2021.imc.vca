@@ -9,7 +9,7 @@ sometimes experience connectivity disruptions.  In addition to experiencing
 periodic outages, home networks are susceptible to disruptions caused by
 temporary congestion along the end-to-end path.
 In this section, we aim to understand how VCAs respond to the types of
-disruptions that home Internet users might sometimes eperience. 
+disruptions that home Internet users might sometimes experience. 
 
 
 \paragraph{Method}:
@@ -45,7 +45,7 @@ is below 1~Mbps.)
 \label{fig:interrupt-upld}
 \end{figure}
 
-\subsection{Upstream Disruptions}
+\subsection{Uplink Disruptions}
 
 Figure \ref{fig:ts_upld} shows VCA upstream bitrate over the course of a
 call. Following a disruption, both the time to recovery and the
@@ -56,11 +56,11 @@ VCA utilization to return to normal by defining a
 interruption ends and when the five-second rolling median bitrate reaches the
 median bitrate before interruption, also referred to as nominal bitrate. 
 
-\paragraph{Time to Recovery}: Figure \ref{fig:TTR_upld} shows how extent of
-the disruption to upstream connectivity affects each VCA's time to recovery.
+\paragraph{Time to Recovery}: Figure \ref{fig:TTR_upld} shows how the extent of
+the disruption to uplink connectivity affects each VCA's time to recovery.
 The more severe the capacity reduction, the longer the VCAs need to recover.
 
-\teams takes longer to recover even at less severe shaping levels for two
+\teams takes longer to recover even at less severe disruptions for two
 reasons: (1)~the nominal bitrate of Teams is higher than Meet and Teams,
 (2)~Teams increases the upstream bitrate slowly immediately after the
 interruption before increasing quickly back to normal (as shown in
@@ -73,14 +73,14 @@ around 0.96 Mbps.
 Zoom's recovery is different: It takes the longest time to recover under
 severe disruptions. According to Figure \ref{fig:ts_upld}, Zoom follows a
 stepwise recovery, with an almost-linear increase immediately after
-interruption. It then enters into a periodic-probing phase where it increases
+interruption. It then enters a periodic-probing phase where it increases
 the sending rate, stays at it for sometime before increasing it again. The
-probing phase continues well above the its nominal bitrate, before finally
+probing phase continues well above its nominal bitrate, before finally
 reducing the bitrate.  Zoom does not return to a steady-state sending pattern
 until two minutes after the disruption, in the meantime sending at much higher
 rates. At first glance, such probing might appear to be bad design as it could
 introduce additional packet loss and delay harming both Zoom's own performance
-and the performance of other applications.  We believe, however, that Zoom may
+and the performance of other applications.  We suspect, however, that Zoom may
 be using redundant FEC packets to gauge capacity similar to the
 FBRA congestion control proposed by Nagy et al.~\cite{nagy2014congestion}.
 Thus, even if such behavior induces packet loss, the user performance may not
@@ -106,7 +106,7 @@ experience for competing applications.
 \label{fig:interrupt-dnld}
 \end{figure}
 
-\subsection{Downstream Disruptions}
+\subsection{Downlink Disruptions}
 
 Figure~\ref{fig:TTR_dnld} shows that Teams recovers more slowly than Meet and
 Zoom, always taking at least 20 seconds longer to return to the average rate,
@@ -177,22 +177,29 @@ Teams call, C2 will recognize C1 has limited downstream capacity and
 send at only the bitrate it knows C1 can receive.
 Once C1 has more available bandwidth, C2 must discover this: it must first
 probe the connection before returning to its average sending rate.
-Figure~\ref{fig:interrupt-sender} illustrates how C2's sending rate does not
-change during a Meet call, but drops below the shaping threshold during a
+Figure~\ref{fig:interrupt-sender} illustrates how C2's sending rate to the intermediary server does not
+change during a Meet call, but drops below C2's downlink capacity during a
 Teams call, leading to the slow recovery.
 
+<<<<<<< HEAD
 Zoom's downstream and upstream bitrates remain at the level of available
 capacity during the disruption; Meet and Teams suffer more
 serious degradation. Zoom's efficient network utilization and response to
 disruption may be due to its encoding mechanisms, which allows it to  
+=======
+We also notice that Zoom's downstream and upstream bitrates remain at the level of available
+capacity during the disruption; while, Meet and Teams suffer more
+serious degradation. Zoom's efficient network utilization and response to
+disruption could be due to its encoding mechanisms, wherein it can more
+>>>>>>> 46648a7c4247fea226933c4a1749eebbd5aedd6c
 effectively control the encoding parameters (i.e., SVC-encoded layers, FPS,
 resolution etc.) to match the target bitrate.  
-\vspace{7pt}
+\vspace{10pt}
 \begin{mdframed}[roundcorner=5pt, backgroundcolor=black!10] \noindent
-    \textbf{Takeaways}: Modern VCAs are slow to recover from reductions in upstream 
+    \textbf{Takeaways}: Modern VCAs are slow to recover from reductions in uplink 
     capacity, with all three requiring more than 25 seconds to recover from severe
     interruptions to 0.25 Mbps. Only Teams is consistently slow to recover
-    from disruptions to downstream capacity, even showing degradation in
+    from disruptions to downlink capacity, even showing degradation in
     response to more moderate capacity reductions (e.g., to 1 Mbps).
     This result can be attributed to each VCA's media sending mechanism and how
     congestion control is implemented at the intermediate server for each VCA. 
