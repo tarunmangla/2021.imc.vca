@@ -174,10 +174,10 @@ and~\ref{subfig:boxplot-iperf-dl} show how each VCA shares a 2~Mbps downlink
 and uplink with iPerf3, respectively. Teams is able to use 37\% in uplink and
 only 20\% in the downlink even at 2~Mbps. The low upstream throughput for
 Teams with a TCP flow is particularly surprising as it was able to achieve its
-fair-share when competing against (more aggressive) Meet and Zoom, as shown in Figure~\ref{subfig:teams_ul_box}). Meet and Teams achieve their nominal bitrate allowing iPerf3 to use rest of the link. Clearly, all the VCAs are not TCP CUBIC-friendly with Meet and Zoom being more aggressive and Teams being highly passive. 
+fair-share when competing against (more aggressive) Meet and Zoom, as shown in Figure~\ref{subfig:teams_ul_box}. At 2 Mbps, both Meet and Teams achieve their nominal bitrate allowing iPerf3 to use rest of the link. Clearly, all the VCAs are not TCP CUBIC-friendly with Meet and Zoom being highly aggressive and Teams being highly passive. 
 
 
-\paragraph{Anomalous Zoom Bursts}: In the previous section, Figures \ref{fig:ts_upld} and \ref{fig:ts-dnld} showed how Zoom can send bursts of data for an extended period of time following a network disruption. Figure \ref{fig:zoom-iperf-dl-2} shows how this behavior is also exhibited when in competition with iPerf3. At about 125 seconds, Zoom's increased sending rate causes iPerf3 to abruptly lower its utilization. This confirms that the temporary bursts in Zoom, likely for inferring available bandwidth, can adversely affect other applications on a scare link. 
+\paragraph{Anomalous Zoom Bursts}: In the previous section, Figures \ref{fig:ts_upld} and \ref{fig:ts-dnld} showed how Zoom can send bursts of data for an extended period of time following a network disruption. Figure \ref{fig:zoom-iperf-dl-2} shows how this behavior is also exhibited when in competition with iPerf3. At about 125 seconds, Zoom's increased sending rate causes iPerf3 to abruptly lower its utilization. This confirms that the temporary bursts in Zoom, likely for inferring available bandwidth, can adversely affect other applications on a scarce link. 
 
 
 \begin{figure}[t!]
@@ -204,14 +204,14 @@ We also compared each VCA's link share against two video streaming
 applications, Netflix and YouTube,
 which consume significant downstream bandwidth. 
 YouTube uses QUIC, a UDP-based transport protocol,
-which can be TCP-friendly under some configurations. 
+which can be TCP-friendly depending on some configuration values~\cite{corbel2019assessing}. 
 Both Meet and Zoom are
 very aggressive when competing against video streaming applications, using
-over $75\%$ of the link capacity.In contrast, Teams uses
+over $75\%$ of the link capacity. In contrast, Teams uses
 less than $25\%$ while competing with YouTube and Netflix at 0.5 Mbps.  
 Figure~\ref{subfig:comp_zoom_netflix_bitrate} shows this effect, when a
 Netflix client competes with an incumbent Zoom client at 0.5~Mbps downstream
-capacity. , Zoom achieves an average throughput around 0.4~Mbps while
+capacity. Zoom achieves an average throughput around 0.4~Mbps while
 Netflix struggles to reach more than 0.1 Mbps. We observe this effect despite
 the fact that Netflix is
 known to using multiple TCP connections, especially when capacity is limited.
@@ -219,7 +219,7 @@ Figure~\ref{subfig:comp_netflix_conn} shows the TCP connections
 opened by Netflix during the 120-second experiment. In total, Netflix opens 28
 TCP connections, each with more than than 100 Kbits of data; at one point, it
 opens 11 parallel TCP
-connections. Despite this behavior, opening many TCP connections
+connections. Despite this behavior, opening multiple TCP connections
 does not improve link sharing for Netflix while competing with Zoom. 
 
 

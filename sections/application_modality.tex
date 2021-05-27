@@ -70,12 +70,10 @@ numbers of participants.  Total downstream utilization depends on both the
 number of video streams and the data rate of each stream.  Utilization in both
 directions typically {\em decreases} as the number of participants increases
 in a \meet or \zoom call. In the case of \zoom, the uplink utilization drops
-from 0.8~Mbps to 0.4~Mbps as number of participants increases from 4 (a
-2$\times$2 grid) to 5 (which creates a third row of video feeds and thus
-smaller resolution for each). For \meet, the reduction happens at n = 7, from
+from 0.8~Mbps to 0.4~Mbps as number of participants increases from 4 to 5. For \meet, the reduction happens at n = 7, from
 1~Mbps to 0.2~Mbps.  Both \meet and \zoom have tiled-screen display with each
 user displayed in a separate tile.  As the number of users increases, the tile
-size shrinks to accommodate all the users on the fixed size screen.  The
+size shrinks to accommodate all the users on the fixed size screen. For instance, \zoom uses a 2$\times$2 grid for 4 participants; switching to 5 participants creates a third row of video feeds making each individual video feed smaller.  The
 sender uses this opportunity to reduce the resolution of transmitted video,
 leading to reduction in upstream utilization.
 
@@ -105,8 +103,8 @@ phenomenon deserves more exploration.
 For all three VCAs, viewing a user's video in speaker mode leads to greater
 uplink consumption on {\em that} user's network as compared to gallery mode.
 Putting C1 on the speaker mode enlarges its tile size on other users' screen.
-The sender does not reduce the video resolution to provide a high video
-quality, thus leading to increase in uplink utilization compared to when C1
+The sender streams the video at a high resolution to provide a high better user experience,
+thus leading to increase in uplink utilization compared to when C1
 was not pinned by other users. \zoom and \meet consistently send at 1 Mbps
 when all clients pin C1's video, regardless of the number of participants.
 Note that, only one client needed to put C1 on speaker for this behavior. Each
