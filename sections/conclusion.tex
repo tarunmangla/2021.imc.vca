@@ -1,3 +1,22 @@
 \section{Conclusion}
 \label{sec:conclusion}
-We analyze the network utilization and performance of three major VCAs under diverse network conditions and usage modalities. Our results show that VCAs vary significantly both in terms of their resource utilization and performance, especially under constrained links. The differences can be attributed to different VCA design parameter values, congestion control algorithms, and media transport mechanisms. The VCA response also varies between an uplink and downlink bandwidth impairment. The difference arises due to an intermediate server used by all VCAs. Finally, the network utilization changes under different call modalities. This can be explained by the changes in the video layout on the user screen, ultimately leading to changes in the sent video resolutions. Future work will extend the analysis to more VCAs, device platforms, and network impairments. 
+
+We analyzed the network utilization and performance of three major VCAs under
+diverse network conditions and usage modalities. Our results show that VCAs
+vary significantly both in terms of their resource utilization and
+performance, especially when capacity is constrained.  Differences in behavior
+can be attributed to different VCA design parameter values, congestion control
+algorithms, and media transport mechanisms. The VCA response also varies
+depending on whether constraints exist on the uplink or downlink. Different
+behavior often arises due to both differences in encoding strategies, as well
+as how the VCAs rely on an intermediate server to deliver video streams and
+adapt transmission to changing conditions. Finally, the network utilization of
+each VCA can vary significantly depending on the call modality. Somewhat
+counterintuitively, calls with more participants can actually reduce any one
+participant's upstream utilization, because changes in the video layout on the
+user screen ultimately lead to changes in the sent video resolutions. Future
+work could extend this analysis to more VCAs, device platforms, and network
+impairments. In general, however, performance can begin to degrade at upstream
+capacities below 1.5~Mbps, and some VCAs do not compete well with other TCP
+streams under constrained settings, suggesting the possible need for the FCC
+to reconsider its 25/3 Mbps standard for defining ``broadband''.
