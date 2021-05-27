@@ -68,10 +68,10 @@ With work and school continuing online, it is more common now to have multiple a
 Instead of connecting the client directly to the router, the two matched clients, C1 and F1, are connected to the router via a switch. 
 The link between the switch and the router is shaped by the router. For each test, C1 first establishes a VCA call with C2.
 Approximately 30 seconds later, F1 initiates a competing application, which lasts for two minutes.
-F1's counter-party, F2, depends on the type of flow.
-If the competing flow is a VCA call, then F2 is another consumer laptop.
-If the competing flow is an iPerf3\footnote{The iPerf3 server uses TCP CUBIC and is  within the same network (average RTT ~2ms).} (TCP) flow, then F2 is a server on the same network,
-  and if the flow is Netflix or Youtube, then F2 is a server for the respective service. Netflix and Youtube are launched directly in Chrome via \texttt{xdg-open}.
+F1's counter-party, F2, depends on the type of competing application.
+If the competing application is another VCA call, then F2 is another consumer laptop.
+If the application is an iPerf3\footnote{The iPerf3 server uses TCP CUBIC and is  within the same network (average RTT ~2ms).} (TCP) flow, then F2 is a server on the same network,
+  and if it is Netflix or Youtube, then F2 is a server for the respective service. Netflix and Youtube are launched directly in Chrome via \texttt{xdg-open}.
 After the competing flow terminates, the incumbent flow continues for an additional minute.
 We repeat each experiment 3 times, with bandwidth shaped symmetrically at levels of \{0.5, 1, 2, 3, 4, 5\}~Mbps.
 
