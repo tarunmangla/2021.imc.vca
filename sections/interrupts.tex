@@ -1,5 +1,3 @@
-
-
 \section{Network Disruptions}
 \label{sec:interruption}
 
@@ -14,8 +12,7 @@ In this section, we aim to understand how VCAs respond to the types of
 disruptions that home Internet users might sometimes eperience. 
 
 
-\subsection{Experiment Setup}
-
+\paragraph{Method}:
 We analyze how
 VCAs respond to temporary network disruptions during the call by introducing
 transient capacity reductions. Using the same setup as in
@@ -124,14 +121,14 @@ called simulcast, where the client encodes the same video at different quality
 levels and sends the encoded videos to an intermediate server. The server then
 sends the appropriate version based on the perceived downlink capacity at the
 receiver. The server can quickly switch between versions based on downstream
-capacity to the receiver. This quick recovery is shown in
+capacity. This quick recovery is shown in
 Figure~\ref{fig:interrupt-dnld}: Meet returns to its average rate in under ten
 seconds, regardless the severity of the interruption.
 
 Similarly, Zoom uses \textit{scalable video coding} when transmitting
 video~\cite{zoom_encoding}. Instead of sending several versions of varying
-quality, Zoom sends many hierarchical encoding layers that, when combined,
-produce a high quality video. This allows C2 to continue sending uninterrupted
+quality, Zoom sends hierarchical encoding layers that, when combined,
+produce a high quality video. This allows C2 to send uninterrupted
 even when C1's downlink capacity decreases. The server can then recover faster
 by sending additional layers once the network conditions improve.  
 
@@ -175,9 +172,9 @@ by sending additional layers once the network conditions improve.
 \end{figure*}
 
 While the intermediary server for Zoom and Meet performs congestion control,
-in the case of Teams, this intermediary server acts only as a relay. During a
-Teams call, C2 will recognize C1 has limited downstream capacity and adjust
-its sending behavior, sending at only the bitrate it knows C1 can receive.
+in the case of Teams, this server acts only as a relay. During a
+Teams call, C2 will recognize C1 has limited downstream capacity and 
+send at only the bitrate it knows C1 can receive.
 Once C1 has more available bandwidth, C2 must discover this: it must first
 probe the connection before returning to its average sending rate.
 Figure~\ref{fig:interrupt-sender} illustrates how C2's sending rate does not
@@ -185,9 +182,9 @@ change during a Meet call, but drops below the shaping threshold during a
 Teams call, leading to the slow recovery.
 
 Zoom's downstream and upstream bitrates remain at the level of available
-capacity during the disruption; on the other hand, Meet and Teams suffer more
+capacity during the disruption; Meet and Teams suffer more
 serious degradation. Zoom's efficient network utilization and response to
-disruption may be due to its encoding mechanisms, wherein it can more
+disruption may be due to its encoding mechanisms, which allows it to  
 effectively control the encoding parameters (i.e., SVC-encoded layers, FPS,
 resolution etc.) to match the target bitrate.  
 \vspace{7pt}
