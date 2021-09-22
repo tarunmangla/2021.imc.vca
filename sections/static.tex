@@ -3,7 +3,7 @@
 In this section, we study the effect of network capacity on VCA performance.
 
 \paragraph{Method}: We conduct a series of experiments, each consisting of a
-2.5-minute call between two clients, C1 and C2 (as described in
+2.5-minute call between two clients, V1 and V2 (as described in
 Section~\ref{subsec:setup}), under a specific shaping level. We conduct two
 sets of experiments, shaping first the uplink and then the downlink.  We
 constrain throughput to \{$0.3, 0.4, \dots, 1.4, 1.5, 2, 5, 10$\}~Mbps (in
@@ -65,8 +65,8 @@ differs from unconstrained upstream utilization, as shown in
 Table~\ref{tab:vca_static}. To better understand this phenomenon, we analyzed the traffic
 captured from both clients. 
 
-In the case of \teams, we found that the sent traffic from C1
-is almost same as the received traffic at C2, and vice versa. 
+In the case of \teams, we found that the sent traffic from V1
+is almost same as the received traffic at V2, and vice versa. 
 We suspect the small
 differences in upstream and downstream utilization may largely be due to the
 variability in utilization across experiments in \teams, as is
@@ -74,8 +74,8 @@ also evident in the larger confidence intervals as compared to \zoom and \meet.
 
 In contrast, \zoom's utilization patterns were asymmetric: we found an
 asymmetry in sent and received data rates at both clients. For instance, in a
-single instance with 10~Mbps downlink shaping, C2 sent a median 0.85~Mbps and
-C1 received a median 1.10 Mbps. Investigating this asymmetry further, we
+single instance with 10~Mbps downlink shaping, V2 sent a median 0.85~Mbps and
+V1 received a median 1.10 Mbps. Investigating this asymmetry further, we
 discovered an interesting phenomenon: We found that \zoom uses a relay server
 instead of direct communication. Additionally, related work by Nistico et
 al.~\cite{nistico2020comparative} suggests that \zoom uses Forward Error
@@ -143,10 +143,10 @@ only 39--70\%
 case of a constrained uplink (Figure~\ref{subfig:uplink_bitrate}). Upon
 further exploration, we discovered that
 \meet also uses a relay server, as well as
-\textit{simulcast}, wherein the sender (C2) transmits multiple copies of the
+\textit{simulcast}, wherein the sender (V2) transmits multiple copies of the
 video to the server, each at a different quality
 level~\cite{nistico2020comparative}. The server then relays one of the quality
-streams to C1 depending on the inferred available capacity of the server-C1
+streams to V1 depending on the inferred available capacity of the server-V1
 link. We observe two simultaneous video streams in our experiments, one at
 320x180 and other at 640x360 resolution. When downstream throughput is
 constrained, the relay
@@ -204,10 +204,10 @@ available in Google Chrome to obtain application metrics for \teamsbrowser and
 \zoombrowser as it uses DataChannels instead of RTP MediaStream in WebRTC to
 transmit media. DataChannels statistics lack any video quality metrics and
 mostly contain data volume information. Obtaining application metrics is
-challenging for native clients. The Zoom API does provide limited
+challenging for native clients. The Zoom \rev{API}{Web API~\cite{zoom_qos}} does provide limited
 application performance (e.g., video resolution, FPS) at a per-minute
-granularity~\cite{zoom_qos} for the native client, but this granularity is insufficient to
-observe short-term quality fluctuations.  We thus limit our analysis in this
+granularity for the native client, but this granularity is insufficient to
+observe short-term quality fluctuations \rev{}{\footnote{The Zoom native client also provides a statistics tab with fine-grained measures of the same metrics which can be captured using image-based analysis. We consider this as a part of future work}}. We thus limit our analysis in this
 section to only \meet and \teamsbrowser. We focus on a subset of metrics
 available from WebRTC Stats API that relate to video \textit{quality} and
 \textit{freezes}. These metrics are available at a per-second granularity
@@ -220,13 +220,14 @@ parameters:
 \begin{itemize}
     \itemsep=-1pt
     \item \emph{frames per second} (FPS), 
-    \item \textit{quantization parameter} used in video compression, and  
-    \item \textit{video resolution} indicated as the number of pixels in each dimension. 
+    \item \textit{quantization parameter} used in video compression. \rev{}{It regulates the spatial detail saved while encoding the frames. A lower value implies better picture quality.}, and  
+    \item \textit{video resolution} indicated as the number of pixels in each dimension. In our analysis, we present a single
+dimension of the resolution, namely, its \textit{width}. 
 \end{itemize}
 \noindent
+
 We can obtain all three
-parameters from the WebRTC stats. In our analysis, we present a single
-dimension of the resolution, namely, its \textit{width}. 
+parameters from the WebRTC stats. 
 
 We first look at these parameters for different downstream 
 capacities
@@ -276,7 +277,7 @@ of throughput constraints}, suggesting again implementation problems or poor
 design choices.
 
 When the uplink is constrained, we could not obtain freeze statistics
-from C1's logs, because the WebRTC stats provide freeze statistics only for
+from V1's logs, because the WebRTC stats provide freeze statistics only for
 the received video stream.  Instead, we analyze the total count of Full Intra
 Requests (FIR) for the upstream video data. An FIR is sent if the receiver
 cannot decode the video or falls behind, likely due to frame losses.  A low
@@ -291,7 +292,9 @@ Figure~\ref{subfig:uplink_frame_width}.
 % \textbf{Takeaway}: Uplink 
 \vspace{3pt}
 \begin{mdframed}[roundcorner=5pt, backgroundcolor=black!10]
-\paragraph{Takeaways}: VCA performance under same network conditions varies
-    among tested VCAs. Further, the VCAs' average upstream utilization on an unconstrained link has implications for broadband policy. The FCC currently recommends a 25/3 Mbps minimum connection. Such a connection may not suffice even for two simultaneous video calls. 
+\paragraph{Takeaways}: \rev{}{With no constraints on network utilization, 
+Zoom and Meet both use under 1Mbps in both the downlink and uplink directions, 
+while Teams uses 1.86/1.40Mbps. As available bandwidth is decerased. In addition,
+VCA performance under the same network conditions varies among the three VCAs.}
 \end{mdframed}
 

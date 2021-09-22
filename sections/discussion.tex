@@ -6,11 +6,14 @@ three popular video conferencing applications, the methods in this paper could
 be used to measure utilization and performance of other VCAs, across different
 device platforms. Our framework, using PyAutoGUI for automation, can be
 applied to other VCAs. It can also work on other device platforms based on Linux,
-MacOS, or Windows. Furthermore, we can include other network profiles that represent
+MacOS, or Windows. \rev{}{Although we conduct the majority of our experiments on 
+a Linux-based machine, most users have either a Mac or Windows device. While we 
+expect the overall trends in our results to be observed in testing on different 
+operating systems, it is necessary to continue evaluating VCAs on other platforms.}
+Furthermore, we can include other network profiles that represent
 other contexts, such as WiFi and cellular. We plan to release all of our
 experiment data and code so that it others can extend this work 
 to other contexts.
-
 
 \paragraph{Application performance metrics}: Analyzing application performance
 statistics can shed more light on the VCA behavior and user quality of
@@ -26,9 +29,15 @@ such as latency, packet loss, and jitter could affect VCA performance and
 utilization.  Future work could explore the effects of these parameters.
 Experiments in this paper also focus on issues in the last-mile access
 network, when there could be problems anywhere along the end-to-end path.
-However, emulating all kinds of impairments is challenging to accomplish
+\rev{}{Our work focuses on isolating the conditions under which VCAs fail
+by conducting experiments in-lab where we can control for confounding 
+factors better than in the wild. With this step complete, it is important
+to collect VCA performance metrics from a large number of users
+in real networks and compare the results. Although there are limitations
+on the types of conclusions we may draw from in-lab experiments, they are an important step in the overall evaluation of VCAs.}
+\rev{However, emulating all kinds of impairments is challenging to accomplish
 in-lab. An alternative could be to collect VCA performance metrics from a
-large number of users in the real world. 
+large number of users in the real world.}{}
 
 \paragraph{Further exploration of VCA design}: Some of our results reveal
 unusual VCA behavior that we found difficult to explain and deserve further

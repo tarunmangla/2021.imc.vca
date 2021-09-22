@@ -72,13 +72,13 @@ video streaming applications, Netflix and YouTube (which uses QUIC).
 
 
 \noindent \textbf{Method}: As illustrated in Figure \ref{fig:competition-setup}, the setup for these experiments differs slightly from earlier ones. 
-Instead of connecting the client directly to the router, the two matched clients, C1 and F1, are connected to the router via a switch. 
-The link capacity between the switch and the router is set on the router. For each test, C1 (the incumbent application) first establishes a VCA call with C2.
-Approximately 30 seconds later, F1 initiates the competing application, which lasts for two minutes.
-F1's counter-party, F2, depends on the type of competing application.
-If the competing application is a VCA call, then F2 is another laptop.
-If the application is an iPerf3\footnote{The iPerf3 server uses TCP CUBIC and is  within the same network (average RTT ~2ms).} (TCP) flow, then F2 is a server on the same network.
-  If F1 is Netflix or Youtube (launched on Chrome), then F2 is a server for the respective service. 
+Instead of connecting the client directly to the router, the two matched clients, V1 and C1, are connected to the router via a switch. 
+The link capacity between the switch and the router is set on the router. For each test, V1 (the incumbent application) first establishes a VCA call with V2.
+Approximately 30 seconds later, C1 initiates the competing application, which lasts for two minutes.
+C1's counter-party, C2, depends on the type of competing application.
+If the competing application is a VCA call, then C2 is another laptop.
+If the application is an iPerf3\footnote{The iPerf3 server uses TCP CUBIC and is  within the same network (average RTT ~2ms).} (TCP) flow, then C2 is a server on the same network.
+  If C1 is Netflix or Youtube (launched on Chrome), then C2 is a server for the respective service. 
 After the competing application terminates, the incumbent application continues for an additional minute.
 We repeat each experiment 3 times, with link capacity varied symmetrically at \{0.5, 1, 2, 3, 4, 5\}~Mbps.
 
@@ -110,7 +110,7 @@ the link sharing between two Zoom clients for a single experiment under
 Meet clients in Figure~\ref{subfig:meet_meet_0_5}, where both sessions converge to their
 fair share of 0.25~Mbps. The results are similar for other uplink capacities,
 with aggressive applications leaving more room for new clients if they achieve
-their nominal bitrate.  
+their nominal bitrate. 
 
 We find similar results for Zoom and Meet when downstream capacity is
 constrained.
@@ -128,7 +128,8 @@ Additionally, the downstream throughput in Figure~\ref{fig:teams-zoom-down-1} fo
 degrades even before the Zoom call starts, likely because the
 competing client opens the Zoom landing page to initiate a call. This can lead
 to competing TCP traffic on the link and as we find in the next subsection,
-Teams is extremely passive when competing against TCP. 
+Teams is extremely passive when competing against TCP. \rev{}{Note that the competing client's bitrate
+drops to 0 because the connection is terminated.}
 
 
 % The way each VCA shares the link with other applications is made clear in Figure \ref{fig:dnld-boxplot}. We see that Zoom uses well over $50\%$ of the available capacity against other VCA.
@@ -182,13 +183,13 @@ fair-share when competing against (more aggressive) Meet and Zoom, as shown in F
 
 \begin{figure}[t!]
 \centering
-\begin{subfigure}[t]{.35\textwidth}
+\begin{subfigure}[t]{.45\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{figures/comp_ts/zoom_netflix_0.5_dl_r1.pdf}
     \caption{Downstream bitrate for Zoom and Netflix}
     \label{subfig:comp_zoom_netflix_bitrate}
 \end{subfigure}\hfill
-\begin{subfigure}[t]{.35\textwidth}
+\begin{subfigure}[t]{.45\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{figures/comp/netflix_connection_0_5.pdf}
     \caption{TCP connections opened by Netflix}
@@ -197,6 +198,25 @@ fair-share when competing against (more aggressive) Meet and Zoom, as shown in F
 \caption{Netflix and Zoom competition on a 0.5~Mbps capacity link.}
 \label{fig:comp_netflix_zoom}
 \end{figure}
+
+\begin{figure}[t!]
+\centering
+\begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{figures/comp_ts/zoom_netflix_3_dl_r3.pdf}
+    \caption{Zoom vs. Netflix}
+    \label{subfig:netflix-zoom}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=1\textwidth]{figures/comp_ts/teams_netflix_3_dl_r3.pdf}
+    \caption{Teams vs. Netflix}
+    \label{subfig:netflix-teams}
+\end{subfigure}
+\caption{VCA in competition with Netflix on 3Mbps downlink.}
+\label{fig:comp_netflix_zoom_teams}
+\end{figure}
+
 
 \subsection{VCA vs. Video Streaming}
 
@@ -221,6 +241,16 @@ TCP connections, each with more than than 100 Kbits of data; at one point, it
 opens 11 parallel TCP
 connections. Despite this behavior, opening multiple TCP connections
 does not improve link sharing for Netflix while competing with Zoom. 
+
+\rev{}{The difference between how an aggressive VCA and one that backs off in the 
+presence of a competing flow is most evident in Figure~\ref{fig:comp_netflix_zoom_teams}. 
+Zoom does not change its utilization while Teams relinquishes nearly the entire 
+available bandwidth. Teams operates at extremely low utilization for nearly $75$ 
+before returning to its nominal utilization rate. Because Teams reduces utilization, 
+Netflix is able to use the available bandwidth to fill a buffer, before switching to
+a steady-state on-off regime. While Netflix takes longer to fill its buffer because 
+Zoom does not back off, it appears to also enter this on-off regime when competing 
+with Zoom as well.}
 
 
 

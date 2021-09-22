@@ -1,15 +1,20 @@
 \section{Network Disruptions}
 \label{sec:interruption}
 
-VCAs must handle network disruptions; they may do so in different ways.
+Although all VCAs must handle network disruptions,  they may 
+do so in different ways.
 Designing to cope with disruptions, such as interruptions to network
 connectivity, has become even more pertinent over the past year as users have
-increasingly relied on broadband Internet access to use VCAs, which can
-sometimes experience connectivity disruptions.  In addition to experiencing
-periodic outages, home networks are susceptible to disruptions caused by
-temporary congestion along the end-to-end path.
-In this section, we aim to understand how VCAs respond to the types of
-disruptions that home Internet users might sometimes experience. 
+increasingly relied on broadband Internet access to use VCAs.
+In addition to experiencing periodic outages, home networks are susceptible to disruptions caused by temporary congestion along the end-to-end path, 
+\rev{}{especially in the last-mile or outdated home cable modem boxes.
+Until this point, we have considered both network consumption and 
+performance metrics.} In this section, we aim to understand how VCAs respond to the types of disruptions that home Internet users might sometimes experience
+\rev{}{by studying only network consumption. It is clear 
+that network consumption is not a proxy for performance or QoE. However, if
+we treat the consumption under no network limitations as the maximal 
+usage, the changes in consumption can provide insight into how each VCA
+handles disruptions.} 
 
 
 \paragraph{Method}:
@@ -17,9 +22,9 @@ We analyze how
 VCAs respond to temporary network disruptions during the call by introducing
 transient capacity reductions. Using the same setup as in
 the previous experiment, we initiate a five-minute VCA session between
-two clients, C1 and C2, both of which are connected to the Internet via a
+two clients, V1 and V2, both of which are connected to the Internet via a
 1~Gbps link. One minute after initiating the call, we reduce the capacity
-between C1 and the router for 30 seconds, before reverting back to the
+between V1 and the router for 30 seconds, before reverting back to the
 unconstrained 1~Gbps link. We repeat each experiment four times.
 We conduct two sets of experiments: first disrupting the uplink, and then
 disrupting the downlink. We reduce capacity to the following
@@ -128,21 +133,22 @@ seconds, regardless the severity of the interruption.
 Similarly, Zoom uses \textit{scalable video coding} when transmitting
 video~\cite{zoom_encoding}. Instead of sending several versions of varying
 quality, Zoom sends hierarchical encoding layers that, when combined,
-produce a high quality video. This allows C2 to send uninterrupted
-even when C1's downlink capacity decreases. The server can then recover faster
+produce a high quality video. This allows V2 to send uninterrupted
+even when V1's downlink capacity decreases. The server can then recover faster
 by sending additional layers once the network conditions improve.  
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.35\textwidth,keepaspectratio]{../figures/interrupt/Interrupt-sender.pdf}
-    \caption{Client 2 (C2) upstream bitrate. Grey region indicates when C1's downlink capacity is reduced to 0.25 Mbps}
+    \caption{Client 2 (V2) upstream bitrate. Grey region indicates when V1's downlink capacity is reduced to 0.25 Mbps}
     \label{fig:interrupt-sender}
 \end{figure}
 
 \begin{figure}[]
    \centering
     \includegraphics[width=0.5\textwidth,keepaspectratio]{methodology/competition-setup.pdf}
-    \caption{Setup for competition experiments.}
+    \caption{Setup for competition experiments. When C1 is streaming Netflix or Youtube, it follows path (1).
+    If C1 is a VCA, it follows path (b). When C1 run iPerf3, it follows path (c).}
     \label{fig:competition-setup}
 \end{figure}
 
@@ -173,12 +179,12 @@ by sending additional layers once the network conditions improve.
 
 While the intermediary server for Zoom and Meet performs congestion control,
 in the case of Teams, this server acts only as a relay. During a
-Teams call, C2 will recognize C1 has limited downstream capacity and 
-send at only the bitrate it knows C1 can receive.
-Once C1 has more available bandwidth, C2 must discover this: it must first
+Teams call, V2 will recognize V1 has limited downstream capacity and 
+send at only the bitrate it knows V1 can receive.
+Once V1 has more available bandwidth, V2 must discover this: it must first
 probe the connection before returning to its average sending rate.
-Figure~\ref{fig:interrupt-sender} illustrates how C2's sending rate to the intermediary server does not
-change during a Meet call, but drops below C2's downlink capacity during a
+Figure~\ref{fig:interrupt-sender} illustrates how V2's sending rate to the intermediary server does not
+change during a Meet call, but drops below V2's downlink capacity during a
 Teams call, leading to the slow recovery.
 
 Zoom's downstream and upstream bitrates remain at the level of available

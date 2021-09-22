@@ -1,6 +1,12 @@
-%\documentclass[fontsize=10pt,conference=acm, submission]{confpaper}
-\documentclass[10pt,sigconf,letterpaper]{acmart}
-
+%\documentclass[fontsize=10pt,conference=acm, submission]{}
+\documentclass[9pt,sigconf,letterpaper]{acmart}
+\copyrightyear{2021}
+\acmYear{2021}
+\acmConference[IMC '21]{Internet Measurement Conference}{November 2--4, 2021}{Virtual Event}
+\acmBooktitle{Internet Measurement Conference (IMC '21), November 2--4, 2021, Virtual Event}
+\acmPrice{TBA}
+\acmDOI{TBA}
+\acmISBN{TBA}
 
 % General
 % -------
@@ -96,16 +102,36 @@
 \newcommand{\cb}[1]{\cellcolor{ps0} #1}
 
 
+\newcommand{\rev}[2]{\sout{#1}\textcolor{blue}{#2}}
+%Accept revisions
+%\newcommand{\rev}[2]{{#2}}
+
+
 %%%%%%%%%%%%%%%%%%%%  SPACE SAVINGS %%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[all=normal,wordspacing]{savetrees}
 %\setlist[itemize]{leftmargin=*}
+\usepackage[normalem]{ulem}
 
 %%%%%%%%%%%%%%%%%%%%  TITLE/AUTHORS  %%%%%%%%%%%%%%%%%%%%%
 
 \title{Measuring the Performance and Network Utilization of Popular Video Conferencing Applications}
 
-\author{ Paper \#257}
+\author{Kyle MacMillan}
+\affiliation{University of Chicago}
+
+\author{Tarun Mangla}
+\affiliation{
+  \institution{University of Chicago}
+}
+\author{James Saxon}
+\affiliation{%
+  \institution{University of Chicago}
+}
+\author{Nick Feamster}
+\affiliation{%
+  \institution{University of Chicago}
+}
 
 %\titlespacing\section{0pt}{*1.8}{*1.1}
 %\titlespacing\subsection{0pt}{*1.5}{*1.1}
