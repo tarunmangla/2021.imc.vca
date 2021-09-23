@@ -7,7 +7,7 @@ Designing to cope with disruptions, such as interruptions to network
 connectivity, has become even more pertinent over the past year as users have
 increasingly relied on broadband Internet access to use VCAs.
 In addition to experiencing periodic outages, home networks are susceptible to disruptions caused by temporary congestion along the end-to-end path, 
-\rev{}{especially in the last-mile or outdated home cable modem boxes.
+\rev{}{especially in the last-mile.
 Until this point, we have considered both network consumption and 
 performance metrics.} In this section, we aim to understand how VCAs respond to the types of disruptions that home Internet users might sometimes experience
 \rev{}{by studying only network consumption. It is clear 
@@ -147,8 +147,8 @@ by sending additional layers once the network conditions improve.
 \begin{figure}[]
    \centering
     \includegraphics[width=0.5\textwidth,keepaspectratio]{methodology/competition-setup.pdf}
-    \caption{Setup for competition experiments. When C1 is streaming Netflix or Youtube, it follows path (1).
-    If C1 is a VCA, it follows path (b). When C1 run iPerf3, it follows path (c).}
+    \caption{\rev{}{Setup for competition experiments. When C1 is streaming Netflix or Youtube, it follows path (a).
+    If C1 is a VCA, it follows path (b). When C1 run iPerf3, it follows path (c), which is on the campus network, why there is no internet bubble.}}
     \label{fig:competition-setup}
 \end{figure}
 

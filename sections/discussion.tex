@@ -10,10 +10,14 @@ MacOS, or Windows. \rev{}{Although we conduct the majority of our experiments on
 a Linux-based machine, most users have either a Mac or Windows device. While we 
 expect the overall trends in our results to be observed in testing on different 
 operating systems, it is necessary to continue evaluating VCAs on other platforms.}
-Furthermore, we can include other network profiles that represent
-other contexts, such as WiFi and cellular. We plan to release all of our
+Furthermore, \rev{we can include other network profiles that represent
+other contexts, such as WiFi and cellular}{we can not draw conclusions about how
+VCAs perform on mobile devices because the mobile app architecture is different
+from the desktop version and mobile devices connect primarily over WiFi or 
+cellular}. \rev{We plan to release all of our
 experiment data and code so that it others can extend this work 
-to other contexts.
+to other contexts}{The code used for our experiments and our data will be 
+publicly available so that other can extend this work to other contexts}.
 
 \paragraph{Application performance metrics}: Analyzing application performance
 statistics can shed more light on the VCA behavior and user quality of
@@ -33,8 +37,10 @@ network, when there could be problems anywhere along the end-to-end path.
 by conducting experiments in-lab where we can control for confounding 
 factors better than in the wild. With this step complete, it is important
 to collect VCA performance metrics from a large number of users
-in real networks and compare the results. Although there are limitations
-on the types of conclusions we may draw from in-lab experiments, they are an important step in the overall evaluation of VCAs.}
+in real networks and compare the results. Because real-world network conditions
+are more complex than in-lab, we can not claim that our results are representative
+in all case. However, they are an important step in the overall evaluation of VCAs
+and lay the groundwork for future studies.}
 \rev{However, emulating all kinds of impairments is challenging to accomplish
 in-lab. An alternative could be to collect VCA performance metrics from a
 large number of users in the real world.}{}

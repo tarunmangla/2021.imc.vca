@@ -24,7 +24,8 @@ video streaming applications, Netflix and YouTube (which uses QUIC).
     \caption{Meet vs. Meet}
     \label{subfig:meet_meet_0_5}
 \end{subfigure}
-\caption{Upstream bitrate of VCAs in competition on a 0.5~Mbps capacity link. Upper trendline is incumbent application and lower is competing application.}
+\caption{Upstream bitrate of VCAs in competition on a 0.5~Mbps capacity link. Upper trendline is incumbent application and lower is competing application. The competing client's bitrate drops to 0 Mbps because the connection is 
+terminated.}
 \label{fig:meet-zoom-upld-0.5}
 \end{figure}
 
@@ -66,7 +67,8 @@ video streaming applications, Netflix and YouTube (which uses QUIC).
     \caption{Downlink}
     \label{fig:teams-zoom-down-1}
 \end{subfigure}
-\caption{Comparison of Teams competition behavior for uplink and downlink on a 1~Mbps symmetric link. Teams is the incumbent application.}
+\caption{Comparison of Teams competition behavior for uplink and downlink on a 1~Mbps symmetric link. Teams is the incumbent application. In ~\ref{fig:teams-zoom-up-1}, the Zoom bitrate goes to 0 Mbps because the connection is 
+terminated}
 \label{fig:teams-zoom-1}
 \end{figure}
 
@@ -245,7 +247,7 @@ does not improve link sharing for Netflix while competing with Zoom.
 \rev{}{The difference between how an aggressive VCA and one that backs off in the 
 presence of a competing application is most evident in Figure~\ref{fig:comp_netflix_zoom_teams}. 
 Zoom does not change its utilization while Teams relinquishes nearly the entire 
-available bandwidth. Teams operates at extremely low utilization for nearly $75$ 
+available bandwidth. Teams operates at extremely low utilization for nearly 75~seconds
 before returning to its nominal utilization rate. Because Teams reduces utilization, 
 Netflix is able to use the available bandwidth to fill a buffer, before switching to
 a steady-state on-off regime. Although Netflix takes longer to fill its buffer because 
