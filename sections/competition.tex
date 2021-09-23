@@ -1,3 +1,13 @@
+\begin{figure}[th]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/comp_ts/teams_teams_3_ul_r3.pdf}
+    \caption{\rev{}{A second Teams call does not reach its nominal uplink utilization
+    when competing with an incumbent Teams call on a 3 Mbps uplink capacity (
+    upper trendline is the incumbent call). Note that the competing client's bitrate
+    drops to 0 Mbps because the connection is terminated.}}
+	\label{fig:teams-teams-3}
+\end{figure}
+
 \section{Competing Applications}
 \label{sec:competition}
 
@@ -88,8 +98,10 @@ We repeat each experiment 3 times, with link capacity varied symmetrically at \{
 
 VCAs can achieve their nominal bitrate when the link capacity is
 4~Mbps or greater, which is expected because the link capacity exceeds the sum of
-nominal bitrates of each VCAs. We then focus on the operating regime when the link
-capacity is lower, leading to competition between the VCAs. 
+nominal bitrates of each VCAs. \rev{}{We include figures in Section A of the appendix 
+that demonstrate that most VCAs can achieve their nominal uplink usage on the minimum 
+uplink capacity recommended by the FCC (3 Mbps).} In this section, we focus on the 
+operating regime when the link capacity is lower, leading to competition between the VCAs. 
 With only two competing clients, we use the proportion of the link shared as a
 metric to assess fairness. We call a VCA ``aggressive'' if it uses more than
 half of the link capacity under competition, and ``passive'' otherwise.
@@ -132,6 +144,16 @@ competing client opens the Zoom landing page to initiate a call. This can lead
 to competing TCP traffic on the link and as we find in the next subsection,
 Teams is extremely passive when competing against TCP. \rev{}{Note that the competing client's bitrate
 drops to 0 because the connection is terminated.}
+
+\rev{}{Finally, we observe that the competing Teams client does not reach its
+nominal utilization rate when competing with an incumbent Teams client on a 
+3 Mbps capacity uplink. Figure ~\ref{fig:teams-teams-3} shows that the 
+second client has a far lower network utilization rate than the incumbent. 
+We found in Section 3 that Teams has a nominal uplink usage of 1.4 Mbps, whereas
+here the competing client uses only 1 Mbps for the majority of the call. The FCC
+definition of broadband internet is 25/3 Mbps but it is clear that a 3 Mbps
+uplink capacity is not sufficient to enable two Teams calls to reach their 
+nominal utilization.}
 
 
 % The way each VCA shares the link with other applications is made clear in Figure \ref{fig:dnld-boxplot}. We see that Zoom uses well over $50\%$ of the available capacity against other VCA.
