@@ -1,12 +1,6 @@
 %\documentclass[fontsize=10pt,conference=acm, submission]{}
 \documentclass[9pt,sigconf,letterpaper]{acmart}
-\copyrightyear{2021}
-\acmYear{2021}
-\acmConference[IMC '21]{Internet Measurement Conference}{November 2--4, 2021}{Virtual Event}
-\acmBooktitle{Internet Measurement Conference (IMC '21), November 2--4, 2021, Virtual Event}
-\acmPrice{TBA}
-\acmDOI{TBA}
-\acmISBN{TBA}
+
 
 % General
 % -------
@@ -39,9 +33,10 @@
 \crefformat{subsection}{\S#2\color{blue}#1#3}
 \crefformat{subsubsection}{\S#2#1#3}
 
-\setcopyright{none}
-\settopmatter{printacmref=false} % Removes citation information below abstract
-\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+%\setcopyright{none}
+%\settopmatter{printacmref=false} % Removes citation information below abstract
+%\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+%\pagestyle{plain} % removes running headers
 
 
 %%% Adding new line after subsubsection
@@ -113,6 +108,14 @@
 %\setlist[itemize]{leftmargin=*}
 \usepackage[normalem]{ulem}
 
+\copyrightyear{2021}
+\acmYear{2021}
+\acmConference[IMC '21]{Internet Measurement Conference}{November 2--4, 2021}{Virtual Event}
+\acmBooktitle{Internet Measurement Conference (IMC '21), November 2--4, 2021, Virtual Event}
+\acmPrice{TBA}
+\acmDOI{TBA}
+\acmISBN{TBA}
+
 %%%%%%%%%%%%%%%%%%%%  TITLE/AUTHORS  %%%%%%%%%%%%%%%%%%%%%
 
 \title{Measuring the Performance and Network Utilization of Popular Video Conferencing Applications}
@@ -146,9 +149,28 @@
 \begin{sloppypar}
 \input{abstract}
 
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10002951.10003227.10003251.10003255</concept_id>
+<concept_desc>Information systems~Multimedia streaming</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10003033.10003079.10011704</concept_id>
+<concept_desc>Networks~Network measurement</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Networks~Network measurement}
+\ccsdesc[500]{Information systems~Multimedia streaming}
+
+\keywords{Video conferencing, Network measurements, Real-time Streaming, QoE}
+
 \maketitle
 
-\pagestyle{plain} % removes running headers
 \input{introduction}
 \input{background}
 \input{static}

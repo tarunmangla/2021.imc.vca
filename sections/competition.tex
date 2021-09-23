@@ -243,14 +243,15 @@ connections. Despite this behavior, opening multiple TCP connections
 does not improve link sharing for Netflix while competing with Zoom. 
 
 \rev{}{The difference between how an aggressive VCA and one that backs off in the 
-presence of a competing flow is most evident in Figure~\ref{fig:comp_netflix_zoom_teams}. 
+presence of a competing application is most evident in Figure~\ref{fig:comp_netflix_zoom_teams}. 
 Zoom does not change its utilization while Teams relinquishes nearly the entire 
 available bandwidth. Teams operates at extremely low utilization for nearly $75$ 
 before returning to its nominal utilization rate. Because Teams reduces utilization, 
 Netflix is able to use the available bandwidth to fill a buffer, before switching to
-a steady-state on-off regime. While Netflix takes longer to fill its buffer because 
+a steady-state on-off regime. Although Netflix takes longer to fill its buffer because 
 Zoom does not back off, it appears to also enter this on-off regime when competing 
-with Zoom as well.}
+with Zoom as well. In the likely event that this low utilization results in worse 
+performance for Teams, it would be preferable for Teams to not back off.}
 
 
 
