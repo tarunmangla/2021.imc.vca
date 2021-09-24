@@ -99,7 +99,7 @@ We repeat each experiment 3 times, with link capacity varied symmetrically at \{
 VCAs can achieve their nominal bitrate when the link capacity is
 4~Mbps or greater, which is expected because the link capacity exceeds the sum of
 nominal bitrates of each VCAs. \rev{}{We include figures in Section A of the appendix 
-that demonstrate that most VCAs can achieve their nominal uplink usage on the minimum 
+that demonstrate that most VCAs, except two competing Teams clients, can achieve their nominal uplink usage on the minimum 
 uplink capacity recommended by the FCC (3 Mbps).} In this section, we focus on the 
 operating regime when the link capacity is lower, leading to competition between the VCAs. 
 With only two competing clients, we use the proportion of the link shared as a
@@ -143,7 +143,7 @@ degrades even before the Zoom call starts, likely because the
 competing client opens the Zoom landing page to initiate a call. This can lead
 to competing TCP traffic on the link and as we find in the next subsection,
 Teams is extremely passive when competing against TCP. \rev{}{Note that the competing client's bitrate
-drops to 0 because the connection is terminated.}
+drops to 0 around $t=168s$ in Figure~\ref{fig:teams-zoom-up-1} because the connection is terminated.}
 
 \rev{}{Finally, we observe that the competing Teams client does not reach its
 nominal utilization rate when competing with an incumbent Teams client on a 
@@ -194,8 +194,8 @@ a symmetric 0.5~Mbps link. Meet is TCP-friendly in the uplink direction but
 not in the downlink, consuming $75\%$ of the bandwidth at 0.5~Mbps downlink
 (figures omitted due to lack of space). Teams, on the other hand, is passive
 and backs-off against a TCP flow in both upstream and downstream even at high
-link capacity. Figure~\ref{subfig:boxplot-iperf-ul}
-and~\ref{subfig:boxplot-iperf-dl} show how each VCA shares a 2~Mbps downlink
+link capacity. Figure~\ref{subfig:boxplot-iperf-dl}
+and~\ref{subfig:boxplot-iperf-ul} show how each VCA shares a 2~Mbps downlink
 and uplink with iPerf3, respectively. Teams is able to use 37\% in uplink and
 only 20\% in the downlink even at 2~Mbps. The low upstream throughput for
 Teams with a TCP flow is particularly surprising as it was able to achieve its
@@ -225,19 +225,9 @@ fair-share when competing against (more aggressive) Meet and Zoom, as shown in F
 
 \begin{figure}[t!]
 \centering
-\begin{subfigure}[t]{.45\textwidth}
-    \centering
-    \includegraphics[width=1\textwidth]{figures/comp_ts/zoom_netflix_3_dl_r3.pdf}
-    \caption{Zoom vs. Netflix}
-    \label{subfig:netflix-zoom}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{.45\textwidth}
-    \centering
-    \includegraphics[width=1\textwidth]{figures/comp_ts/teams_netflix_3_dl_r3.pdf}
-    \caption{Teams vs. Netflix}
-    \label{subfig:netflix-teams}
-\end{subfigure}
-\caption{VCA in competition with Netflix on 3Mbps downlink.}
+\includegraphics[width=\linewidth]{figures/comp_ts/teams_netflix_3_dl_r3.pdf}
+\label{subfig:netflix-teams}
+\caption{\rev{}{Teams in competition with Netflix on 3Mbps downlink.}}
 \label{fig:comp_netflix_zoom_teams}
 \end{figure}
 
@@ -258,7 +248,7 @@ Netflix client competes with an incumbent Zoom client at 0.5~Mbps downstream
 capacity. Zoom achieves an average throughput around 0.4~Mbps while
 Netflix struggles to reach more than 0.1 Mbps. We observe this effect despite
 the fact that Netflix is
-known to using multiple TCP connections, especially when capacity is limited.
+known to use multiple TCP connections, especially when capacity is limited.
 Figure~\ref{subfig:comp_netflix_conn} shows the TCP connections
 opened by Netflix during the 120-second experiment. In total, Netflix opens 28
 TCP connections, each with more than than 100 Kbits of data; at one point, it
@@ -266,16 +256,16 @@ opens 11 parallel TCP
 connections. Despite this behavior, opening multiple TCP connections
 does not improve link sharing for Netflix while competing with Zoom. 
 
-\rev{}{The difference between how an aggressive VCA and one that backs off in the 
-presence of a competing application is most evident in Figure~\ref{fig:comp_netflix_zoom_teams}. 
-Zoom does not change its utilization while Teams relinquishes nearly the entire 
-available bandwidth. Teams operates at extremely low utilization for nearly 75~seconds
-before returning to its nominal utilization rate. Because Teams reduces utilization, 
-Netflix is able to use the available bandwidth to fill a buffer, before switching to
-a steady-state on-off regime. Although Netflix takes longer to fill its buffer because 
-Zoom does not back off, it appears to also enter this on-off regime when competing 
-with Zoom as well. In the likely event that this low utilization results in worse 
-performance for Teams, it would be preferable for Teams to not back off.}
+\rev{}{Figure~\ref{fig:comp_netflix_zoom_teams} illustrates how Teams's 
+utilization is affected by a competing Netflix stream.  When the Netflix stream is initiated, it uses the available bandwidth to fill its buffer before switching to a 
+steady-state on-off regime. Although Teams's utilization increases when Netflix
+switches state, it is still unstable. When Netflix increases utilization in the
+on-off regime, Teams's utilization drops. As a result, not only does Teams
+operate at extremely low utilization for nearly 75 seconds, it does not 
+return to stable utilization until after then Netflix stream ends.}
 
 
 
+Not only does 
+Teams operate at extremely low utilization for nearly 75~seconds, 
+its utilization is unstable afterwards.

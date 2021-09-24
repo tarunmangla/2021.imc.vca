@@ -3,18 +3,16 @@
 
 Although all VCAs must handle network disruptions,  they may 
 do so in different ways.
-Designing to cope with disruptions, such as interruptions to network
+Designing applications to cope with disruptions, such as interruptions to network
 connectivity, has become even more pertinent over the past year as users have
 increasingly relied on broadband Internet access to use VCAs.
 In addition to experiencing periodic outages, home networks are susceptible to disruptions caused by temporary congestion along the end-to-end path, 
-\rev{}{especially in the last-mile.
-Until this point, we have considered both network consumption and 
-performance metrics.} In this section, we aim to understand how VCAs respond to the types of disruptions that home Internet users might sometimes experience
-\rev{}{by studying only network consumption. It is clear 
-that network consumption is not a proxy for performance or QoE. However, if
-we treat the consumption under no network limitations as the maximal 
-usage, the changes in consumption can provide insight into how each VCA
-handles disruptions.} 
+In this section, we aim to understand how VCAs respond to the types of disruptions that home Internet users might sometimes experience.
+\rev{}{We do this by studying the network utilization of the VCAs during and 
+following disruptions in a controlled setting. We mainly focus on the time and path the VCA takes to recover back to normal utilization, i.e., the utilization under unconstrained network. While this does not provide significant insight into the user QoE during disruption, using normal utilization as the baseline can help in understanding how fast a VCA recovers back to its nominal experience and the patterns of recovery.}  % to Using the normal utilization as the bench  and the way they recover back to their network utilization under unc. While the network utilization is not a proxy for performance or QoE. However, if
+% we treat the consumption under no network limitations as the maximal 
+% usage, the changes in consumption can provide insight into how each VCA
+% handles disruptions.} 
 
 
 \paragraph{Method}:
@@ -67,7 +65,7 @@ The more severe the capacity reduction, the longer the VCAs need to recover.
 
 \teams takes longer to recover even at less severe disruptions for two
 reasons: (1)~the nominal bitrate of Teams is higher than Meet and Teams,
-(2)~Teams increases the upstream bitrate slowly immediately after the
+(2)~Teams initially increases the upstream bitrate slowly immediately after the
 interruption before increasing quickly back to normal (as shown in
 Figure~\ref{fig:ts_upld}). Meet also observes a similar recovery pattern when
 the disruption drops capacity to 0.25~Mbps. However, it recovers much faster

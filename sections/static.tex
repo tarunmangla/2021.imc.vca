@@ -7,7 +7,7 @@ In this section, we study the effect of network capacity on VCA performance.
 Section~\ref{subsec:setup}), under a specific shaping level. We conduct two
 sets of experiments, shaping first the uplink and then the downlink.  We
 constrain throughput to \{$0.3, 0.4, \dots, 1.4, 1.5, 2, 5, 10$\}~Mbps (in
-each of the upstream and downstream directions). For each condition, we perform five 2.5-minute experiments; our
+\rev{each of}{both} the upstream and downstream directions). For each condition, we perform five 2.5-minute experiments; our
 data show that due to relatively low variance in most observations, this
 number of experiments is sufficient to achieve statistically significant
 results.  For \zoom and \teams clients, we perform measurements both for
@@ -31,7 +31,7 @@ utilization among VCAs given the same available uplink network capacity. In
 the case of a 10~Mbps uplink, for example, the average upstream utilization for
 \teamsnative is $1.44$ Mbps whereas it is only $0.95$ for \meet and $0.77$
 Mbps for \zoom. All three VCAs utilize the uplink efficiently (above 85\%)
-when that link is constrained (0.8 Mbps or lower), although \meet's
+when that link is \rev{}{severely} constrained (0.8 Mbps or lower), although \meet's
 bitrate is slightly higher than the other VCAs.  
 
 \begin{table}[t]
@@ -65,8 +65,8 @@ differs from unconstrained upstream utilization, as shown in
 Table~\ref{tab:vca_static}. To better understand this phenomenon, we analyzed the traffic
 captured from both clients. 
 
-In the case of \teams, we found that the sent traffic from V1
-is almost same as the received traffic at V2, and vice versa. 
+In the case of \teams, we found that the total sent traffic from V1
+is almost the same size as the total received traffic at V2, and vice versa. 
 We suspect the small
 differences in upstream and downstream utilization may largely be due to the
 variability in utilization across experiments in \teams, as is
@@ -160,10 +160,9 @@ downstream utilization.
 Figure~\ref{subfig:uplink_browser} compares the upstream utilization of \zoom
 and \teams between their respective native and Chrome clients. \zoom's
 utilization is similar across the native and browser-based platforms; in
-contrast, we find significant difference between \teams native and browser
-client. When uplink capacity is shaped to 1~Mbps, the \teams-native client
-uses 0.84 Mbps, whereas \teamsbrowser uses only 0.61 Mbps. We found a
-similar difference between \teams-native and \teamsbrowser when downstream
+contrast, we find significant difference between \rev{}{the} \teams native and browser client. When uplink capacity is shaped to 1~Mbps, the native client
+uses 0.84 Mbps, whereas the browser version uses only 0.61 Mbps. We found a
+similar difference between the native and browser versions when downstream
 throughput is constrained. 
 
 \begin{figure}[t]
@@ -207,7 +206,7 @@ mostly contain data volume information. Obtaining application metrics is
 challenging for native clients. The Zoom \rev{API}{Web API~\cite{zoom_qos}} does provide limited
 application performance (e.g., video resolution, FPS) at a per-minute
 granularity for the native client, but this granularity is insufficient to
-observe short-term quality fluctuations \rev{}{\footnote{The Zoom native client also provides a statistics tab with fine-grained measures of the same metrics which can be captured using image-based analysis. We consider this as a part of future work}}. We thus limit our analysis in this
+observe short-term quality fluctuations.\rev{}{\footnote{The Zoom native client also provides a statistics tab with fine-grained measures of the same metrics which can be captured using image-based analysis. We consider this as a part of future work.}} We thus limit our analysis in this
 section to only \meet and \teamsbrowser. We focus on a subset of metrics
 available from WebRTC Stats API that relate to video \textit{quality} and
 \textit{freezes}. These metrics are available at a per-second granularity
@@ -220,7 +219,7 @@ parameters:
 \begin{itemize}
     \itemsep=-1pt
     \item \emph{frames per second} (FPS), 
-    \item \textit{quantization parameter} used in video compression. \rev{}{It regulates the spatial detail saved while encoding the frames. A lower value implies better picture quality}, and  
+    \item \textit{quantization parameter} used in video compression. \rev{}{It regulates the spatial detail saved while encoding the frames. A lower value implies better picture quality. Note that the values of quantization parameter are not comparable for different encoding standards}, and  
     \item \textit{video resolution} indicated as the number of pixels in each dimension. In our analysis, we present a single
 dimension of the resolution, namely, its \textit{width}. 
 \end{itemize}
@@ -229,7 +228,7 @@ dimension of the resolution, namely, its \textit{width}.
 We can obtain all three
 parameters from the WebRTC stats. 
 
-We first look at these parameters for different downstream 
+We first \rev{look}{examine} at these parameters for different downstream 
 capacities
 (see~\Cref{subfig:downlink_video_qp,subfig:downlink_frames_per_second,subfig:downlink_frame_width}).
 \teamsbrowser simultaneously degrades all three video quality parameters as
@@ -247,7 +246,7 @@ second. Upon closer inspection of the per-second statistics in this operating
 range, we find that the relay server may switch to a lower quality copy of the
 stream it received via {simulcast}. \meet does not appear to reduce the
 bitrate any further by reducing the FPS for the low-quality
-stream---specifically, we observed a consistent frame rate even at rates of
+stream---specifically, we observed a consistent frame rate even at bitrates of
 less than 0.5~Mbps It is not clear why the quantization parameter reduces
 from 38 to 33 at 0.3 Mbps in \meet.
 
@@ -266,8 +265,8 @@ decreases to 0.5 Mbps. At 0.4 Mbps, it also reduces frame width and the FPS.
 
 \paragraph{Video freezes}: We also analyze the effect of constrained settings
 on video freezes. When constraining downlink capacity, we directly obtain the freeze duration
-from WebRTC stats. A freeze is assumed to occur if the frame
-inter-arrival $>$ max (3$\delta$, $\delta$ + $150 ms$), where $\delta$ is the
+from WebRTC stats. \rev{A freeze is assumed to occur}{The WebRTC API assumes the video froze} if the frame
+inter-arrival \rev{}{time} $>$ max (3$\delta$, $\delta$ + $150 ms$), where $\delta$ is the
 average frame duration. We normalize the freeze duration with the total call
 duration to obtain freeze ratio.  Figure~\ref{subfig:downlink_freeze_ratio}
 shows the freeze ratio under different downstream capacities. The freeze ratio
@@ -292,11 +291,11 @@ Figure~\ref{subfig:uplink_frame_width}.
 % \textbf{Takeaway}: Uplink 
 \vspace{3pt}
 \begin{mdframed}[roundcorner=5pt, backgroundcolor=black!10]
-\paragraph{Takeaways}: \rev{}{With no constraints on network utilization, 
-Zoom and Meet both use under 1~Mbps in both the downlink and uplink directions, 
-while Teams uses 1.86/1.40~Mbps. In addition,
-VCA performance under the same network conditions varies among the three VCAs. The 
-FCC currently recommends a 25/3 Mbps minimum connection. The uplink bandwidth would
-be nearly saturated by two simultaneous 2-person Teams call, assuming no background traffic.}
+\paragraph{Takeaways}: VCA \rev{}{requirements and} performance under the same network
+conditions varies among tested VCAs. Further, the VCAs’
+average upstream utilization on an unconstrained link
+has implications for broadband policy. The FCC currently recommends a 25/3 Mbps minimum connection.\rev{
+Such a connection may not suffice even for two simultaneous video calls.}{ The uplink in such a connection can
+be saturated by just two simultaneous 2-person Teams call, potentially leading to degradation in the end-user experience as will also be demonstrated in Section~\ref{sec:competition}}
 \end{mdframed}
 
