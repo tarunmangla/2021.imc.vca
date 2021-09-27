@@ -2,15 +2,17 @@
 \label{sec:discussion}
 
 \paragraph{Generalizability to other VCA contexts}: 
-\rev{}{This paper focuses on understanding performance and utilization of three popular video conferencing applications mostly over a Linux-based setup in a controlled environment. Clearly, the real-world VCA performance is impacted by a variety of multiple factors including the end-user location, device platform, access network technology, the VCA backbone infrastructure, and streaming mechanisms (e.g., encoding, bitrate adaptation). While this study is a first step in isolating the impact of some of these individual factors on VCA performance, a continued evaluation over a variety of streaming contexts is required for a thorough understanding, especially as the VCAs evolve over time. We believe the methods in this paper could
+\rev{}{This paper focuses on understanding the performance and network utilization of three popular video conferencing applications mostly over a Linux-based setup in a controlled environment. Clearly, real-world VCA performance is impacted by a variety of factors including end-user location, device platform, access network technology, the VCA backbone infrastructure, and streaming mechanisms (e.g., encoding or bitrate adaptation). While this study is a first step in isolating the impact of some of these individual factors on VCA performance, a continued evaluation over a variety of streaming contexts is required for a thorough understanding, especially as the VCAs evolve over time. We believe the methods in this paper could
 be extended to other VCAs and across different
 device platforms. For instance, our automation framework using PyAutoGUI can be
 applied to other VCAs and other desktop device platforms including
-MacOS and Windows. We plan to release our
-experiment data and code so that others can extend this work 
+MacOS and Windows. We plan to make our 
+experiment code publicly available so that others can extend this work 
 to these contexts.} 
 
-\rev{}{Finally, an increasing amount of VCAs are being used over mobile devices which are characterized by significant differences compared to the desktop VCAs, such as differences in mobile application architecture and network conditions especially if the access technology is cellular. We believe similar automation frameworks need to be developed for mobile devices to draw conclusions for these platforms.}
+\rev{}{Finally, VCAs are increasingly used on mobile platforms. Because mobile
+networks are different from fixed-line, the design of mobile applications will 
+differ from desktop versions. We believe similar automation frameworks need to be developed for mobile devices to draw conclusions for these platforms.}
 
 \begin{comment}
 While this paper focuses on
@@ -26,36 +28,42 @@ publicly available so that other can extend this work to other contexts}.
 
 \paragraph{Application performance metrics}: Analyzing application performance
 statistics can shed more light on the VCA behavior and user quality of
-experience, as is also seen through a subset of our results using WebRTC
+experience, as is shown through the subset of our results using WebRTC
 statistics in Section~\ref{subsec:application_performance}. It is challenging
 to obtain application performance metrics for all VCAs, especially native
 clients. Future research could explore the methods from related work, such as
 using annotated videos~\cite{xu2012video} or network traffic
-captures~\cite{dasari2018scalable} to infer application metrics.
+captures~\cite{dasari2018scalable, mangla2018emimic} to infer application metrics.
 
-\paragraph{Performance under other network conditions}: Other network factors
-such as latency, packet loss, and jitter could affect VCA performance and
-utilization.  Future work could explore the effects of these parameters,
-  \rev{}{or simulate network conditions realistic on wireless connections}.
-Experiments in this paper also focus on issues in the last-mile access
-network, when there could be problems anywhere along the end-to-end path.
-\rev{}{Our work focuses on isolating the conditions under which VCAs fail
-by conducting experiments in-lab where we can control for network 
-factors such as cross-traffic, jitter, and packet loss better than in the wild. 
-With this step complete, it is important to collect VCA performance metrics 
+\paragraph{Performance under other network conditions}: 
+\rev{}{Our work mainly focuses on understanding the impact of throughput-based impairments on VCA performance.  We have conducted experiments in-lab, where we can control for other network
+factors such as latency, jitter, and packet loss. 
+With this step complete, it is important to study the impact of these other network factors. For instance, future work could examine the impact of variations in the packet loss or latency over the congestion control for different VCAs.}
+
+\rev{}{Finally, we acknowledge that real-world networks are more complex and dynamic than in-lab networks. Our results, therefore, are not necessarily representative in all cases. At the same time, it can be challenging to emulate real-world networks in a controlled environment. A future study could collect VCA performance metrics and network metrics from real-world users. 
+Alternatively, these analyses could be performed through aggregate traffic 
+  on enterprise networks (e.g., campuses).
+These organizations could also leverage the consoles or APIs provided with most enterprise VCA subscriptions.}  % they are an important first step in the overall evaluation of the modern VCAs and lay the groundwork for future studies. For instance, future studies could 
+
+\begin{comment}
+collect VCA performance metrics 
 from a large number of users
 in real networks and compare the results. Because real-world network conditions
-are more complex than in-lab, we can not claim that our results are representative
-in all cases. However, they are an important step in the overall evaluation of VCAs
-and lay the groundwork for future studies.}
+are more complex than in-lab, we can not claim that our in-lab results are representative
+in all cases. However, they are still an important step in the overall evaluation of VCAs
+and lay the groundwork for future studies.
+Experiments in this paper also focus on issues in the last-mile access
+network, when there could be problems anywhere along the end-to-end path.
+Future work could explore the effects of these parameters,
+  \rev{}{or simulate network conditions realistic on wireless connections}.
 \rev{However, emulating all kinds of impairments is challenging to accomplish
-in-lab. An alternative could be to collect VCA performance metrics from a
-large number of users in the real world.}{}
+in-lab. An alternative could be to collect VCA performance metrics }{}
+\end{comment}
 
 \paragraph{Further exploration of VCA design}: Some of our results reveal
 unusual VCA behavior that we found difficult to explain and deserve further
 exploration. Examples include: (1)~Some VCAs exhibit different behavior
 depending on if the competition exists in the upstream or downstream
-direction, (2)~\teams utilization is not consistent with the video layout for
-different call modalities; and (3)~\meet shows unusual encoding behavior
+direction, (2)~\teams' network utilization does not follow a clear pattern,
+with respect to the number of participants or their video layout; and (3)~\meet shows unusual encoding behavior
 (specifically, increased frame rates) when network capacity is very low.
