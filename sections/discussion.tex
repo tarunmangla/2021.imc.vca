@@ -2,11 +2,14 @@
 \label{sec:discussion}
 
 \paragraph{Generalizability to other VCA contexts}: 
-\rev{}{This paper focuses on understanding the performance and network utilization of three popular video conferencing applications mostly over a Linux-based setup in a controlled environment. Clearly, real-world VCA performance is impacted by a variety of factors including end-user location, device platform, access network technology, the VCA backbone infrastructure, and streaming mechanisms (e.g., encoding or bitrate adaptation). While this study is a first step in isolating the impact of some of these individual factors on VCA performance, a continued evaluation over a variety of streaming contexts is required for a thorough understanding, especially as the VCAs evolve over time. We believe the methods in this paper could
+\rev{}{This paper focuses on understanding the performance and network utilization of three popular video conferencing applications mostly over a Linux-based setup in a controlled environment. Clearly, real-world VCA performance is impacted by a variety of factors including end-user location, device platform, access network technology, the VCA backbone infrastructure, and streaming mechanisms (e.g., encoding or bitrate adaptation). 
+In addition, Figure ~\ref{subfig:uplink_browser} shows that Teams has higher utilization in the native application than in browser. This indicates that VCA performance in web clients may not generalize to the native applications.
+While this study is a first step in isolating the impact of some of these individual factors on VCA performance, a continued evaluation over a variety of streaming contexts is required for a thorough understanding, especially as the VCAs evolve over time. We believe the methods in this paper could
 be extended to other VCAs and across different
 device platforms. For instance, our experiment automation framework using PyAutoGUI can be easily
 extended to other VCAs and other desktop device platforms including
-\textit{macOS} and \textit{Microsoft Windows}. We demonstrate this by repeating some of the experiments in Section~\ref{sec:static} for macOS (see Appendix~\ref{appendix:static}). We have made our
+\textit{macOS} and \textit{Microsoft Windows}. We demonstrate this by repeating the experiments in Section~\ref{sec:static} for macOS 
+on Meet, Zoom, and Teams-Chrome (see Appendix~\ref{appendix:static}). We have made our
 experiment code publicly available so that others can extend this work 
 to these contexts~\cite{vca_code}.} 
 

@@ -79,9 +79,13 @@ experiments. All experiments are conducted with the laptop lid open and the appl
 \rev{}{In all cases, the 
 participants join calls that are initiated in real-time by one of the participants. For two-person calls, this means one participant launches the meeting and the 
 other joins shortly thereafter. Such ad-hoc calls are different from scheduled calls wherein VCAs can perform few optimizations including pre-allocation of relay servers. 
-While choice of relay servers can significantly impact end-user experience, especially for geographically distributed clients~\cite{jiang2016via}, we believe the
-paths to the relay servers are likely not the bottleneck in our case for two reasons: i) all of our participants are located within the University network with well-provisioned access link and upstream transit connections, and ii) the experiments are conducted in Chicago, which is in a large metro area. 
-As a result, it is likely that there is well-provisioned infrastructure that supports Teams, Meet, and Zoom and provide good service.}
+While choice of relay servers can significantly impact end-user experience, especially for geographically distributed clients~\cite{jiang2016via}, we assume that the 
+WAN connection is not the bottleneck in our experiments for three reasons: i) all of our participants are located within the University network with well-provisioned access link and upstream transit connections, ii) the response time to the relay server (Google) and the last responsive hop (
+Microsoft and Zoom) are within 25ms, and iii) our experiments are conducted over the course of many weeks so any temporary congestion that may
+have occurred will not influence our results. 
+As a result, it is likely that there is well-provisioned infrastructure that supports Teams, Meet, and Zoom and provide good service. Finally, we 
+conduct experiments throughout the day and do not control for any time of day effects on 
+server load. }
 
 
 \begin{figure*}[t!]

@@ -57,8 +57,8 @@ The only exception is two competing Teams calls, which we discuss in Section 5.
 
 \section{Static Experiments - Repetition on Mac Operating System (MACOS)}
 \label{appendix:static}
-Here, we demonstrate the extensibility of our automation framework for macOS. More specifically, we repeat the experiments from Section~\ref{sec:static} with the uplink shaped on a device running macOS. We use a 2017 MacBook Air with 8GB 1600 Mhz DDR3 memory, 1.8 GHz Dual-Core Intel Core i5 processor, and Intel HD Graphics 6000 1536 MB Graphics. The laptop is running macOS Version 10.15.7. The MacBook Air initiates a call with a Linux client with the same specifications as outlined in Section 2.2. We use Microsoft Teams Version 
-1.4.00.22368, Zoom Version 5.7.6, and Chrome Version 92.0.4515.159. 
+Here, we demonstrate the extensibility of our automation framework for macOS. More specifically, we repeat the experiments from Section~\ref{sec:static} with the uplink shaped on a device running macOS. We use a 2017 MacBook Air with 8GB 1600 Mhz DDR3 memory, 1.8 GHz Dual-Core Intel Core i5 processor, and Intel HD Graphics 6000 1536 MB Graphics. The laptop is running macOS Version 10.15.7. The MacBook Air initiates a call with a Linux client with the same specifications as outlined in Section 2.2. We use Zoom Version 5.7.6 and Chrome Version 92.0.4515.159. We test the
+browser version of Teams and the native client of Zoom and Meet. 
 
 We did find some platform-specific differences. The macOS does not support v4l2loopback; instead we use Open Broadcaster Software or OBS (Version 27.0.1) to feed in the same
 talking-head video used throughout our experiments. In addition, we only include the \teamsbrowser client for Teams and omit the native client. This is because the current version of the Teams client on macOS does not support virtual camera~\cite{teams_virtual_camera}. 
