@@ -2,8 +2,8 @@
     \centering
     \includegraphics[width=0.9\linewidth]{figures/comp_ts/teams_teams_3_ul_r3.pdf}
     \caption{\rev{}{A second Teams call does not reach its nominal uplink utilization
-    when competing with an incumbent Teams call on a 3 Mbps uplink capacity (
-    upper trendline is the incumbent call). Note that the competing client's bitrate
+    when competing with an incumbent Teams call on a 3 Mbps uplink capacity. Black
+    trendline is competing applications. Note that the competing client's bitrate
     drops to 0 Mbps because the connection is terminated.}}
 	\label{fig:teams-teams-3}
 \end{figure}
@@ -30,11 +30,11 @@ video streaming applications, Netflix and YouTube (which uses QUIC).
 \end{subfigure}\hfill
 \begin{subfigure}[t]{.4\textwidth}
     \centering
-    \includegraphics[width=1\textwidth]{figures/comp/meet_meet_0.5_ul_r1.pdf}
+    \includegraphics[width=1\textwidth]{figures/comp_ts/meet_meet_0.5_ul_r1.pdf}
     \caption{Meet vs. Meet}
     \label{subfig:meet_meet_0_5}
 \end{subfigure}
-\caption{Upstream bitrate of VCAs in competition on a 0.5~Mbps capacity link. Upper trendline is incumbent application and lower is competing application. The competing client's bitrate drops to 0 Mbps because the connection is 
+\caption{Upstream bitrate of VCAs in competition on a 0.5~Mbps capacity link. Black trendline is competing application. The competing client's bitrate drops to 0 Mbps because the connection is 
 terminated.}
 \label{fig:meet-zoom-upld-0.5}
 \end{figure}
@@ -89,7 +89,7 @@ The link capacity between the switch and the router is set on the router. For ea
 Approximately 30 seconds later, C1 initiates the competing application, which lasts for two minutes.
 C1's counter-party, C2, depends on the type of competing application.
 If the competing application is a VCA call, then C2 is another laptop.
-If the application is an iPerf3\footnote{The iPerf3 server uses TCP CUBIC and is  within the same network (average RTT ~2ms).} (TCP) flow, then C2 is a server on the same network.
+If the application is an iPerf3\footnote{The iPerf3 server uses TCP CUBIC and is  within the University network (average RTT ~2ms).} (TCP) flow, then C2 is a server on the same network.
   If C1 is Netflix or Youtube (launched on Chrome), then C2 is a server for the respective service. 
 After the competing application terminates, the incumbent application continues for an additional minute.
 We repeat each experiment 3 times, with link capacity varied symmetrically at \{0.5, 1, 2, 3, 4, 5\}~Mbps.
@@ -257,9 +257,6 @@ connections. Despite this behavior, opening multiple TCP connections
 does not improve link sharing for Netflix while competing with Zoom. 
 
 \rev{}{Figure~\ref{fig:comp_netflix_zoom_teams} illustrates how Teams's 
-utilization is affected by a competing Netflix stream.  When the Netflix stream is initiated, it uses the available bandwidth to fill its buffer before switching to a 
-steady-state on-off regime. Although Teams's utilization increases when Netflix
-switches state, it is still unstable. When Netflix increases utilization in the
-on-off regime, Teams's utilization drops. As a result, not only does Teams
-operate at extremely low utilization for nearly 75 seconds, it does not 
-return to stable utilization until after then Netflix stream ends.}
+utilization is affected by the steady state behavior of a competing Netflix stream.  When the Netflix stream is initiated, it uses the available bandwidth to fill its buffer before switching to a 
+steady-state ON-OFF regime. During the \textit{buffering} phase of Netflix, the network utilization of Teams drops significantly. Once Netflix reaches steady state around $t=100s$, Teams's average utilization increases but it is still unstable. When Netflix increases utilization during the ON phase, Teams's utilization drops. As Netflix switches to OFF phase, Teams's utilization increases slowly and drops again when Netflix switches back to ON phase. As a result, Teams does not 
+return to stable utilization until after the Netflix stream ends.}

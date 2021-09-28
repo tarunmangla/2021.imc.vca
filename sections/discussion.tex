@@ -4,15 +4,13 @@
 \paragraph{Generalizability to other VCA contexts}: 
 \rev{}{This paper focuses on understanding the performance and network utilization of three popular video conferencing applications mostly over a Linux-based setup in a controlled environment. Clearly, real-world VCA performance is impacted by a variety of factors including end-user location, device platform, access network technology, the VCA backbone infrastructure, and streaming mechanisms (e.g., encoding or bitrate adaptation). While this study is a first step in isolating the impact of some of these individual factors on VCA performance, a continued evaluation over a variety of streaming contexts is required for a thorough understanding, especially as the VCAs evolve over time. We believe the methods in this paper could
 be extended to other VCAs and across different
-device platforms. For instance, our automation framework using PyAutoGUI can be
-applied to other VCAs and other desktop device platforms including
-MacOS and Windows. We plan to make our 
+device platforms. For instance, our experiment automation framework using PyAutoGUI can be easily
+extended to other VCAs and other desktop device platforms including
+\textit{macOS} and \textit{Microsoft Windows}. We demonstrate this by repeating some of the experiments in Section~\ref{sec:static} for macOS (see Appendix~\ref{appendix:static}). We have made our
 experiment code publicly available so that others can extend this work 
-to these contexts.} 
+to these contexts~\cite{vca_code}.} 
 
-\rev{}{Finally, VCAs are increasingly used on mobile platforms. Because mobile
-networks are different from fixed-line, the design of mobile applications will 
-differ from desktop versions. We believe similar automation frameworks need to be developed for mobile devices to draw conclusions for these platforms.}
+\rev{}{Finally, VCAs are increasingly used on mobile devices which differ from laptop or desktop clients in terms of operating systems, constrained resources, and even network conditions in some cases  (e.g., while using cellular network). We believe similar automation frameworks need to be developed for mobile devices to draw conclusions for these platforms.}
 
 \begin{comment}
 While this paper focuses on
@@ -27,12 +25,12 @@ publicly available so that other can extend this work to other contexts}.
 \end{comment}
 
 \paragraph{Application performance metrics}: Analyzing application performance
-statistics can shed more light on the VCA behavior and user quality of
-experience, as is shown through the subset of our results using WebRTC
-statistics in Section~\ref{subsec:application_performance}. It is challenging
+statistics, \rev{}{especially the audio and the video metrics individually,} can shed more light on the VCA behavior and user quality of
+experience. \rev{}{While we demonstrate the impact of network impairments on video performance metrics through a subset of our results using WebRTC
+statistics in Section~\ref{subsec:application_performance}}, it is challenging
 to obtain application performance metrics for all VCAs, especially native
-clients. Future research could explore the methods from related work, such as
-using annotated videos~\cite{xu2012video} or network traffic
+clients.  Future research could explore the methods from related work, such as
+using annotated \rev{}{audio and} video~\cite{xu2012video} or network traffic
 captures~\cite{dasari2018scalable, mangla2018emimic} to infer application metrics.
 
 \paragraph{Performance under other network conditions}: 
@@ -42,7 +40,7 @@ With this step complete, it is important to study the impact of these other netw
 
 \rev{}{Finally, we acknowledge that real-world networks are more complex and dynamic than in-lab networks. Our results, therefore, are not necessarily representative in all cases. At the same time, it can be challenging to emulate real-world networks in a controlled environment. A future study could collect VCA performance metrics and network metrics from real-world users. 
 Alternatively, these analyses could be performed through aggregate traffic 
-  on enterprise networks (e.g., campuses).
+  on enterprise networks (e.g., university networks).
 These organizations could also leverage the consoles or APIs provided with most enterprise VCA subscriptions.}  % they are an important first step in the overall evaluation of the modern VCAs and lay the groundwork for future studies. For instance, future studies could 
 
 \begin{comment}
