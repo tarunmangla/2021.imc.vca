@@ -7,7 +7,7 @@ In this section, we study the effect of network capacity on VCA performance.
 Section~\ref{subsec:setup}), under a specific shaping level. We conduct two
 sets of experiments, shaping first the uplink and then the downlink.  We
 constrain throughput to \{$0.3, 0.4, \dots, 1.4, 1.5, 2, 5, 10$\}~Mbps (in
-\rev{each of}{both} the upstream and downstream directions). For each condition, we perform five 2.5-minute experiments; our
+both the upstream and downstream directions). For each condition, we perform five 2.5-minute experiments; our
 data show that due to relatively low variance in most observations, this
 number of experiments is sufficient to achieve statistically significant
 results.  For \zoom and \teams clients, we perform measurements both for
@@ -31,7 +31,7 @@ utilization among VCAs given the same available uplink network capacity. In
 the case of a 10~Mbps uplink, for example, the average upstream utilization for
 \teamsnative is $1.44$ Mbps whereas it is only $0.95$ for \meet and $0.77$
 Mbps for \zoom. All three VCAs utilize the uplink efficiently (above 85\%)
-when that link is \rev{}{severely} constrained (0.8 Mbps or lower), although \meet's
+when that link is severely constrained (0.8 Mbps or lower), although \meet's
 bitrate is slightly higher than the other VCAs.  
 
 \begin{table}[t]
@@ -197,13 +197,13 @@ throughput is constrained.
 \label{subsec:application_performance}
 
 Next, we explore how video conference application performance varies depending
-on network capacity.  To do so, we rely on the WebRTC stats API
-available in Google Chrome to obtain application metrics for \teamsbrowser and
+on network capacity.  To do so, we use the WebRTC stats API
+available in Google Chrome and obtain application metrics for \teamsbrowser and
 \meet~\cite{webrtc_stats}. We could not obtain the same statistics for
 \zoombrowser as it uses DataChannels instead of RTP MediaStream in WebRTC to
 transmit media. DataChannels statistics lack any video quality metrics and
 mostly contain data volume information. Obtaining application metrics is
-challenging for native clients. The Zoom \rev{API}{Web API~\cite{zoom_qos}} does provide limited
+challenging for native clients. The Zoom \rev{API}{Web API}~\cite{zoom_qos} does provide limited
 application performance (e.g., video resolution, FPS) at a per-minute
 granularity for the native client, but this granularity is insufficient to
 observe short-term quality fluctuations.\rev{}{\footnote{The Zoom native client also provides a statistics tab with fine-grained measures of the same metrics which can be captured using image-based analysis. We consider this as a part of future work.}} We thus limit our analysis in this
@@ -219,7 +219,7 @@ parameters:
 \begin{itemize}
     \itemsep=-1pt
     \item \emph{frames per second} (FPS), 
-    \item \textit{quantization parameter} used in video compression. \rev{}{It regulates the spatial detail saved while encoding the frames. A lower value implies better picture quality. Note that the values of quantization parameter are not comparable for different encoding standards}, and  
+    \item \textit{quantization parameter} used in video compression. \rev{}{It regulates the spatial detail saved while encoding the frames. A lower value implies better picture quality. Note that the values of quantization parameter are not comparable across different encoding standards}, and  
     \item \textit{video resolution} indicated as the number of pixels in each dimension. In our analysis, we present a single
 dimension of the resolution, namely, its \textit{width}. 
 \end{itemize}
@@ -228,7 +228,7 @@ dimension of the resolution, namely, its \textit{width}.
 We can obtain all three
 parameters from the WebRTC stats. 
 
-We first \rev{look}{examine} at these parameters for different downstream 
+We first examine \rev{at}{} these parameters for different downstream 
 capacities
 (see~\Cref{subfig:downlink_video_qp,subfig:downlink_frames_per_second,subfig:downlink_frame_width}).
 \teamsbrowser simultaneously degrades all three video quality parameters as
@@ -291,10 +291,9 @@ Figure~\ref{subfig:uplink_frame_width}.
 % \textbf{Takeaway}: Uplink 
 \begin{mdframed}[roundcorner=5pt, backgroundcolor=black!10]
 \paragraph{Takeaways}: VCA \rev{}{requirements and} performance under the same network
-conditions varies among tested VCAs. Further, the VCAs’
+conditions vary among tested VCAs. Further, the VCAs’
 average upstream utilization on an unconstrained link
-has implications for broadband policy. The FCC currently recommends a 25/3 Mbps minimum connection.\rev{
-Such a connection may not suffice even for two simultaneous video calls.}{ The uplink in such a connection can
-be saturated by just two simultaneous 2-person Teams call, potentially leading to degradation in the end-user experience.}
+has implications for broadband policy. The FCC currently recommends a 25/3 Mbps minimum connection. \rev{}{The uplink in such a connection can
+be saturated by just two simultaneous 2-person Teams calls, potentially leading to degradation in the end-user experience.}
 \end{mdframed}
 

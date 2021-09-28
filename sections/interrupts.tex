@@ -9,7 +9,7 @@ increasingly relied on broadband Internet access to use VCAs.
 In addition to experiencing periodic outages, home networks are susceptible to disruptions caused by temporary congestion along the end-to-end path, 
 In this section, we aim to understand how VCAs respond to the types of disruptions that home Internet users might sometimes experience.
 \rev{}{We do this by studying the network utilization of the VCAs during and 
-following disruptions in a controlled setting. We mainly focus on the time and path the VCA takes to recover back to normal utilization, i.e., the utilization under unconstrained network. While this does not provide significant insight into the user QoE during disruption, using normal utilization as the baseline can help in understanding how fast a VCA recovers back to its nominal experience and the patterns of recovery.}  % to Using the normal utilization as the bench  and the way they recover back to their network utilization under unc. While the network utilization is not a proxy for performance or QoE. However, if
+following disruptions in a controlled setting. We mainly focus on the time and the path the VCA takes to recover back to normal utilization, i.e., the utilization under unconstrained network. While this does not provide significant insight into the user QoE during disruption, using normal utilization as the baseline can help in understanding how fast a VCA recovers back to its nominal experience and the patterns of recovery.}  % to Using the normal utilization as the bench  and the way they recover back to their network utilization under unc. While the network utilization is not a proxy for performance or QoE. However, if
 % we treat the consumption under no network limitations as the maximal 
 % usage, the changes in consumption can provide insight into how each VCA
 % handles disruptions.} 
@@ -26,9 +26,9 @@ between V1 and the router for 30 seconds, before reverting back to the
 unconstrained 1~Gbps link. We repeat each experiment four times.
 We conduct two sets of experiments: first disrupting the uplink, and then
 disrupting the downlink. We reduce capacity to the following
-levels: {0.25, 0.5, 0.75, 1.0} Mbps. (We do not consider disruptions in capacity
+levels: {0.25, 0.5, 0.75, 1.0} Mbps. We do not consider disruptions in capacity
 to levels of more than 1~Mbps because both Zoom and Meet's average utilization
-is below 1~Mbps.)
+is below 1~Mbps.
 
 \begin{figure}[t!]
 \centering
@@ -146,7 +146,7 @@ by sending additional layers once the network conditions improve.
    \centering
     \includegraphics[width=0.5\textwidth,keepaspectratio]{methodology/competition-setup.pdf}
     \caption{\rev{}{Setup for competition experiments. When C1 is streaming Netflix or Youtube, it follows path (a).
-    If C1 is a VCA, it follows path (b). When C1 run iPerf3, it follows path (c), which is on the campus network, why there is no internet bubble.}}
+    If C1 is a VCA, it follows path (b). When C1 run iPerf3, it follows path (c), which is within the University network.}}
     \label{fig:competition-setup}
 \end{figure}
 

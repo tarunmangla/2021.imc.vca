@@ -2,7 +2,7 @@
 \label{sec:background}
 
 We provide a brief background on video conferencing transport, technology, and
-architecture \rev{before turning to}{followed by a description of} our experiment setup.
+architecture followed by a description of our experiment setup.
 
 \subsection{Video Conferencing Applications}
 
@@ -50,7 +50,7 @@ some of these differences for a subset of VCAs.
 \label{subsec:setup}
 
 \paragraph{Video Conferencing Applications}:
-In this paper, we study three popular VCAs---\zoom, Google \meet, and Microsoft \teams.
+\rev{In this paper, we }{We} study three popular VCAs---\zoom, Google \meet, and Microsoft \teams.
 These VCAs have been used extensively worldwide over the past year, especially
 in enterprises and educational institutions~\cite{vca_share}.  Teams and Zoom
 provide desktop applications as well as browser clients, whereas Meet is ``native"
@@ -60,17 +60,17 @@ In-browser tests for Teams and Zoom are specified by \textit{\teamsbrowser}
 and \textit{\zoombrowser}, respectively. We use Chrome (Meet) version
 89.0.4389, Zoom client version 5.6.1, and Teams client version 1.4.00.7556. 
 \rev{}{Note that we use the enterprise versions of all three VCAs
-provided by our University accounts. Moreover, the associated Zoom account used for the experiments had HD enabled, while default settings are used for Meet and Teams. }
+provided by our University accounts. Moreover, the associated Zoom account used for the experiments had HD enabled, while default settings are used for Meet and Teams.}
 
 \paragraph{Laboratory Environment}:
 We conduct experiments in a controlled environment.  We begin by describing our experimental setup for a 2-party call. We use two identical laptops, referred to as V1 and V2, representing the two VCA clients. Each laptop is a Dell Latitude 3300 with a screen resolution of 1366 $\times$
 768 pixels and running Ubuntu 20.04.1. The laptops have a wired connection to
 a Turris Omnia 2020 router and access a dedicated 1~Gbps symmetric link
 to the Internet.  Each experiment consists of a call between V1 and V2 under a
-pre-specified network bandwidth profile and VCA. \rev{The bandwidth profile is
-emulated by shaping the link between V1 and the router using traffic control
-(\texttt{tc}).}{
-Traffic Control (\texttt{tc}), specifically the hierarchical token bucket queuing discipline, is used at the router to emulate the bandwidth profile.}  
+pre-specified network bandwidth profile and VCA. 
+\rev{The bandwidth
+profile is emulated by shaping the link between V1 and the router
+using traffic control (tc)}{Traffic Control (\texttt{tc}), more specifically the hierarchical token bucket queuing discipline, is used at the router to emulate the network bandwidth profile.}
 A pre-recorded talking-head video\footnote{It would be inappropriate to use the 
 device webcam as the video, because without movement, VCAs compress the video and ultimately send at a much lower rate than during a normal call.} with a resolution of 1280 $\times$ 720 is used as the video source for the call, using \texttt{ffmpeg}.
 This is done to both replicate a real video call and ensure consistency across
@@ -78,17 +78,17 @@ experiments. All experiments are conducted with the laptop lid open and the appl
 
 \rev{}{In all cases, the 
 participants join calls that are initiated in real-time by one of the participants. For two-person calls, this means one participant launches the meeting and the 
-other joins shortly thereafter. Such ad-hoc calls may be different from scheduled calls wherein VCAs can perform few optimizations including pre-allocation of relay servers. 
-While choice of relay servers can significantly impact end-user experience, especially for geographically distributed clients~\cite{jiang}, we believe the
-paths to the relay servers are likely not the bottleneck in our case for two reasons: i) all of our participants are located within the University network with well-provisioned access link and upstream transit connections, and ii) the experiments are conducted in Chicago, which is a major population region. It is likely that Teams, Meet, and Zoom have nearby relay servers to provide good service.}
+other joins shortly thereafter. Such ad-hoc calls are different from scheduled calls wherein VCAs can perform few optimizations including pre-allocation of relay servers. 
+While choice of relay servers can significantly impact end-user experience, especially for geographically distributed clients~\cite{jiang2016via}, we believe the
+paths to the relay servers are likely not the bottleneck in our case for two reasons: i) all of our participants are located within the University network with well-provisioned access link and upstream transit connections, and ii) the experiments are conducted in Chicago, which is in a large metro area. 
+As a result, it is likely that there is well-provisioned infrastructure that supports Teams, Meet, and Zoom and provide good service.}
 
 
 \begin{figure*}[t!]
 \begin{subfigure}[t]{0.33\textwidth}
     \centering
     \includegraphics[width=\textwidth,keepaspectratio]{figures/static/uplink.pdf}
-    \caption{Uplink bandwidth vs network bitrate %\jamie{label $x = y$}
-    }
+    \caption{Uplink bandwidth vs network bitrate}
 	\label{subfig:uplink_bitrate}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.33\textwidth}
@@ -100,24 +100,23 @@ paths to the relay servers are likely not the bottleneck in our case for two rea
 \begin{subfigure}[t]{0.33\textwidth}
 \centering
     \includegraphics[width=\textwidth,keepaspectratio]{figures/static/uplink_browser.pdf}
-    \caption{Impact of VCA platform %\jamie{capitalize Chrome}
-    }
+    \caption{Impact of VCA platform}
 	\label{subfig:uplink_browser}
 \end{subfigure} 
 \vspace{-1em}
 \caption{Network utilization under different shaping levels. The bands represent 90\% confidence intervals.}
 \label{fig:static}
 \end{figure*}
-%on the laptop and router for uplink and downlink shaping, respectively. During the competition experiments, all shaping occurs at the router.
+
 
 \paragraph{Automating Experiments}: To conduct experiments at scale, we
 automated the entire call process. We take several steps to enable automated calls.  We use the Python PyAutoGUI package~\cite{pyautogui} to
-automate joining and leaving calls. The package \rev{enables}{allows us} to programmatically
+automate joining and leaving calls. The package allows us to programmatically
 control the keyboard and the mouse by specifying coordinates or visual
 elements on the screen. For \zoombrowser, we encountered CAPTCHA before
 joining a call on the default browser. Using the Selenium-based Chrome
-browser~\cite{selenium}, however, enabled us to bypass the CAPTCHA. Note \rev{}{that} the
-experiments using Selenium are run exactly as \rev{it}{they} would be in default Chrome
+browser~\cite{selenium}, however, enabled us to bypass the CAPTCHA. Note that the
+experiments using Selenium are run exactly as they would be in default Chrome
 browser. The workflow is controlled from V1, with TCP sockets used to
 coordinate between V1 and V2.  We modify this setup slightly for subsequent
 experiments (e.g., multi-party calls); those slight modifications are
